@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المساعد العقاري - بيع وكراء الشقق والعقارات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2a4a7f;
+            --accent-color: #d4af37;
+            --light-color: #f5f7fa;
+            --dark-color: #2d3748;
+            --success-color: #38a169;
+            --warning-color: #ecc94b;
+            --danger-color: #e53e3e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        /* شريط الأخبار المتحرك */
+        .news-bar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 0;
+            overflow: hidden;
+            position: relative;
+            font-size: 0.9rem;
+        }
+        
+        .news-content {
+            display: flex;
+            white-space: nowrap;
+            animation: move-news 30s linear infinite;
+        }
+        
+        .news-content p {
+            margin-right: 40px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .news-content i {
+            margin-left: 8px;
+            color: var(--accent-color);
+        }
+        
+        @keyframes move-news {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* شريط التنقل */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-right: 10px;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin: 0 15px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-login {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            margin-left: 15px;
+        }
+        
+        .btn-login:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-register {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-register:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        /* قسم الهيرو */
+        .hero {
+            background: linear-gradient(rgba(26, 54, 93, 0.8), rgba(26, 54, 93, 0.8)), url('https://placehold.co/1200x600/1a365d/FFFFFF?text=عقارات+رائعة') no-repeat center center/cover;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .search-box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .search-input {
+            flex: 1 1 200px;
+            margin: 10px;
+            position: relative;
+        }
+        
+        .search-input input, .search-input select {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .search-input i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+        }
+        
+        .search-btn {
+            flex: 1 1 150px;
+            margin: 10px;
+        }
+        
+        .search-btn button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-btn button:hover {
+            background-color: #c19b2e;
+        }
+        
+        /* قسم الخصائص */
+        .properties {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: -10px;
+            left: 25%;
+        }
+        
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .property-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .property-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .property-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .property-card:hover .property-img img {
+            transform: scale(1.05);
+        }
+        
+        .property-content {
+            padding: 20px;
+        }
+        
+        .property-price {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .property-address {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .property-features {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        
+        .feature {
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature i {
+            color: var(--primary-color);
+            margin-left: 5px;
+        }
+        
+        /* قسم الخدمات */
+        .services {
+            background-color: var(--light-color);
+            padding: 60px 20px;
+        }
+        
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--light-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+        
+        .service-card h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        /* التذييل */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 60px 20px 30px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            right: 0;
+        }
+        
+        .footer-col p {
+            margin-bottom: 15px;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-info i {
+            margin-left: 10px;
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* responsiveness */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 5px 10px;
+            }
+            
+            .auth-buttons {
+                margin-top: 20px;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                margin: 5px 0;
+            }
+            
+            .search-btn {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط الأخبار المتحرك -->
+    <div class="news-bar">
+        <div class="news-content">
+            <p><i class="fas fa-phone"></i> هاتف: 0123456789</p>
+            <p><i class="fas fa-map-marker-alt"></i> العنوان: مدينة الرياض، حي الصحافة، شارع العليا</p>
+            <p><i class="fas fa-envelope"></i> البريد الإلكتروني: info@almusaad.com</p>
+            <p><i class="fas fa-tags"></i> عروض خاصة على شقق المفروشة هذا الأسبوع</p>
+        </div>
+    </div>
+
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>المساعد <span>العقاري</span></h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#">الرئيسية</a></li>
+                <li><a href="#">عقارات للبيع</a></li>
+                <li><a href="#">عقارات للإيجار</a></li>
+                <li><a href="#">وكلاؤنا</a></li>
+                <li><a href="#">اتصل بنا</a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-login">تسجيل الدخول</a>
+                <a href="#" class="btn btn-register">إنشاء حساب</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- قسم الهيرو -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>ابحث عن عقارك المستقبلي مع المساعد العقاري</h2>
+            <p>أكثر من 1000 عقار متاح للبيع والإيجار في مختلف أنحاء المملكة</p>
+            
+            <div class="search-box">
+                <div class="search-input">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="ابحث بالمنطقة أو اسم العقار...">
+                </div>
+                
+                <div class="search-input">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <select>
+                        <option value="">جميع المناطق</option>
+                        <option value="riyadh">الرياض</option>
+                        <option value="jeddah">جدة</option>
+                        <option value="dammam">الدمام</option>
+                    </select>
+                </div>
+                
+                <div class="search-input">
+                    <i class="fas fa-home"></i>
+                    <select>
+                        <option value="">نوع العقار</option>
+                        <option value="apartment">شقة</option>
+                        <option value="villa">فيلا</option>
+                        <option value="office">مكتب</option>
+                    </select>
+                </div>
+                
+                <div class="search-btn">
+                    <button>بحث</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الخصائص -->
+    <section class="properties">
+        <div class="section-title">
+            <h2>أحدث العقارات</h2>
+            <p>اكتشف أحدث العروض في سوق العقارات</p>
+        </div>
+        
+        <div class="properties-grid">
+            <!-- عقار 1 -->
+            <div class="property-card">
+                <div class="property-img">
+                    <img src="https://placehold.co/400x300/1a365d/FFFFFF?text=شقة+فاخرة" alt="شقة فاخرة">
+                </div>
+                <div class="property-content">
+                    <h3>شقة فاخرة للبيع</h3>
+                    <div class="property-price">750,000 ريال</div>
+                    <div class="property-address">
+                        <i class="fas fa-map-marker-alt"></i> الرياض، حي السفارات
+                    </div>
+                    <p>شقة فاخرة مساحة 180م، 3 غرف نوم، 3 حمامات، صالة كبيرة، مطبخ أمريكي</p>
+                    <div class="property-features">
+                        <div class="feature">
+                            <i class="fas fa-bed"></i>
+                            <span>3 غرف</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bath"></i>
+                            <span>3 حمامات</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-vector-square"></i>
+                            <span>180م²</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- عقار 2 -->
+            <div class="property-card">
+                <div class="property-img">
+                    <img src="https://placehold.co/400x300/2a4a7f/FFFFFF?text=فيلا+راقية" alt="فيلا رائقة">
+                </div>
+                <div class="property-content">
+                    <h3>فيلا راقية للإيجار</h3>
+                    <div class="property-price">120,000 ريال/سنوياً</div>
+                    <div class="property-address">
+                        <i class="fas fa-map-marker-alt"></i> جدة، حي الصفا
+                    </div>
+                    <p>فيلا راقية مساحة 400م، 5 غرف نوم، 4 حمامات، صالة، مطبخ، حديقة، مسبح</p>
+                    <div class="property-features">
+                        <div class="feature">
+                            <i class="fas fa-bed"></i>
+                            <span>5 غرف</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bath"></i>
+                            <span>4 حمامات</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-vector-square"></i>
+                            <span>400م²</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- عقار 3 -->
+            <div class="property-card">
+                <div class="property-img">
+                    <img src="https://placehold.co/400x300/d4af37/000000?text=شقة+مفروشة" alt="شقة مفروشة">
+                </div>
+                <div class="property-content">
+                    <h3>شقة مفروشة للإيجار</h3>
+                    <div class="property-price">45,000 ريال/سنوياً</div>
+                    <div class="property-address">
+                        <i class="fas fa-map-marker-alt"></i> الدمام، حي النخيل
+                    </div>
+                    <p>شقة مفروشة بالكامل مساحة 120م، 2 غرفة نوم، 2 حمام، صالة، مطبخ</p>
+                    <div class="property-features">
+                        <div class="feature">
+                            <i class="fas fa-bed"></i>
+                            <span>2 غرف</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-bath"></i>
+                            <span>2 حمامات</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-vector-square"></i>
+                            <span>120م²</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الخدمات -->
+    <section class="services">
+        <div class="section-title">
+            <h2>خدماتنا</h2>
+            <p>نقدم لكم مجموعة متكاملة من الخدمات العقارية</p>
+        </div>
+        
+        <div class="services-container">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3>بيع العقارات</h3>
+                <p>نساعدك في بيع عقارك بأفضل سعر بالسوق وبأسرع وقت ممكن</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-key"></i>
+                </div>
+                <h3>شراء العقارات</h3>
+                <p>ابحث عن عقارك المناسب من بين آلاف العروض في مختلف المناطق</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3>إدارة العقارات</h3>
+                <p>نوفر خدمة إدارة العقارات لتأجيرها وإدارة متابعة الصيانة</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <h3>استشارات قانونية</h3>
+                <p>نقدم استشارات قانونية متخصصة في المجال العقاري</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- التذييل -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>المساعد العقاري</h3>
+                <p>منصة عقارية رائدة تهدف إلى توفير حلول متكاملة لجميع احتياجاتك العقارية من بيع وشراء وإيجار.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="#">الرئيسية</a></li>
+                    <li><a href="#">عقارات للبيع</a></li>
+                    <li><a href="#">عقارات للإيجار</a></li>
+                    <li><a href="#">وكلاؤنا</a></li>
+                    <li><a href="#">اتصل بنا</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>الاتصال</h3>
+                <div class="contact-info">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>الرياض، حي الصحافة، شارع العليا</span>
+                </div>
+                <div class="contact-info">
+                    <i class="fas fa-phone"></i>
+                    <span>0123456789</span>
+                </div>
+                <div class="contact-info">
+                    <i class="fas fa-envelope"></i>
+                    <span>info@almusaad.com</span>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>النشرة البريدية</h3>
+                <p>اشترك في النشرة البريدية ليصلك كل جديد عن العروض العقارية</p>
+                <form>
+                    <input type="email" placeholder="بريدك الإلكتروني" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none;">
+                    <button type="submit" class="btn" style="background-color: var(--accent-color); color: var(--dark-color); width: 100%;">اشترك الآن</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>جميع الحقوق محفوظة &copy; 2023 المساعد العقاري</p>
+        </div>
+    </footer>
+
+    <script>
+        // كود جافاسكريبت لجعل الموقع تفاعليًا
+        document.addEventListener('DOMContentLoaded', function() {
+            // يمكن إضافة وظائف تفاعلية هنا
+            
+            // مثال: إضافة تأثير عند التمرير
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                } else {
+                    navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                    navbar.style.background = 'white';
+                }
+            });
+            
+            // يمكن إضافة المزيد من الوظائف التفاعلية حسب الحاجة
+        });
+    </script>
+</body>
+</html>
