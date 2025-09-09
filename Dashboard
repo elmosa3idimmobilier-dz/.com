@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم المساعد العقاري</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2a4a7f;
+            --accent-color: #d4af37;
+            --light-color: #f5f7fa;
+            --dark-color: #2d3748;
+            --success-color: #38a169;
+            --warning-color: #ecc94b;
+            --danger-color: #e53e3e;
+            --sidebar-width: 250px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark-color);
+            line-height: 1.6;
+            display: flex;
+        }
+        
+        /* الشريط الجانبي */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--primary-color);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 20px 0;
+            transition: all 0.3s;
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .sidebar-header h2 {
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+        
+        .sidebar-header span {
+            color: var(--accent-color);
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            margin-top: 20px;
+        }
+        
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-right: 3px solid var(--accent-color);
+        }
+        
+        .sidebar-menu i {
+            margin-left: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* المحتوى الرئيسي */
+        .main-content {
+            flex: 1;
+            margin-right: var(--sidebar-width);
+            padding: 20px;
+        }
+        
+        /* شريط العنوان */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+        
+        /* بطاقات الإحصائيات */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-left: 15px;
+        }
+        
+        .stat-icon.properties {
+            background-color: rgba(26, 54, 93, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .stat-icon.messages {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--accent-color);
+        }
+        
+        .stat-icon.comments {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success-color);
+        }
+        
+        .stat-icon.users {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger-color);
+        }
+        
+        .stat-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .stat-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* الأقسام */
+        .dashboard-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section-header h2 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+        }
+        
+        /* الجداول */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        table th, table td {
+            padding: 12px 15px;
+            text-align: right;
+        }
+        
+        table th {
+            background-color: var(--light-color);
+            font-weight: 500;
+        }
+        
+        table tr {
+            border-bottom: 1px solid #eee;
+        }
+        
+        table tr:last-child {
+            border-bottom: none;
+        }
+        
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+        
+        .status.new {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success-color);
+        }
+        
+        .status.read {
+            background-color: rgba(156, 163, 175, 0.1);
+            color: #6b7280;
+        }
+        
+        /* الأزرار */
+        .btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: var(--dark-color);
+        }
+        
+        /* نماذج الإدخال */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* زر تحميل الصور */
+        .image-upload {
+            border: 2px dashed #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .image-upload:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .image-upload i {
+            font-size: 2rem;
+            color: #ddd;
+            margin-bottom: 10px;
+        }
+        
+        .image-upload p {
+            color: #666;
+        }
+        
+        /* الصور المصغرة */
+        .thumbnails {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .thumbnail {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .thumbnail-remove {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background-color: var(--danger-color);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+        
+        /* تبويبات */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* تفاعلات */
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        /* عرض الرسائل */
+        .message-content {
+            max-height: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+        
+        /* نموذج إضافة تعليق */
+        .comment-form {
+            background-color: var(--light-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        /* responsiveness */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+                padding: 20px 0;
+            }
+            
+            .sidebar-header h2, .sidebar-menu span {
+                display: none;
+            }
+            
+            .sidebar-menu i {
+                margin-left: 0;
+                font-size: 1.2rem;
+            }
+            
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 15px;
+            }
+            
+            .main-content {
+                margin-right: 70px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .stats-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .user-info {
+                margin-top: 10px;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .section-header .btn {
+                margin-top: 10px;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- الشريط الجانبي -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>المساعد <span>العقاري</span></h2>
+        </div>
+        
+        <ul class="sidebar-menu">
+            <li><a href="#" class="active"><i class="fas fa-tachometer-alt"></i> <span>لوحة التحكم</span></a></li>
+            <li><a href="#"><i class="fas fa-home"></i> <span>العقارات</span></a></li>
+            <li><a href="#"><i class="fas fa-envelope"></i> <span>الرسائل</span></a></li>
+            <li><a href="#"><i class="fas fa-comments"></i> <span>التعليقات</span></a></li>
+            <li><a href="#"><i class="fas fa-users"></i> <span>العملاء</span></a></li>
+            <li><a href="#"><i class="fas fa-cog"></i> <span>الإعدادات</span></a></li>
+            <li><a href="#"><i class="fas fa-sign-out-alt"></i> <span>تسجيل الخروج</span></a></li>
+        </ul>
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+        <!-- شريط العنوان -->
+        <div class="header">
+            <h1>لوحة تحكم المساعد العقاري</h1>
+            <div class="user-info">
+                <img src="https://placehold.co/40x40/1a365d/FFFFFF?text=مدير" alt="صورة المدير">
+                <div>
+                    <div>أحمد محمد</div>
+                    <small>مدير النظام</small>
+                </div>
+            </div>
+        </div>
+        
+        <!-- بطاقات الإحصائيات -->
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-icon properties">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>42</h3>
+                    <p>عقار مفعل</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon messages">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>18</h3>
+                    <p>رسالة جديدة</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon comments">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>26</h3>
+                    <p>تعليق جديد</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon users">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>154</h3>
+                    <p>عميل مسجل</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- قسم إدارة العقارات -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>إدارة العقارات</h2>
+                <button class="btn btn-primary" id="addPropertyBtn">إضافة عقار جديد</button>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="properties-list">قائمة العقارات</div>
+                <div class="tab" data-tab="add-property">إضافة عقار جديد</div>
+            </div>
+            
+            <div class="tab-content active" id="properties-list">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>صورة</th>
+                            <th>اسم العقار</th>
+                            <th>السعر</th>
+                            <th>النوع</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><img src="https://placehold.co/50x50/1a365d/FFFFFF?text=شقة" alt="شقة" width="50" height="50" style="border-radius: 5px;"></td>
+                            <td>شقة فاخرة للبيع</td>
+                            <td>750,000 ريال</td>
+                            <td>شقة</td>
+                            <td><span class="status new">مفعل</span></td>
+                            <td class="action-buttons">
+                                <button class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="https://placehold.co/50x50/2a4a7f/FFFFFF?text=فيلا" alt="فيلا" width="50" height="50" style="border-radius: 5px;"></td>
+                            <td>فيلا راقية للإيجار</td>
+                            <td>120,000 ريال/سنوياً</td>
+                            <td>فيلا</td>
+                            <td><span class="status new">مفعل</span></td>
+                            <td class="action-buttons">
+                                <button class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="https://placehold.co/50x50/d4af37/000000?text=مكتب" alt="مكتب" width="50" height="50" style="border-radius: 5px;"></td>
+                            <td>مكتب تجاري للبيع</td>
+                            <td>500,000 ريال</td>
+                            <td>مكتب</td>
+                            <td><span class="status read">غير مفعل</span></td>
+                            <td class="action-buttons">
+                                <button class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="tab-content" id="add-property">
+                <form>
+                    <div class="form-group">
+                        <label for="propertyTitle">عنوان العقار</label>
+                        <input type="text" id="propertyTitle" class="form-control" placeholder="أدخل عنوان العقار">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="propertyDescription">وصف العقار</label>
+                        <textarea id="propertyDescription" class="form-control" placeholder="أدخل وصف العقار"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="propertyPrice">السعر</label>
+                        <input type="number" id="propertyPrice" class="form-control" placeholder="أدخل السعر">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="propertyType">نوع العقار</label>
+                        <select id="propertyType" class="form-control">
+                            <option value="">اختر نوع العقار</option>
+                            <option value="apartment">شقة</option>
+                            <option value="villa">فيلا</option>
+                            <option value="office">مكتب</option>
+                            <option value="land">أرض</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>صور العقار</label>
+                        <div class="image-upload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>انقر لرفع الصور أو اسحبها هنا</p>
+                            <input type="file" style="display: none;" multiple accept="image/*">
+                        </div>
+                        
+                        <div class="thumbnails">
+                            <div class="thumbnail">
+                                <img src="https://placehold.co/100x100/1a365d/FFFFFF?text=صورة" alt="صورة">
+                                <div class="thumbnail-remove">&times;</div>
+                            </div>
+                            <div class="thumbnail">
+                                <img src="https://placehold.co/100x100/2a4a7f/FFFFFF?text=صورة" alt="صورة">
+                                <div class="thumbnail-remove">&times;</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">نشر العقار</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- قسم الرسائل -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>إدارة الرسائل</h2>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>المرسل</th>
+                        <th>البريد الإلكتروني</th>
+                        <th>الرسالة</th>
+                        <th>التاريخ</th>
+                        <th>الحالة</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>محمد أحمد</td>
+                        <td>mohamed@example.com</td>
+                        <td class="message-content">أرغب في استئجار شقة بمبلغ 40,000 ريال سنوياً في حي الربيع، مساحة لا تقل عن 120م، غرفتين نوم على الأقل. هل يتوفر لديكم ما يناسب متطلباتي؟ أرجو التواصل معي في أقرب وقت ممكن.</td>
+                        <td>2023-10-15</td>
+                        <td><span class="status new">جديدة</span></td>
+                        <td class="action-buttons">
+                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>سارة عبدالله</td>
+                        <td>sara@example.com</td>
+                        <td class="message-content">هل الشقة المتوفرة في حي الربيع仍然 available؟ أود الحجز فوراً إذا كانت لا تزال متاحة. كم عدد غرف النوم والحمامات؟ وهل هناك موقف سيارات؟</td>
+                        <td>2023-10-14</td>
+                        <td><span class="status read">تم القراءة</span></td>
+                        <td class="action-buttons">
+                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>خالد سالم</td>
+                        <td>khaled@example.com</td>
+                        <td class="message-content">أريد معلومات عن الفيلا المعروضة للبيع في حي النخيل. ما هي المساحة الإجمالية وعدد الغرف؟ وهل السعر قابل للتفاوض؟ وهل يمكنني زيارة العقار يوم الخميس القادم؟</td>
+                        <td>2023-10-13</td>
+                        <td><span class="status read">تم القراءة</span></td>
+                        <td class="action-buttons">
+                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- قسم التعليقات -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>إدارة التعليقات</h2>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>العميل</th>
+                        <th>التعليق</th>
+                        <th>العقار</th>
+                        <th>التقييم</th>
+                        <th>الحالة</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>فاطمة علي</td>
+                        <td class="message-content">شقة رائعة وموقع ممتاز، أنصح بها بشدة. الخدمة كانت ممتازة والتعامل كان محترفاً جداً. شكراً لفريق المساعد العقاري على المساعدة في العثور على الشقة المناسبة.</td>
+                        <td>شقة فاخرة للبيع</td>
+                        <td>★★★★★</td>
+                        <td><span class="status new">جديد</span></td>
+                        <td class="action-buttons">
+                            <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                            <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>عمر عبدالرحمن</td>
+                        <td class="message-content">السعر مناسب ولكن الموقع بعيد قليلاً عن المركز. الخدمة جيدة ولكن يمكن تحسين وقت الاستجابة للاستفسارات. بشكل عام تجربة مقبولة.</td>
+                        <td>فيلا راقية للإيجار</td>
+                        <td>★★★☆☆</td>
+                        <td><span class="status read">مفعل</span></td>
+                        <td class="action-buttons">
+                            <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                            <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>نورة سعد</td>
+                        <td class="message-content">تجربة رائعة، أنصح بالتعامل مع المساعد العقاري. فريق العمل محترف ويقدم استشارات مفيدة. ساعدوني في العثور على المكتب المناسب لعملي في وقت قياسي.</td>
+                        <td>مكتب تجاري للبيع</td>
+                        <td>★★★★☆</td>
+                        <td><span class="status read">مفعل</span></td>
+                        <td class="action-buttons">
+                            <button class="btn btn-sm btn-success"><i class="fas fa-check"></i></button>
+                            <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+                            <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- نموذج إضافة تعليق -->
+            <div class="comment-form">
+                <h3>إضافة تعليق جديد</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="commentProperty">اختر العقار</label>
+                        <select id="commentProperty" class="form-control">
+                            <option value="">اختر عقار</option>
+                            <option value="1">شقة فاخرة للبيع</option>
+                            <option value="2">فيلا راقية للإيجار</option>
+                            <option value="3">مكتب تجاري للبيع</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="commentAuthor">اسم المؤلف</label>
+                        <input type="text" id="commentAuthor" class="form-control" placeholder="اسم المؤلف">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="commentText">نص التعليق</label>
+                        <textarea id="commentText" class="form-control" placeholder="أدخل نص التعليق"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="commentRating">التقييم</label>
+                        <select id="commentRating" class="form-control">
+                            <option value="5">★★★★★ (5 نجوم)</option>
+                            <option value="4">★★★★☆ (4 نجوم)</option>
+                            <option value="3">★★★☆☆ (3 نجوم)</option>
+                            <option value="2">★★☆☆☆ (2 نجم)</option>
+                            <option value="1">★☆☆☆☆ (1 نجم)</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">إضافة التعليق</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // كود جافاسكريبت للوحة التحكم
+        document.addEventListener('DOMContentLoaded', function() {
+            // تبديل التبويبات
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    
+                    // إزالة النشاط من جميع التبويبات
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+                    
+                    // إضافة النشاط للتبويب المحدد
+                    this.classList.add('active');
+                    document.getElementById(tabName).classList.add('active');
+                });
+            });
+            
+            // زر إضافة عقار جديد
+            const addPropertyBtn = document.getElementById('addPropertyBtn');
+            if (addPropertyBtn) {
+                addPropertyBtn.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+                    
+                    document.querySelector('[data-tab="add-property"]').classList.add('active');
+                    document.getElementById('add-property').classList.add('active');
+                });
+            }
+            
+            // تحميل الصور
+            const imageUpload = document.querySelector('.image-upload');
+            if (imageUpload) {
+                const fileInput = imageUpload.querySelector('input[type="file"]');
+                
+                imageUpload.addEventListener('click', function() {
+                    fileInput.click();
+                });
+                
+                fileInput.addEventListener('change', function() {
+                    // هنا يمكن إضافة كود لمعالجة تحميل الصور
+                    alert('تم اختيار ' + this.files.length + ' ملف(ات) للتحميل');
+                });
+            }
+            
+            // إزالة الصور المصغرة
+            const removeButtons = document.querySelectorAll('.thumbnail-remove');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.parentElement.remove();
+                });
+            });
+            
+            // معاينة الرسائل
+            const viewButtons = document.querySelectorAll('.btn-primary');
+            viewButtons.forEach(button => {
+                if (button.querySelector('.fa-eye')) {
+                    button.addEventListener('click', function() {
+                        const row = this.closest('tr');
+                        const sender = row.querySelector('td:first-child').textContent;
+                        alert('عرض تفاصيل الرسالة من: ' + sender);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
