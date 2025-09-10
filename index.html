@@ -10,12 +10,15 @@
         :root {
             --main-color: #384aeb;
             --secondary-color: #ff324d;
+            --accent-color: #ff9f43;
             --text-color: #1f1f1f;
             --bg-gray: #f1f6f7;
             --white: #fff;
             --black: #000;
             --border-color: #e9e9e9;
             --footer-bg: #222;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
         }
         
         * {
@@ -34,6 +37,7 @@
         a {
             text-decoration: none;
             color: inherit;
+            transition: all 0.3s ease;
         }
         
         ul {
@@ -49,10 +53,12 @@
         
         /* الشريط العلوي */
         .header-top {
-            background-color: var(--main-color);
+            background: linear-gradient(90deg, var(--main-color), var(--secondary-color));
             padding: 8px 0;
             color: var(--white);
             font-size: 14px;
+            position: relative;
+            overflow: hidden;
         }
         
         .header-top .container {
@@ -64,6 +70,7 @@
         .header-contact-info {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
         }
         
         .header-contact-info span {
@@ -74,6 +81,18 @@
         
         .header-contact-info i {
             margin-left: 5px;
+        }
+        
+        .datetime {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        
+        .datetime span {
+            margin: 0 5px;
         }
         
         .header-social-links {
@@ -87,13 +106,49 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.2);
             margin-right: 10px;
             transition: all 0.3s ease;
         }
         
         .header-social-links a:hover {
-            background-color: var(--secondary-color);
+            background-color: var(--white);
+            color: var(--main-color);
+            transform: translateY(-3px);
+        }
+        
+        /* شريط الأخبار المتداول */
+        .news-ticker {
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 10px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .ticker-container {
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+        
+        .ticker-label {
+            background: var(--main-color);
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-left: 15px;
+            font-weight: bold;
+        }
+        
+        .ticker-content {
+            animation: tickerAnimation 20s linear infinite;
+            display: inline-block;
+            padding-left: 100%;
+        }
+        
+        @keyframes tickerAnimation {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
         }
         
         /* الترويسة الرئيسية */
@@ -101,6 +156,9 @@
             padding: 15px 0;
             background-color: var(--white);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
         .header-main .container {
@@ -135,6 +193,7 @@
         
         .nav-menu li {
             margin: 0 15px;
+            position: relative;
         }
         
         .nav-menu a {
@@ -172,6 +231,12 @@
             margin-right: 15px;
             font-size: 18px;
             position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .header-icons a:hover {
+            color: var(--main-color);
+            transform: translateY(-3px);
         }
         
         .cart-count {
@@ -193,46 +258,56 @@
             display: none;
             font-size: 24px;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-btn:hover {
+            color: var(--main-color);
         }
         
         /* قسم الهيرو */
         .hero-slider {
-            background-color: var(--bg-gray);
-            padding: 60px 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1073&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 100px 0;
+            text-align: center;
             position: relative;
         }
         
         .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .hero-text {
-            flex: 1;
-            padding-left: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
         
         .hero-text h1 {
             font-size: 42px;
             font-weight: 800;
             margin-bottom: 20px;
-            color: var(--text-color);
+            color: var(--white);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 1s ease;
         }
         
         .hero-text h1 span {
-            color: var(--main-color);
+            color: var(--accent-color);
         }
         
         .hero-text p {
-            font-size: 16px;
+            font-size: 18px;
             margin-bottom: 30px;
-            color: #666;
+            color: var(--white);
+            animation: fadeInUp 1s ease;
         }
         
         .hero-btns {
             display: flex;
             gap: 15px;
+            justify-content: center;
+            animation: fadeIn 1.5s ease;
         }
         
         .btn {
@@ -241,6 +316,29 @@
             border-radius: 30px;
             font-weight: 500;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+            z-index: -1;
+            transform: scale(0, 1);
+            transform-origin: right center;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn:hover:after {
+            transform: scale(1, 1);
+            transform-origin: left center;
         }
         
         .btn-primary {
@@ -250,41 +348,35 @@
         
         .btn-primary:hover {
             background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         
         .btn-outline {
-            border: 2px solid var(--main-color);
-            color: var(--main-color);
-        }
-        
-        .btn-outline:hover {
-            background-color: var(--main-color);
+            border: 2px solid var(--white);
             color: var(--white);
         }
         
-        .hero-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .hero-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--main-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
         
         /* قسم المميزات */
         .features {
-            padding: 60px 0;
+            padding: 80px 0;
+            background: linear-gradient(to bottom, var(--white) 50%, var(--bg-gray) 50%);
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
         
         .section-title h2 {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 700;
             color: var(--text-color);
             position: relative;
@@ -300,7 +392,7 @@
             transform: translateX(50%);
             width: 80px;
             height: 3px;
-            background-color: var(--main-color);
+            background: linear-gradient(to right, var(--main-color), var(--secondary-color));
         }
         
         .features-grid {
@@ -314,37 +406,68 @@
             border-radius: 10px;
             padding: 30px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .feature-box:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--main-color), var(--secondary-color));
+            opacity: 0;
+            z-index: -1;
             transition: all 0.3s ease;
         }
         
         .feature-box:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            color: var(--white);
+        }
+        
+        .feature-box:hover:before {
+            opacity: 1;
+        }
+        
+        .feature-box:hover .feature-icon {
+            background-color: var(--white);
+            color: var(--main-color);
         }
         
         .feature-icon {
-            width: 70px;
-            height: 70px;
-            background-color: var(--bg-gray);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--main-color), var(--secondary-color));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
-            font-size: 28px;
-            color: var(--main-color);
+            font-size: 30px;
+            color: var(--white);
+            transition: all 0.3s ease;
         }
         
         .feature-box h3 {
-            font-size: 20px;
+            font-size: 22px;
             margin-bottom: 15px;
-            color: var(--text-color);
+            color: inherit;
+        }
+        
+        .feature-box p {
+            color: inherit;
         }
         
         /* قسم الخدمات */
         .services {
-            padding: 60px 0;
+            padding: 80px 0;
             background-color: var(--bg-gray);
         }
         
@@ -358,7 +481,13 @@
             background-color: var(--white);
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
         
         .service-image {
@@ -366,6 +495,19 @@
             background-color: #ddd;
             background-size: cover;
             background-position: center;
+            position: relative;
+        }
+        
+        .service-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
         }
         
         .service-content {
@@ -381,7 +523,7 @@
         .service-price {
             color: var(--main-color);
             font-weight: 700;
-            font-size: 20px;
+            font-size: 22px;
             margin: 10px 0;
         }
         
@@ -404,9 +546,28 @@
             margin-left: 5px;
         }
         
+        .service-btn {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: linear-gradient(to right, var(--main-color), var(--secondary-color));
+            color: var(--white);
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .service-btn:hover {
+            background: linear-gradient(to right, var(--secondary-color), var(--main-color));
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
         /* قسم الاتصال */
         .contact {
-            padding: 60px 0;
+            padding: 80px 0;
+            background: linear-gradient(to bottom, var(--bg-gray) 50%, var(--white) 50%);
         }
         
         .contact-grid {
@@ -446,6 +607,14 @@
             border: 1px solid var(--border-color);
             border-radius: 5px;
             font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--main-color);
+            box-shadow: 0 0 0 2px rgba(56, 74, 235, 0.2);
+            outline: none;
         }
         
         .contact-form textarea {
@@ -454,7 +623,7 @@
         }
         
         .contact-form button {
-            background-color: var(--main-color);
+            background: linear-gradient(to right, var(--main-color), var(--secondary-color));
             color: var(--white);
             border: none;
             padding: 12px 30px;
@@ -462,10 +631,13 @@
             font-size: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
+            width: 100%;
         }
         
         .contact-form button:hover {
-            background-color: var(--secondary-color);
+            background: linear-gradient(to right, var(--secondary-color), var(--main-color));
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         /* الفوتر */
@@ -496,7 +668,7 @@
             right: 0;
             width: 50px;
             height: 2px;
-            background-color: var(--main-color);
+            background: linear-gradient(to right, var(--main-color), var(--secondary-color));
         }
         
         .footer-col p {
@@ -536,7 +708,7 @@
         }
         
         .footer-social a:hover {
-            background-color: var(--main-color);
+            background: linear-gradient(135deg, var(--main-color), var(--secondary-color));
             transform: translateY(-5px);
         }
         
@@ -546,6 +718,39 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #ccc;
             font-size: 14px;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animated {
+            animation-duration: 1s;
+            animation-fill-mode: both;
         }
         
         /* responsive design */
@@ -566,10 +771,35 @@
             
             .nav-menu {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-menu li {
+                margin: 10px 0;
             }
             
             .mobile-menu-btn {
                 display: block;
+            }
+            
+            .header-contact-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .header-contact-info span {
+                margin-bottom: 5px;
             }
         }
         
@@ -579,15 +809,8 @@
                 gap: 10px;
             }
             
-            .header-contact-info {
-                flex-direction: column;
-                gap: 10px;
-                align-items: center;
-            }
-            
-            .header-contact-info span {
-                margin-left: 0;
-                margin-bottom: 5px;
+            .datetime {
+                margin-top: 10px;
             }
             
             .hero-text h1 {
@@ -596,6 +819,10 @@
             
             .section-title h2 {
                 font-size: 28px;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
             }
         }
         
@@ -611,6 +838,10 @@
             
             .feature-box, .service-card {
                 padding: 20px;
+            }
+            
+            .ticker-label {
+                display: none;
             }
         }
     </style>
@@ -633,11 +864,21 @@
                     حي فتال اولاد يعيش البليدة
                 </span>
             </div>
-            <div class="header-social-links">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
+            <div class="datetime">
+                <span id="current-date"></span>
+                <span id="current-time"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- شريط الأخبار المتداول -->
+    <div class="news-ticker">
+        <div class="container">
+            <div class="ticker-container">
+                <div class="ticker-label">أخبار</div>
+                <div class="ticker-content">
+                    للمساعدة في البيع أو الشراء أو الاستئجار، اتصل بنا على الرقم 0557421598 أو البريد الإلكتروني elmosa3id.immobilier@gmail.com - نقدم خدمات عقارية متكاملة في الجزائر
+                </div>
             </div>
         </div>
     </div>
@@ -650,12 +891,12 @@
             </a>
             
             <ul class="nav-menu">
-                <li><a href="#">الرئيسية</a></li>
-                <li><a href="#">العقارات</a></li>
-                <li><a href="#">الخدمات</a></li>
-                <li><a href="#">المشاريع</a></li>
-                <li><a href="#">عروض خاصة</a></li>
-                <li><a href="#">اتصل بنا</a></li>
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#properties">العقارات</a></li>
+                <li><a href="#services">الخدمات</a></li>
+                <li><a href="#about">عن الشركة</a></li>
+                <li><a href="#offers">عروض خاصة</a></li>
+                <li><a href="#contact">اتصل بنا</a></li>
             </ul>
             
             <div class="header-icons">
@@ -678,19 +919,16 @@
     </header>
 
     <!-- قسم الهيرو -->
-    <section class="hero-slider">
+    <section class="hero-slider" id="home">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
                     <h1>ابحث عن <span>عقارك</span> المثالي مع المساعد العقاري</h1>
                     <p>نقدم لك مجموعة واسعة من الخدمات العقارية التي تلبي جميع احتياجاتك. سواء كنت تبحث عن شراء، بيع أو تأجير عقار، نحن هنا لمساعدتك.</p>
                     <div class="hero-btns">
-                        <a href="#" class="btn btn-primary">استعرض العقارات</a>
-                        <a href="#" class="btn btn-outline">المزيد من المعلومات</a>
+                        <a href="#properties" class="btn btn-primary">استعرض العقارات</a>
+                        <a href="#contact" class="btn btn-outline">اتصل بنا الآن</a>
                     </div>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1073&q=80" alt="عقارات">
                 </div>
             </div>
         </div>
@@ -740,7 +978,7 @@
     </section>
 
     <!-- قسم الخدمات -->
-    <section class="services">
+    <section class="services" id="properties">
         <div class="container">
             <div class="section-title">
                 <h2>عقارات مميزة</h2>
@@ -748,7 +986,9 @@
             
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="service-image" style="background-color: #5a8dee;"></div>
+                    <div class="service-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #5a8dee;">
+                        <div class="service-badge">عرض خاص</div>
+                    </div>
                     <div class="service-content">
                         <h3>فيلا فاخرة للبيع</h3>
                         <p>فيلا فاخرة مساحة 300م² في حي راقي، تتكون من 4 غرف نوم وصالتين و3 حمامات</p>
@@ -758,11 +998,14 @@
                             <span><i class="fas fa-bath"></i> 3 حمامات</span>
                             <span><i class="fas fa-ruler-combined"></i> 300م²</span>
                         </div>
+                        <a href="#contact" class="service-btn">اطلب الاستشارة</a>
                     </div>
                 </div>
                 
                 <div class="service-card">
-                    <div class="service-image" style="background-color: #42a5f5;"></div>
+                    <div class="service-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #42a5f5;">
+                        <div class="service-badge">جديد</div>
+                    </div>
                     <div class="service-content">
                         <h3>شقة للايجار</h3>
                         <p>شقة حديثة 120م² تتكون من 3 غرف نوم وصالة ومعيشة ومطبخ</p>
@@ -772,11 +1015,14 @@
                             <span><i class="fas fa-bath"></i> 2 حمام</span>
                             <span><i class="fas fa-ruler-combined"></i> 120م²</span>
                         </div>
+                        <a href="#contact" class="service-btn">اطلب الاستشارة</a>
                     </div>
                 </div>
                 
                 <div class="service-card">
-                    <div class="service-image" style="background-color: #29b6f6;"></div>
+                    <div class="service-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #29b6f6;">
+                        <div class="service-badge">فرصة</div>
+                    </div>
                     <div class="service-content">
                         <h3>أرض سكنية</h3>
                         <p>أرض سكنية صالحة للبناء مساحة 400م² في منطقة سكنية هادئة</p>
@@ -785,6 +1031,7 @@
                             <span><i class="fas fa-vector-square"></i> 400م²</span>
                             <span><i class="fas fa-map-marker-alt"></i> حي هادي</span>
                         </div>
+                        <a href="#contact" class="service-btn">اطلب الاستشارة</a>
                     </div>
                 </div>
             </div>
@@ -792,7 +1039,7 @@
     </section>
 
     <!-- قسم الاتصال -->
-    <section class="contact">
+    <section class="contact" id="contact">
         <div class="container">
             <div class="section-title">
                 <h2>اتصل بنا</h2>
@@ -821,10 +1068,25 @@
                             <span>الأحد - الخميس: 8 ص - 4 م</span>
                         </div>
                     </div>
+
+                    <div class="footer-social" style="margin-top: 30px;">
+                        <a href="https://www.facebook.com" target="https://web.facebook.com/profile.php?id=61580248484580">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.twitter.com" target="_blank">
+                            <i class=https://web.facebook.com/profile.php?id=61580248484580"></i>
+                        </a>
+                        <a href="https://www.instagram.com" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.youtube.com" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="contact-form">
-                    <form>
+                    <form id="contactForm">
                         <input type="text" placeholder="اسمك الكريم" required>
                         <input type="email" placeholder="بريدك الإلكتروني" required>
                         <input type="tel" placeholder="رقم الهاتف">
@@ -844,21 +1106,29 @@
                     <h4>عن المساعد العقاري</h4>
                     <p>شركة رائدة في مجال الخدمات العقارية والاستشارات، نقدم حلولاً متكاملة تلبي جميع احتياجاتك العقارية.</p>
                     <div class="footer-social">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.facebook.com" target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.twitter.com" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.youtube.com" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
                     </div>
                 </div>
                 
                 <div class="footer-col">
                     <h4>روابط سريعة</h4>
                     <ul>
-                        <li><a href="#">الرئيسية</a></li>
-                        <li><a href="#">العقارات</a></li>
-                        <li><a href="#">الخدمات</a></li>
-                        <li><a href="#">المشاريع</a></li>
-                        <li><a href="#">اتصل بنا</a></li>
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#properties">العقارات</a></li>
+                        <li><a href="#services">الخدمات</a></li>
+                        <li><a href="#about">عن الشركة</a></li>
+                        <li><a href="#contact">اتصل بنا</a></li>
                     </ul>
                 </div>
                 
@@ -896,7 +1166,7 @@
             const navMenu = document.querySelector('.nav-menu');
             
             menuBtn.addEventListener('click', function() {
-                navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+                navMenu.classList.toggle('active');
             });
             
             // إغلاق القائمة عند النقر على رابط
@@ -904,7 +1174,7 @@
             navLinks.forEach(link => {
                 link.addEventListener('click', function() {
                     if (window.innerWidth <= 992) {
-                        navMenu.style.display = 'none';
+                        navMenu.classList.remove('active');
                     }
                 });
             });
@@ -926,6 +1196,60 @@
                     }
                 });
             });
+            
+            // تحديث التاريخ والوقت
+            function updateDateTime() {
+                const now = new Date();
+                
+                // التاريخ
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const dateString = now.toLocaleDateString('ar-EG', options);
+                document.getElementById('current-date').textContent = dateString;
+                
+                // الوقت
+                const timeString = now.toLocaleTimeString('ar-EG');
+                document.getElementById('current-time').textContent = timeString;
+            }
+            
+            // تحديث التاريخ والوقت كل ثانية
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            
+            // إضافة تأثيرات عند التمرير
+            function checkScroll() {
+                const elements = document.querySelectorAll('.feature-box, .service-card, .section-title');
+                
+                elements.forEach(element => {
+                    const position = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if (position < screenPosition) {
+                        element.style.opacity = 1;
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            }
+            
+            // تهيئة العناصر للتحريك
+            document.querySelectorAll('.feature-box, .service-card, .section-title').forEach(element => {
+                element.style.opacity = 0;
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'all 0.5s ease';
+            });
+            
+            // التحقق من التمرير عند تحميل الصفحة وعند التمرير
+            window.addEventListener('load', checkScroll);
+            window.addEventListener('scroll', checkScroll);
+            
+            // تأثيرات لإرسال النموذج
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('شكراً لتواصلك معنا! سنرد عليك في أقرب وقت ممكن.');
+                    contactForm.reset();
+                });
+            }
         });
     </script>
 </body>
