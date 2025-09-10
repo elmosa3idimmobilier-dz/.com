@@ -5,28 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المساعد العقاري - حلولك العقارية المتكاملة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-blue: #1a73e8;
-            --dark-blue: #0d47a1;
-            --accent-orange: #f39c12;
-            --light-gray: #f5f7fa;
-            --dark-gray: #2d3748;
-            --font-main: 'Cairo', sans-serif;
+            --main-color: #384aeb;
+            --secondary-color: #ff324d;
+            --text-color: #1f1f1f;
+            --bg-gray: #f1f6f7;
+            --white: #fff;
+            --black: #000;
+            --border-color: #e9e9e9;
+            --footer-bg: #222;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
         }
         
         body {
-            font-family: var(--font-main);
+            color: var(--text-color);
+            background-color: var(--white);
             line-height: 1.6;
-            color: var(--dark-gray);
-            background-color: #fff;
         }
         
         a {
@@ -39,143 +41,92 @@
         }
         
         .container {
-            width: 90%;
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 15px;
         }
         
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: var(--primary-blue);
-            color: white;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .btn:hover {
-            background-color: var(--dark-blue);
-            transform: translateY(-2px);
-        }
-        
-        .btn-accent {
-            background-color: var(--accent-orange);
-        }
-        
-        .btn-accent:hover {
-            background-color: #e67e22;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 2rem;
-            color: var(--dark-blue);
-            position: relative;
-        }
-        
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background-color: var(--accent-orange);
-        }
-        
-        /* شريط الأخبار العلوي */
-        .news-bar {
-            background-color: var(--dark-blue);
-            color: white;
+        /* الشريط العلوي */
+        .header-top {
+            background-color: var(--main-color);
             padding: 8px 0;
-            overflow: hidden;
+            color: var(--white);
+            font-size: 14px;
         }
         
-        .news-content {
+        .header-top .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-contact-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-contact-info span {
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-contact-info i {
+            margin-left: 5px;
+        }
+        
+        .header-social-links {
+            display: flex;
+        }
+        
+        .header-social-links a {
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            white-space: nowrap;
-            animation: newsScroll 20s linear infinite;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-right: 10px;
+            transition: all 0.3s ease;
         }
         
-        .news-content i {
-            margin-left: 10px;
-            color: var(--accent-orange);
+        .header-social-links a:hover {
+            background-color: var(--secondary-color);
         }
         
-        @keyframes newsScroll {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        
-        /* الترويسة */
-        header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .contact-info {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .contact-info div {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .contact-info i {
-            color: var(--primary-blue);
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .social-links a {
-            color: var(--dark-gray);
-            transition: color 0.3s;
-        }
-        
-        .social-links a:hover {
-            color: var(--primary-blue);
-        }
-        
+        /* الترويسة الرئيسية */
         .header-main {
+            padding: 15px 0;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-main .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
         }
         
         .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--primary-blue);
             display: flex;
             align-items: center;
         }
         
-        .logo i {
-            margin-left: 10px;
-            color: var(--accent-orange);
+        .logo img {
+            height: 50px;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--main-color);
+            margin-right: 10px;
+        }
+        
+        .logo-text span {
+            color: var(--secondary-color);
         }
         
         .nav-menu {
@@ -183,53 +134,218 @@
         }
         
         .nav-menu li {
-            margin-left: 25px;
+            margin: 0 15px;
         }
         
         .nav-menu a {
-            font-weight: 600;
-            transition: color 0.3s;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-menu a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--main-color);
+            transition: all 0.3s ease;
         }
         
         .nav-menu a:hover {
-            color: var(--primary-blue);
+            color: var(--main-color);
+        }
+        
+        .nav-menu a:hover:after {
+            width: 100%;
+        }
+        
+        .header-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-icons a {
+            margin-right: 15px;
+            font-size: 18px;
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
         }
         
         .mobile-menu-btn {
             display: none;
-            font-size: 1.5rem;
+            font-size: 24px;
             cursor: pointer;
         }
         
         /* قسم الهيرو */
-        .hero {
-            background: linear-gradient(rgba(26, 115, 232, 0.8), rgba(13, 71, 161, 0.9)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1173&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 100px 0;
-            text-align: center;
+        .hero-slider {
+            background-color: var(--bg-gray);
+            padding: 60px 0;
+            position: relative;
         }
         
         .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         
-        .hero h1 {
-            font-size: 2.5rem;
+        .hero-text {
+            flex: 1;
+            padding-left: 30px;
+        }
+        
+        .hero-text h1 {
+            font-size: 42px;
+            font-weight: 800;
             margin-bottom: 20px;
+            color: var(--text-color);
         }
         
-        .hero p {
-            font-size: 1.2rem;
+        .hero-text h1 span {
+            color: var(--main-color);
+        }
+        
+        .hero-text p {
+            font-size: 16px;
             margin-bottom: 30px;
+            color: #666;
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: var(--main-color);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--main-color);
+            color: var(--main-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--main-color);
+            color: var(--white);
+        }
+        
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* قسم المميزات */
+        .features {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-color);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--main-color);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-box {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--bg-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
+            color: var(--main-color);
+        }
+        
+        .feature-box h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--text-color);
         }
         
         /* قسم الخدمات */
         .services {
-            padding: 80px 0;
-            background-color: var(--light-gray);
+            padding: 60px 0;
+            background-color: var(--bg-gray);
         }
         
         .services-grid {
@@ -239,23 +355,17 @@
         }
         
         .service-card {
-            background: white;
-            border-radius: 8px;
+            background-color: var(--white);
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
-        .service-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .service-icon {
-            background-color: var(--primary-blue);
-            color: white;
-            font-size: 2.5rem;
-            padding: 20px;
-            text-align: center;
+        .service-image {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
         }
         
         .service-content {
@@ -263,114 +373,52 @@
         }
         
         .service-content h3 {
-            color: var(--dark-blue);
+            font-size: 20px;
             margin-bottom: 15px;
+            color: var(--text-color);
         }
         
-        .price {
-            color: var(--accent-orange);
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin: 15px 0;
-        }
-        
-        /* قسم المميزات */
-        .features {
-            padding: 80px 0;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .feature-item {
-            text-align: center;
-            padding: 30px 20px;
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--primary-blue);
-            margin-bottom: 20px;
-        }
-        
-        .feature-item h3 {
-            color: var(--dark-blue);
-            margin-bottom: 15px;
-        }
-        
-        /* قسم العقارات */
-        .properties {
-            padding: 80px 0;
-            background-color: var(--light-gray);
-        }
-        
-        .properties-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .property-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .property-img {
-            height: 200px;
-            background-color: #ddd;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .property-content {
-            padding: 20px;
-        }
-        
-        .property-content h3 {
-            color: var(--dark-blue);
-            margin-bottom: 10px;
-        }
-        
-        .property-price {
-            color: var(--accent-orange);
-            font-weight: bold;
-            font-size: 1.3rem;
+        .service-price {
+            color: var(--main-color);
+            font-weight: 700;
+            font-size: 20px;
             margin: 10px 0;
         }
         
-        .property-details {
+        .service-meta {
             display: flex;
             justify-content: space-between;
-            margin: 15px 0;
-            border-top: 1px solid #eee;
+            margin-top: 15px;
             padding-top: 15px;
+            border-top: 1px solid var(--border-color);
         }
         
-        .property-details span {
+        .service-meta span {
             display: flex;
             align-items: center;
-            gap: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .service-meta i {
+            margin-left: 5px;
         }
         
         /* قسم الاتصال */
         .contact {
-            padding: 80px 0;
+            padding: 60px 0;
         }
         
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
+            gap: 40px;
         }
         
         .contact-info h3 {
-            color: var(--dark-blue);
+            font-size: 24px;
             margin-bottom: 20px;
+            color: var(--text-color);
         }
         
         .contact-details {
@@ -385,29 +433,46 @@
         
         .contact-details i {
             margin-left: 10px;
-            color: var(--primary-blue);
-            font-size: 1.2rem;
-            width: 25px;
+            color: var(--main-color);
+            font-size: 20px;
+            width: 30px;
         }
         
         .contact-form input,
         .contact-form textarea {
             width: 100%;
-            padding: 12px;
+            padding: 12px 15px;
             margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 16px;
         }
         
         .contact-form textarea {
             height: 150px;
+            resize: vertical;
+        }
+        
+        .contact-form button {
+            background-color: var(--main-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form button:hover {
+            background-color: var(--secondary-color);
         }
         
         /* الفوتر */
         footer {
-            background-color: var(--dark-blue);
-            color: white;
-            padding: 50px 0 20px;
+            background-color: var(--footer-bg);
+            color: var(--white);
+            padding: 60px 0 20px;
         }
         
         .footer-grid {
@@ -418,7 +483,7 @@
         }
         
         .footer-col h4 {
-            font-size: 1.2rem;
+            font-size: 18px;
             margin-bottom: 20px;
             position: relative;
             padding-bottom: 10px;
@@ -431,15 +496,26 @@
             right: 0;
             width: 50px;
             height: 2px;
-            background-color: var(--accent-orange);
+            background-color: var(--main-color);
+        }
+        
+        .footer-col p {
+            margin-bottom: 20px;
+            color: #ccc;
         }
         
         .footer-col ul li {
             margin-bottom: 10px;
         }
         
+        .footer-col ul li a {
+            color: #ccc;
+            transition: all 0.3s ease;
+        }
+        
         .footer-col ul li a:hover {
-            color: var(--accent-orange);
+            color: var(--main-color);
+            padding-right: 5px;
         }
         
         .footer-social {
@@ -449,174 +525,172 @@
         }
         
         .footer-social a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
             width: 40px;
             height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             transition: all 0.3s ease;
         }
         
         .footer-social a:hover {
-            background-color: var(--accent-orange);
-            transform: translateY(-3px);
+            background-color: var(--main-color);
+            transform: translateY(-5px);
         }
         
         .copyright {
             text-align: center;
             padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            font-size: 14px;
         }
         
         /* responsive design */
-        @media (max-width: 768px) {
-            .header-top {
+        @media (max-width: 992px) {
+            .hero-content {
                 flex-direction: column;
-                gap: 10px;
+                text-align: center;
+            }
+            
+            .hero-text {
+                padding-left: 0;
+                margin-bottom: 30px;
+            }
+            
+            .hero-btns {
+                justify-content: center;
             }
             
             .nav-menu {
                 display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background-color: white;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-                padding: 20px;
-            }
-            
-            .nav-menu.active {
-                display: flex;
-            }
-            
-            .nav-menu li {
-                margin: 10px 0;
             }
             
             .mobile-menu-btn {
                 display: block;
             }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .contact-info {
+        }
+        
+        @media (max-width: 768px) {
+            .header-top .container {
                 flex-direction: column;
                 gap: 10px;
+            }
+            
+            .header-contact-info {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+            
+            .header-contact-info span {
+                margin-left: 0;
+                margin-bottom: 5px;
+            }
+            
+            .hero-text h1 {
+                font-size: 32px;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-text h1 {
+                font-size: 28px;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .feature-box, .service-card {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- شريط الأخبار العلوي -->
-    <div class="news-bar">
-        <div class="news-content">
-            <i class="fas fa-phone-alt"></i>
-            <span>للتواصل: 0557421598 | البريد الإلكتروني: elmosa3id.immobilier@gmail.com | العنوان: حي فتال اولاد يعيش البليدة</span>
+    <!-- الشريط العلوي -->
+    <div class="header-top">
+        <div class="container">
+            <div class="header-contact-info">
+                <span>
+                    <i class="fas fa-phone-alt"></i>
+                    0557421598
+                </span>
+                <span>
+                    <i class="fas fa-envelope"></i>
+                    elmosa3id.immobilier@gmail.com
+                </span>
+                <span>
+                    <i class="fas fa-map-marker-alt"></i>
+                    حي فتال اولاد يعيش البليدة
+                </span>
+            </div>
+            <div class="header-social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
         </div>
     </div>
 
-    <!-- الترويسة -->
-    <header>
+    <!-- الترويسة الرئيسية -->
+    <header class="header-main">
         <div class="container">
-            <div class="header-top">
-                <div class="contact-info">
-                    <div>
-                        <i class="fas fa-phone-alt"></i>
-                        <span>0557421598</span>
-                    </div>
-                    <div>
-                        <i class="fas fa-envelope"></i>
-                        <span>elmosa3id.immobilier@gmail.com</span>
-                    </div>
-                </div>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
+            <a href="#" class="logo">
+                <div class="logo-text">المساعد <span>العقاري</span></div>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#">الرئيسية</a></li>
+                <li><a href="#">العقارات</a></li>
+                <li><a href="#">الخدمات</a></li>
+                <li><a href="#">المشاريع</a></li>
+                <li><a href="#">عروض خاصة</a></li>
+                <li><a href="#">اتصل بنا</a></li>
+            </ul>
+            
+            <div class="header-icons">
+                <a href="#">
+                    <i class="fas fa-search"></i>
+                </a>
+                <a href="#">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="#">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
             </div>
             
-            <div class="header-main">
-                <a href="#" class="logo">
-                    <i class="fas fa-building"></i>
-                    المساعد العقاري
-                </a>
-                
-                <ul class="nav-menu">
-                    <li><a href="#">الرئيسية</a></li>
-                    <li><a href="#">العقارات</a></li>
-                    <li><a href="#">الخدمات</a></li>
-                    <li><a href="#">عن الشركة</a></li>
-                    <li><a href="#">اتصل بنا</a></li>
-                </ul>
-                
-                <div class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
             </div>
         </div>
     </header>
 
     <!-- قسم الهيرو -->
-    <section class="hero">
-        <div class="container hero-content">
-            <h1>الحلول العقارية الذكية لمستقبل أفضل</h1>
-            <p>نقدم خدمات استشارية وعقارية متكاملة تلبي جميع احتياجاتك في مجال العقارات والاستثمار</p>
-            <a href="#contact" class="btn btn-accent">اتصل بنا الآن</a>
-        </div>
-    </section>
-
-    <!-- قسم الخدمات -->
-    <section class="services">
+    <section class="hero-slider">
         <div class="container">
-            <h2 class="section-title">خدماتنا العقارية</h2>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>تسويق العقارات</h3>
-                        <p>نقدم خدمات تسويقية متكاملة للعقارات باستخدام أحدث استراتيجيات التسويق الرقمي والتقليدي.</p>
-                        <div class="price">تبدأ من 15000 د.ج</div>
-                        <a href="#" class="btn">اطلب الخدمة</a>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>ابحث عن <span>عقارك</span> المثالي مع المساعد العقاري</h1>
+                    <p>نقدم لك مجموعة واسعة من الخدمات العقارية التي تلبي جميع احتياجاتك. سواء كنت تبحث عن شراء، بيع أو تأجير عقار، نحن هنا لمساعدتك.</p>
+                    <div class="hero-btns">
+                        <a href="#" class="btn btn-primary">استعرض العقارات</a>
+                        <a href="#" class="btn btn-outline">المزيد من المعلومات</a>
                     </div>
                 </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-search-dollar"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>دراسات الجدوى</h3>
-                        <p>إعداد دراسات جدوى متكاملة للمشاريع العقارية مع تحليل السوق والتوقعات المالية.</p>
-                        <div class="price">تبدأ من 25000 د.ج</div>
-                        <a href="#" class="btn">اطلب الخدمة</a>
-                    </div>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>الوساطة العقارية</h3>
-                        <p>خدمات وساطة عقارية محترفة بين البائعين والمشترين بفريق متخصص ذو خبرة واسعة.</p>
-                        <div class="price">عمولة 2% من قيمة الصفقة</div>
-                        <a href="#" class="btn">اطلب الخدمة</a>
-                    </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1073&q=80" alt="عقارات">
                 </div>
             </div>
         </div>
@@ -625,91 +699,92 @@
     <!-- قسم المميزات -->
     <section class="features">
         <div class="container">
-            <h2 class="section-title">لماذا تختارنا؟</h2>
+            <div class="section-title">
+                <h2>لماذا تختار المساعد العقاري؟</h2>
+            </div>
             
             <div class="features-grid">
-                <div class="feature-item">
+                <div class="feature-box">
                     <div class="feature-icon">
-                        <i class="fas fa-clock"></i>
+                        <i class="fas fa-home"></i>
                     </div>
-                    <h3>توفير الوقت</h3>
-                    <p>نوفر عليك عناء البحث ونقدم لك أفضل الخيارات في وقت قياسي</p>
+                    <h3>عقارات متنوعة</h3>
+                    <p>مجموعة واسعة من العقارات لتناسب جميع الأذواق والميزانيات</p>
                 </div>
                 
-                <div class="feature-item">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>خبرة واسعة</h3>
-                    <p>فريق عمل بخبرة تزيد عن 10 سنوات في المجال العقاري والاستثماري</p>
-                </div>
-                
-                <div class="feature-item">
+                <div class="feature-box">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>ضمان الحقوق</h3>
-                    <p>ضمان كامل الحقوق القانونية من خلال عقود موثقة ومعتمدة</p>
+                    <h3>معاملات آمنة</h3>
+                    <p>ضمان معاملات آمنة وموثوقة مع فريق من الخبراء</p>
                 </div>
                 
-                <div class="feature-item">
+                <div class="feature-box">
                     <div class="feature-icon">
                         <i class="fas fa-headset"></i>
                     </div>
                     <h3>دعم متواصل</h3>
-                    <p>دعم فني واستشاري متواصل حتى بعد إتمام الصفقات والعقود</p>
+                    <p>خدمة عملاء متاحة على مدار الساعة لمساعدتك في جميع استفساراتك</p>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-icon">
+                        <i class="fas fa-tag"></i>
+                    </div>
+                    <h3>أسعار منافسة</h3>
+                    <p>عروض وأسعار تنافسية تناسب جميع الميزانيات</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- قسم العقارات -->
-    <section class="properties">
+    <!-- قسم الخدمات -->
+    <section class="services">
         <div class="container">
-            <h2 class="section-title">عقارات مميزة</h2>
+            <div class="section-title">
+                <h2>عقارات مميزة</h2>
+            </div>
             
-            <div class="properties-grid">
-                <div class="property-card">
-                    <div class="property-img" style="background-color: #5a8dee;"></div>
-                    <div class="property-content">
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image" style="background-color: #5a8dee;"></div>
+                    <div class="service-content">
                         <h3>فيلا فاخرة للبيع</h3>
                         <p>فيلا فاخرة مساحة 300م² في حي راقي، تتكون من 4 غرف نوم وصالتين و3 حمامات</p>
-                        <div class="property-price">45,000,000 د.ج</div>
-                        <div class="property-details">
+                        <div class="service-price">45,000,000 د.ج</div>
+                        <div class="service-meta">
                             <span><i class="fas fa-bed"></i> 4 غرف</span>
                             <span><i class="fas fa-bath"></i> 3 حمامات</span>
                             <span><i class="fas fa-ruler-combined"></i> 300م²</span>
                         </div>
-                        <a href="#" class="btn">عرض التفاصيل</a>
                     </div>
                 </div>
                 
-                <div class="property-card">
-                    <div class="property-img" style="background-color: #42a5f5;"></div>
-                    <div class="property-content">
+                <div class="service-card">
+                    <div class="service-image" style="background-color: #42a5f5;"></div>
+                    <div class="service-content">
                         <h3>شقة للايجار</h3>
-                        <p>شقة حديثة mobilité 120م² تتكون من 3 غرف نوم وصالة ومعيشة ومطبخ</p>
-                        <div class="property-price">50,000 د.ج/شهر</div>
-                        <div class="property-details">
+                        <p>شقة حديثة 120م² تتكون من 3 غرف نوم وصالة ومعيشة ومطبخ</p>
+                        <div class="service-price">50,000 د.ج/شهر</div>
+                        <div class="service-meta">
                             <span><i class="fas fa-bed"></i> 3 غرف</span>
                             <span><i class="fas fa-bath"></i> 2 حمام</span>
                             <span><i class="fas fa-ruler-combined"></i> 120م²</span>
                         </div>
-                        <a href="#" class="btn">عرض التفاصيل</a>
                     </div>
                 </div>
                 
-                <div class="property-card">
-                    <div class="property-img" style="background-color: #29b6f6;"></div>
-                    <div class="property-content">
+                <div class="service-card">
+                    <div class="service-image" style="background-color: #29b6f6;"></div>
+                    <div class="service-content">
                         <h3>أرض سكنية</h3>
                         <p>أرض سكنية صالحة للبناء مساحة 400م² في منطقة سكنية هادئة</p>
-                        <div class="property-price">25,000,000 د.ج</div>
-                        <div class="property-details">
+                        <div class="service-price">25,000,000 د.ج</div>
+                        <div class="service-meta">
                             <span><i class="fas fa-vector-square"></i> 400م²</span>
                             <span><i class="fas fa-map-marker-alt"></i> حي هادي</span>
                         </div>
-                        <a href="#" class="btn">عرض التفاصيل</a>
                     </div>
                 </div>
             </div>
@@ -717,9 +792,11 @@
     </section>
 
     <!-- قسم الاتصال -->
-    <section class="contact" id="contact">
+    <section class="contact">
         <div class="container">
-            <h2 class="section-title">اتصل بنا</h2>
+            <div class="section-title">
+                <h2>اتصل بنا</h2>
+            </div>
             
             <div class="contact-grid">
                 <div class="contact-info">
@@ -752,7 +829,7 @@
                         <input type="email" placeholder="بريدك الإلكتروني" required>
                         <input type="tel" placeholder="رقم الهاتف">
                         <textarea placeholder="كيف يمكننا مساعدتك؟" required></textarea>
-                        <button type="submit" class="btn">إرسال الرسالة</button>
+                        <button type="submit">إرسال الرسالة</button>
                     </form>
                 </div>
             </div>
@@ -764,12 +841,12 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h4>المساعد العقاري</h4>
+                    <h4>عن المساعد العقاري</h4>
                     <p>شركة رائدة في مجال الخدمات العقارية والاستشارات، نقدم حلولاً متكاملة تلبي جميع احتياجاتك العقارية.</p>
                     <div class="footer-social">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
@@ -780,7 +857,7 @@
                         <li><a href="#">الرئيسية</a></li>
                         <li><a href="#">العقارات</a></li>
                         <li><a href="#">الخدمات</a></li>
-                        <li><a href="#">عن الشركة</a></li>
+                        <li><a href="#">المشاريع</a></li>
                         <li><a href="#">اتصل بنا</a></li>
                     </ul>
                 </div>
@@ -813,20 +890,22 @@
     </footer>
 
     <script>
-        // كود الجافاسكريبت للقائمة المتنقلة وشريط الأخبار
+        // كود الجافاسكريبت للقائمة المتنقلة
         document.addEventListener('DOMContentLoaded', function() {
             const menuBtn = document.querySelector('.mobile-menu-btn');
             const navMenu = document.querySelector('.nav-menu');
             
             menuBtn.addEventListener('click', function() {
-                navMenu.classList.toggle('active');
+                navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
             });
             
             // إغلاق القائمة عند النقر على رابط
             const navLinks = document.querySelectorAll('.nav-menu a');
             navLinks.forEach(link => {
                 link.addEventListener('click', function() {
-                    navMenu.classList.remove('active');
+                    if (window.innerWidth <= 992) {
+                        navMenu.style.display = 'none';
+                    }
                 });
             });
             
