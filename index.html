@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المساعد العقاري - حلولك العقارية الذكية</title>
+    <title>المساعد العقاري - حلولك العقارية المتكاملة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -86,6 +86,32 @@
             background-color: var(--accent-orange);
         }
         
+        /* شريط الأخبار العلوي */
+        .news-bar {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 8px 0;
+            overflow: hidden;
+        }
+        
+        .news-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            animation: newsScroll 20s linear infinite;
+        }
+        
+        .news-content i {
+            margin-left: 10px;
+            color: var(--accent-orange);
+        }
+        
+        @keyframes newsScroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
         /* الترويسة */
         header {
             background-color: white;
@@ -95,7 +121,44 @@
             z-index: 100;
         }
         
-        .header-container {
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .contact-info {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .contact-info div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .contact-info i {
+            color: var(--primary-blue);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: var(--dark-gray);
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .header-main {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -140,7 +203,9 @@
         
         /* قسم الهيرو */
         .hero {
-            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            background: linear-gradient(rgba(26, 115, 232, 0.8), rgba(13, 71, 161, 0.9)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1173&q=80');
+            background-size: cover;
+            background-position: center;
             color: white;
             padding: 100px 0;
             text-align: center;
@@ -202,6 +267,13 @@
             margin-bottom: 15px;
         }
         
+        .price {
+            color: var(--accent-orange);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 15px 0;
+        }
+        
         /* قسم المميزات */
         .features {
             padding: 80px 0;
@@ -229,39 +301,60 @@
             margin-bottom: 15px;
         }
         
-        /* قسم المشاريع */
-        .projects {
+        /* قسم العقارات */
+        .properties {
             padding: 80px 0;
             background-color: var(--light-gray);
         }
         
-        .projects-grid {
+        .properties-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
         
-        .project-card {
+        .property-card {
             background: white;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
-        .project-img {
+        .property-img {
             height: 200px;
             background-color: #ddd;
             background-size: cover;
             background-position: center;
         }
         
-        .project-content {
+        .property-content {
             padding: 20px;
         }
         
-        .project-content h3 {
+        .property-content h3 {
             color: var(--dark-blue);
             margin-bottom: 10px;
+        }
+        
+        .property-price {
+            color: var(--accent-orange);
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin: 10px 0;
+        }
+        
+        .property-details {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        
+        .property-details span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         /* قسم الاتصال */
@@ -294,6 +387,7 @@
             margin-left: 10px;
             color: var(--primary-blue);
             font-size: 1.2rem;
+            width: 25px;
         }
         
         .contact-form input,
@@ -348,13 +442,13 @@
             color: var(--accent-orange);
         }
         
-        .social-links {
+        .footer-social {
             display: flex;
             gap: 15px;
             margin-top: 20px;
         }
         
-        .social-links a {
+        .footer-social a {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -365,7 +459,7 @@
             transition: all 0.3s ease;
         }
         
-        .social-links a:hover {
+        .footer-social a:hover {
             background-color: var(--accent-orange);
             transform: translateY(-3px);
         }
@@ -378,8 +472,29 @@
         
         /* responsive design */
         @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
             .nav-menu {
                 display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: white;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .nav-menu li {
+                margin: 10px 0;
             }
             
             .mobile-menu-btn {
@@ -393,28 +508,62 @@
             .section-title {
                 font-size: 1.8rem;
             }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- شريط الأخبار العلوي -->
+    <div class="news-bar">
+        <div class="news-content">
+            <i class="fas fa-phone-alt"></i>
+            <span>للتواصل: 0557421598 | البريد الإلكتروني: elmosa3id.immobilier@gmail.com | العنوان: حي فتال اولاد يعيش البليدة</span>
+        </div>
+    </div>
+
     <!-- الترويسة -->
     <header>
-        <div class="container header-container">
-            <a href="#" class="logo">
-                <i class="fas fa-building"></i>
-                المساعد العقاري
-            </a>
+        <div class="container">
+            <div class="header-top">
+                <div class="contact-info">
+                    <div>
+                        <i class="fas fa-phone-alt"></i>
+                        <span>0557421598</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-envelope"></i>
+                        <span>elmosa3id.immobilier@gmail.com</span>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
             
-            <ul class="nav-menu">
-                <li><a href="#">الرئيسية</a></li>
-                <li><a href="#">خدماتنا</a></li>
-                <li><a href="#">المشاريع</a></li>
-                <li><a href="#">عن الشركة</a></li>
-                <li><a href="#">اتصل بنا</a></li>
-            </ul>
-            
-            <div class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
+            <div class="header-main">
+                <a href="#" class="logo">
+                    <i class="fas fa-building"></i>
+                    المساعد العقاري
+                </a>
+                
+                <ul class="nav-menu">
+                    <li><a href="#">الرئيسية</a></li>
+                    <li><a href="#">العقارات</a></li>
+                    <li><a href="#">الخدمات</a></li>
+                    <li><a href="#">عن الشركة</a></li>
+                    <li><a href="#">اتصل بنا</a></li>
+                </ul>
+                
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
         </div>
     </header>
@@ -441,6 +590,8 @@
                     <div class="service-content">
                         <h3>تسويق العقارات</h3>
                         <p>نقدم خدمات تسويقية متكاملة للعقارات باستخدام أحدث استراتيجيات التسويق الرقمي والتقليدي.</p>
+                        <div class="price">تبدأ من 15000 د.ج</div>
+                        <a href="#" class="btn">اطلب الخدمة</a>
                     </div>
                 </div>
                 
@@ -451,6 +602,8 @@
                     <div class="service-content">
                         <h3>دراسات الجدوى</h3>
                         <p>إعداد دراسات جدوى متكاملة للمشاريع العقارية مع تحليل السوق والتوقعات المالية.</p>
+                        <div class="price">تبدأ من 25000 د.ج</div>
+                        <a href="#" class="btn">اطلب الخدمة</a>
                     </div>
                 </div>
                 
@@ -461,6 +614,8 @@
                     <div class="service-content">
                         <h3>الوساطة العقارية</h3>
                         <p>خدمات وساطة عقارية محترفة بين البائعين والمشترين بفريق متخصص ذو خبرة واسعة.</p>
+                        <div class="price">عمولة 2% من قيمة الصفقة</div>
+                        <a href="#" class="btn">اطلب الخدمة</a>
                     </div>
                 </div>
             </div>
@@ -508,35 +663,52 @@
         </div>
     </section>
 
-    <!-- قسم المشاريع -->
-    <section class="projects">
+    <!-- قسم العقارات -->
+    <section class="properties">
         <div class="container">
-            <h2 class="section-title">مشاريعنا العقارية</h2>
+            <h2 class="section-title">عقارات مميزة</h2>
             
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-img" style="background-color: #5a8dee;"></div>
-                    <div class="project-content">
-                        <h3>مجمع الواحة السكني</h3>
-                        <p>مجمع سكني فاخر يتكون من 50 فيلا بمساحات مختلفة وتصاميم عصرية</p>
+            <div class="properties-grid">
+                <div class="property-card">
+                    <div class="property-img" style="background-color: #5a8dee;"></div>
+                    <div class="property-content">
+                        <h3>فيلا فاخرة للبيع</h3>
+                        <p>فيلا فاخرة مساحة 300م² في حي راقي، تتكون من 4 غرف نوم وصالتين و3 حمامات</p>
+                        <div class="property-price">45,000,000 د.ج</div>
+                        <div class="property-details">
+                            <span><i class="fas fa-bed"></i> 4 غرف</span>
+                            <span><i class="fas fa-bath"></i> 3 حمامات</span>
+                            <span><i class="fas fa-ruler-combined"></i> 300م²</span>
+                        </div>
                         <a href="#" class="btn">عرض التفاصيل</a>
                     </div>
                 </div>
                 
-                <div class="project-card">
-                    <div class="project-img" style="background-color: #42a5f5;"></div>
-                    <div class="project-content">
-                        <h3>برج الأعمال</h3>
-                        <p>برج متعدد الاستخدامات للمكاتب والمحلات التجارية في قلب المدينة</p>
+                <div class="property-card">
+                    <div class="property-img" style="background-color: #42a5f5;"></div>
+                    <div class="property-content">
+                        <h3>شقة للايجار</h3>
+                        <p>شقة حديثة mobilité 120م² تتكون من 3 غرف نوم وصالة ومعيشة ومطبخ</p>
+                        <div class="property-price">50,000 د.ج/شهر</div>
+                        <div class="property-details">
+                            <span><i class="fas fa-bed"></i> 3 غرف</span>
+                            <span><i class="fas fa-bath"></i> 2 حمام</span>
+                            <span><i class="fas fa-ruler-combined"></i> 120م²</span>
+                        </div>
                         <a href="#" class="btn">عرض التفاصيل</a>
                     </div>
                 </div>
                 
-                <div class="project-card">
-                    <div class="project-img" style="background-color: #29b6f6;"></div>
-                    <div class="project-content">
-                        <h3>مشروع الاستثمار السكني</h3>
-                        <p>مجموعة شقق سكنية مصممة خصيصاً للمستثمرين بضمان تأجير لمدة 5 سنوات</p>
+                <div class="property-card">
+                    <div class="property-img" style="background-color: #29b6f6;"></div>
+                    <div class="property-content">
+                        <h3>أرض سكنية</h3>
+                        <p>أرض سكنية صالحة للبناء مساحة 400م² في منطقة سكنية هادئة</p>
+                        <div class="property-price">25,000,000 د.ج</div>
+                        <div class="property-details">
+                            <span><i class="fas fa-vector-square"></i> 400م²</span>
+                            <span><i class="fas fa-map-marker-alt"></i> حي هادي</span>
+                        </div>
                         <a href="#" class="btn">عرض التفاصيل</a>
                     </div>
                 </div>
@@ -557,15 +729,15 @@
                     <div class="contact-details">
                         <div>
                             <i class="fas fa-phone"></i>
-                            <span>+965 1234 5678</span>
+                            <span>0557421598</span>
                         </div>
                         <div>
                             <i class="fas fa-envelope"></i>
-                            <span>info@realestate-assistant.com</span>
+                            <span>elmosa3id.immobilier@gmail.com</span>
                         </div>
                         <div>
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>الكويت - مدينة الكويت</span>
+                            <span>حي فتال اولاد يعيش البليدة</span>
                         </div>
                         <div>
                             <i class="fas fa-clock"></i>
@@ -594,11 +766,11 @@
                 <div class="footer-col">
                     <h4>المساعد العقاري</h4>
                     <p>شركة رائدة في مجال الخدمات العقارية والاستشارات، نقدم حلولاً متكاملة تلبي جميع احتياجاتك العقارية.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    <div class="footer-social">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 
@@ -606,8 +778,8 @@
                     <h4>روابط سريعة</h4>
                     <ul>
                         <li><a href="#">الرئيسية</a></li>
-                        <li><a href="#">خدماتنا</a></li>
-                        <li><a href="#">المشاريع</a></li>
+                        <li><a href="#">العقارات</a></li>
+                        <li><a href="#">الخدمات</a></li>
                         <li><a href="#">عن الشركة</a></li>
                         <li><a href="#">اتصل بنا</a></li>
                     </ul>
@@ -625,12 +797,12 @@
                 </div>
                 
                 <div class="footer-col">
-                    <h4>القائمة البريدية</h4>
-                    <p>اشترك في النشرة البريدية ليصلك كل جديد عن مشاريعنا وعروضنا</p>
-                    <form>
-                        <input type="email" placeholder="بريدك الإلكتروني" required>
-                        <button type="submit" class="btn">اشترك الآن</button>
-                    </form>
+                    <h4>معلومات الاتصال</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> 0557421598</li>
+                        <li><i class="fas fa-envelope"></i> elmosa3id.immobilier@gmail.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> حي فتال اولاد يعيش البليدة</li>
+                    </ul>
                 </div>
             </div>
             
@@ -641,21 +813,37 @@
     </footer>
 
     <script>
-        // كود الجافاسكريبت للقائمة المتنقلة
+        // كود الجافاسكريبت للقائمة المتنقلة وشريط الأخبار
         document.addEventListener('DOMContentLoaded', function() {
             const menuBtn = document.querySelector('.mobile-menu-btn');
             const navMenu = document.querySelector('.nav-menu');
             
             menuBtn.addEventListener('click', function() {
-                navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+                navMenu.classList.toggle('active');
             });
             
             // إغلاق القائمة عند النقر على رابط
             const navLinks = document.querySelectorAll('.nav-menu a');
             navLinks.forEach(link => {
                 link.addEventListener('click', function() {
-                    if (window.innerWidth <= 768) {
-                        navMenu.style.display = 'none';
+                    navMenu.classList.remove('active');
+                });
+            });
+            
+            // إضافة تأثير التمرير السلس للروابط
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
                     }
                 });
             });
