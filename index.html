@@ -3,22 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المساعد العقاري - حلولك العقارية المتكاملة</title>
+    <title>نظام الذكاء الاصطناعي - المساعد العقاري</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --main-color: #384aeb;
-            --secondary-color: #ff5252; /* أحمر فاتح */
+            --primary-color: #384aeb;
+            --secondary-color: #2ecc71;
             --accent-color: #ff9f43;
-            --text-color: #1f1f1f;
-            --bg-gray: #f1f6f7;
-            --white: #fff;
-            --black: #000;
-            --border-color: #e9e9e9;
-            --footer-bg: #222;
-            --success-color: #2ecc71;
-            --warning-color: #f39c12;
+            --dark-color: #2d3748;
+            --light-color: #f8f9fa;
+            --sidebar-width: 280px;
         }
         
         * {
@@ -29,1329 +24,843 @@
         }
         
         body {
-            color: var(--text-color);
-            background-color: var(--white);
+            background-color: #f5f7fb;
+            color: var(--dark-color);
             line-height: 1.6;
         }
         
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s ease;
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
         }
         
-        ul {
+        /* الشريط الجانبي */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary-color), #2a3bce);
+            color: white;
+            padding: 20px 0;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-header {
+            padding: 0 20px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-header h2 {
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+        
+        .sidebar-header span {
+            color: var(--accent-color);
+        }
+        
+        .sidebar-menu {
             list-style: none;
+            margin-top: 20px;
         }
         
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
+        .sidebar-menu li {
+            margin-bottom: 5px;
         }
         
-        /* الشريط العلوي */
-        .header-top {
-            background: linear-gradient(90deg, var(--main-color), var(--secondary-color));
-            padding: 8px 0;
-            color: var(--white);
-            font-size: 14px;
-            position: relative;
-            overflow: hidden;
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s;
         }
         
-        .header-top .container {
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-right: 3px solid var(--accent-color);
+        }
+        
+        .sidebar-menu i {
+            margin-left: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* المحتوى الرئيسي */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 15px 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
         
-        .header-contact-info {
+        .user-info {
             display: flex;
             align-items: center;
-            flex-wrap: wrap;
         }
         
-        .header-contact-info span {
-            margin-left: 15px;
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+        
+        /* بطاقات الإحصائيات */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
+            transition: transform 0.3s;
         }
         
-        .header-contact-info i {
-            margin-left: 5px;
+        .stat-card:hover {
+            transform: translateY(-5px);
         }
         
-        .datetime {
-            display: flex;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 4px 10px;
-            border-radius: 20px;
-            direction: ltr;
-            font-family: Arial, sans-serif;
-        }
-        
-        .datetime span {
-            margin: 0 5px;
-        }
-        
-        .header-social-links {
-            display: flex;
-        }
-        
-        .header-social-links a {
-            width: 30px;
-            height: 30px;
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.2);
-            margin-right: 10px;
-            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            margin-left: 15px;
         }
         
-        .header-social-links a:hover {
-            background-color: var(--white);
-            color: var(--main-color);
-            transform: translateY(-3px);
+        .stat-icon.performance {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--secondary-color);
         }
         
-        /* شريط الأخبار المتداول - تم التعديل */
-        .news-ticker {
-            background-color: rgba(255, 82, 82, 0.9); /* أحمر فاتح مع شفافية */
-            color: var(--white);
-            padding: 10px 0;
+        .stat-icon.images {
+            background-color: rgba(255, 159, 67, 0.1);
+            color: var(--accent-color);
+        }
+        
+        .stat-icon.ads {
+            background-color: rgba(56, 74, 235, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .stat-icon.notifications {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: #e53e3e;
+        }
+        
+        .stat-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .stat-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* الأقسام */
+        .dashboard-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section-header h2 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+        }
+        
+        /* تحسين الأداء */
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .performance-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .performance-card h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        /* رفع الصور */
+        .image-upload {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .image-upload:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .image-upload i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+        
+        .image-upload p {
+            color: #666;
+        }
+        
+        .thumbnails {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .thumbnail {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
             overflow: hidden;
             position: relative;
         }
         
-        .ticker-container {
-            display: flex;
-            align-items: center;
-            white-space: nowrap;
-        }
-        
-        .ticker-label {
-            background: var(--main-color);
-            padding: 4px 12px;
-            border-radius: 4px;
-            margin-left: 15px;
-            font-weight: bold;
-        }
-        
-        .ticker-content {
-            animation: tickerAnimation 40s linear infinite; /* تباطؤ السرعة */
-            display: inline-block;
-            padding-left: 100%;
-        }
-        
-        @keyframes tickerAnimation {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-        
-        /* الترويسة الرئيسية */
-        .header-main {
-            padding: 15px 0;
-            background-color: var(--white);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .header-main .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo img {
-            height: 50px;
-        }
-        
-        .logo-text {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--main-color);
-            margin-right: 10px;
-        }
-        
-        .logo-text span {
-            color: var(--secondary-color);
-        }
-        
-        .nav-menu {
-            display: flex;
-        }
-        
-        .nav-menu li {
-            margin: 0 15px;
-            position: relative;
-        }
-        
-        .nav-menu a {
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 5px 0;
-        }
-        
-        .nav-menu a:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--main-color);
-            transition: all 0.3s ease;
-        }
-        
-        .nav-menu a:hover {
-            color: var(--main-color);
-        }
-        
-        .nav-menu a:hover:after {
+        .thumbnail img {
             width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
-        .header-icons {
-            display: flex;
-            align-items: center;
-        }
-        
-        .header-icons a {
-            margin-right: 15px;
-            font-size: 18px;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        
-        .header-icons a:hover {
-            color: var(--main-color);
-            transform: translateY(-3px);
-        }
-        
-        .cart-count {
+        .thumbnail-remove {
             position: absolute;
-            top: -10px;
-            left: -10px;
-            background-color: var(--secondary-color);
-            color: var(--white);
+            top: 5px;
+            left: 5px;
+            background-color: #e53e3e;
+            color: white;
             width: 20px;
             height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
-            font-family: Arial, sans-serif;
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            font-size: 24px;
+            font-size: 0.7rem;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
         
-        .mobile-menu-btn:hover {
-            color: var(--main-color);
-        }
-        
-        /* قسم الهيرو */
-        .hero-slider {
-            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1073&q=80');
-            background-size: cover;
-            background-position: center;
-            color: var(--white);
-            padding: 100px 0;
-            text-align: center;
-            position: relative;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .hero-text h1 {
-            font-size: 42px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            color: var(--white);
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            animation: fadeInDown 1s ease;
-        }
-        
-        .hero-text h1 span {
-            color: var(--accent-color);
-        }
-        
-        .hero-text p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            color: var(--white);
-            animation: fadeInUp 1s ease;
-        }
-        
-        .hero-btns {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            animation: fadeIn 1.5s ease;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .btn:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.1);
-            border-radius: 30px;
-            z-index: -1;
-            transform: scale(0, 1);
-            transform-origin: right center;
-            transition: transform 0.3s ease;
-        }
-        
-        .btn:hover:after {
-            transform: scale(1, 1);
-            transform-origin: left center;
-        }
-        
-        .btn-primary {
-            background-color: var(--main-color);
-            color: var(--white);
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .btn-outline {
-            border: 2px solid var(--white);
-            color: var(--white);
-        }
-        
-        .btn-outline:hover {
-            background-color: var(--white);
-            color: var(--main-color);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* قسم المميزات */
-        .features {
-            padding: 80px 0;
-            background: linear-gradient(to bottom, var(--white) 50%, var(--bg-gray) 50%);
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        
-        .section-title h2 {
-            font-size: 36px;
-            font-weight: 700;
-            color: var(--text-color);
-            position: relative;
-            display: inline-block;
-            padding-bottom: 15px;
-        }
-        
-        .section-title h2:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 50%;
-            transform: translateX(50%);
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(to right, var(--main-color), var(--secondary-color));
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .feature-box {
-            background-color: var(--white);
-            border-radius: 10px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .feature-box:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--main-color), var(--secondary-color));
-            opacity: 0;
-            z-index: -1;
-            transition: all 0.3s ease;
-        }
-        
-        .feature-box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-            color: var(--white);
-        }
-        
-        .feature-box:hover:before {
-            opacity: 1;
-        }
-        
-        .feature-box:hover .feature-icon {
-            background-color: var(--white);
-            color: var(--main-color);
-        }
-        
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--main-color), var(--secondary-color));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 30px;
-            color: var(--white);
-            transition: all 0.3s ease;
-        }
-        
-        .feature-box h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: inherit;
-        }
-        
-        .feature-box p {
-            color: inherit;
-        }
-        
-        /* قسم الخدمات */
-        .services {
-            padding: 80px 0;
-            background-color: var(--bg-gray);
-        }
-        
-        .services-grid {
+        /* الإعلانات */
+        .ads-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 20px;
         }
         
-        .service-card {
-            background-color: var(--white);
+        .ad-card {
+            background-color: var(--light-color);
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            transition: transform 0.3s;
         }
         
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .service-image {
-            height: 200px;
-            background-color: #ddd;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        
-        .service-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: var(--secondary-color);
-            color: var(--white);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        
-        .service-content {
-            padding: 20px;
-        }
-        
-        .service-content h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: var(--text-color);
-        }
-        
-        .service-price {
-            color: var(--main-color);
-            font-weight: 700;
-            font-size: 22px;
-            margin: 10px 0;
-            font-family: Arial, sans-serif;
-        }
-        
-        .service-meta {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid var(--border-color);
-        }
-        
-        .service-meta span {
-            display: flex;
-            align-items: center;
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .service-meta i {
-            margin-left: 5px;
-        }
-        
-        .service-btn {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px;
-            background: linear-gradient(to right, var(--main-color), var(--secondary-color));
-            color: var(--white);
-            border-radius: 5px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .service-btn:hover {
-            background: linear-gradient(to right, var(--secondary-color), var(--main-color));
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* قسم الاتصال */
-        .contact {
-            padding: 80px 0;
-            background: linear-gradient(to bottom, var(--bg-gray) 50%, var(--white) 50%);
-        }
-        
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-        
-        .contact-info h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: var(--text-color);
-            font-family: 'Tajawal', sans-serif;
-        }
-        
-        .contact-details {
-            margin-top: 30px;
-        }
-        
-        .contact-details div {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .contact-details i {
-            margin-left: 10px;
-            color: var(--main-color);
-            font-size: 20px;
-            width: 30px;
-        }
-        
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-        
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            border-color: var(--main-color);
-            box-shadow: 0 0 0 2px rgba(56, 74, 235, 0.2);
-            outline: none;
-        }
-        
-        .contact-form textarea {
-            height: 150px;
-            resize: vertical;
-        }
-        
-        .contact-form button {
-            background: linear-gradient(to right, var(--main-color), var(--secondary-color));
-            color: var(--white);
-            border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-        
-        .contact-form button:hover {
-            background: linear-gradient(to right, var(--secondary-color), var(--main-color));
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        /* الفوتر */
-        footer {
-            background-color: var(--footer-bg);
-            color: var(--white);
-            padding: 60px 0 20px;
-        }
-        
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-col h4 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-        
-        .footer-col h4:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 50px;
-            height: 2px;
-            background: linear-gradient(to right, var(--main-color), var(--secondary-color));
-        }
-        
-        .footer-col p {
-            margin-bottom: 20px;
-            color: #ccc;
-        }
-        
-        .footer-col ul li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-col ul li a {
-            color: #ccc;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-col ul li a:hover {
-            color: var(--main-color);
-            padding-right: 5px;
-        }
-        
-        .footer-social {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .footer-social a {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-social a:hover {
-            background: linear-gradient(135deg, var(--main-color), var(--secondary-color));
+        .ad-card:hover {
             transform: translateY(-5px);
         }
         
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #ccc;
-            font-size: 14px;
+        .ad-image {
+            height: 150px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
         }
         
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .ad-content {
+            padding: 15px;
         }
         
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .ad-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
         }
         
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* الإشعارات */
+        .notifications-list {
+            max-height: 400px;
+            overflow-y: auto;
         }
         
-        .animated {
-            animation-duration: 1s;
-            animation-fill-mode: both;
+        .notification-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s;
         }
         
-        /* زر لوحة التحكم المخفي */
-        .admin-access {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 999;
+        .notification-item:hover {
+            background-color: var(--light-color);
         }
         
-        .admin-btn {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--main-color), var(--secondary-color));
-            color: white;
+        .notification-icon {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-left: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .notification-icon.info {
+            background-color: rgba(56, 74, 235, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .notification-icon.success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--secondary-color);
+        }
+        
+        .notification-icon.warning {
+            background-color: rgba(255, 159, 67, 0.1);
+            color: var(--accent-color);
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-content p {
+            margin-bottom: 5px;
+        }
+        
+        .notification-time {
+            color: #999;
+            font-size: 0.8rem;
+        }
+        
+        /* الأزرار */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
         
-        .admin-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
         }
         
-        /* responsive design */
+        .btn-primary:hover {
+            background-color: #2a3bce;
+        }
+        
+        .btn-success {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: #e53e3e;
+            color: white;
+        }
+        
+        /* الذكاء الاصطناعي */
+        .ai-recommendations {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .ai-recommendations h3 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .ai-recommendations h3 i {
+            margin-left: 10px;
+        }
+        
+        .recommendation-item {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .recommendation-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* responsiveness */
         @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column;
-                text-align: center;
+            .sidebar {
+                width: 70px;
+                padding: 20px 0;
             }
             
-            .hero-text {
-                padding-left: 0;
-                margin-bottom: 30px;
-            }
-            
-            .hero-btns {
-                justify-content: center;
-            }
-            
-            .nav-menu {
+            .sidebar-header h2, .sidebar-menu span {
                 display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background-color: var(--white);
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
             }
             
-            .nav-menu.active {
-                display: flex;
+            .sidebar-menu i {
+                margin-left: 0;
+                font-size: 1.2rem;
             }
             
-            .nav-menu li {
-                margin: 10px 0;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .header-contact-info {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .header-contact-info span {
-                margin-bottom: 5px;
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 15px;
             }
         }
         
         @media (max-width: 768px) {
-            .header-top .container {
-                flex-direction: column;
-                gap: 10px;
+            .stats-cards {
+                grid-template-columns: 1fr;
             }
             
-            .datetime {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .user-info {
                 margin-top: 10px;
             }
             
-            .hero-text h1 {
-                font-size: 32px;
-            }
-            
-            .section-title h2 {
-                font-size: 28px;
-            }
-            
-            .hero-btns {
+            .section-header {
                 flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .section-header .btn {
+                margin-top: 10px;
             }
         }
         
         @media (max-width: 576px) {
-            .hero-text h1 {
-                font-size: 28px;
-            }
-            
-            .btn {
-                padding: 10px 20px;
-                font-size: 14px;
-            }
-            
-            .feature-box, .service-card {
-                padding: 20px;
-            }
-            
-            .ticker-label {
-                display: none;
-            }
-            
-            .admin-access {
-                bottom: 10px;
-                left: 10px;
-            }
-            
-            .admin-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
+            .performance-grid, .ads-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- الشريط العلوي -->
-    <div class="header-top">
-        <div class="container">
-            <div class="header-contact-info">
-                <span>
-                    <i class="fas fa-phone-alt"></i>
-                    0557421598
-                </span>
-                <span>
-                    <i class="fas fa-envelope"></i>
-                    elmosa3id.immobilier@gmail.com
-                </span>
-                <span>
-                    <i class="fas fa-map-marker-alt"></i>
-                    حي فتال اولاد يعيش البليدة
-                </span>
+    <div class="admin-container">
+        <!-- الشريط الجانبي -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>المساعد <span>العقاري</span></h2>
+                <p>نظام الذكاء الاصطناعي</p>
             </div>
-            <div class="datetime">
-                <span id="current-date"></span>
-                <span id="current-time"></span>
-            </div>
-        </div>
-    </div>
-
-    <!-- شريط الأخبار المتداول - تم التعديل -->
-    <div class="news-ticker">
-        <div class="container">
-            <div class="ticker-container">
-                <div class="ticker-label">عروض خاصة</div>
-                <div class="ticker-content">
-                    فيلا كولونيال قابلة للهدم للبيع دوبل فصاد بمساحة تقدر ب 5000 م بوسط بلدية بني مراد - السعر 800,000,000 د.ج ★ 
-                    f3 ببلدية بني مراد في حي ديار البحري في الطابق الرابع - السعر 750,000,000 د.ج ★ 
-                    كركاسة في نيفو فيلا في بلدية بني مراد الطابق الثالث - السعر 850,000,000 د.ج ★ 
-                    فيلا في باب الزاوية بلدية البليدة R+2 - السعر 7,200,000,000 د.ج ★ 
-                    منزل ارضي دار عرب قابل للهدم ببلدية بني مراد - السعر 1,300,000,000 د.ج
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- الترويسة الرئيسية -->
-    <header class="header-main">
-        <div class="container">
-            <a href="#" class="logo">
-                <div class="logo-text">المساعد <span>العقاري</span></div>
-            </a>
             
-            <ul class="nav-menu">
-                <li><a href="#home">الرئيسية</a></li>
-                <li><a href="#properties">العقارات</a></li>
-                <li><a href="#services">الخدمات</a></li>
-                <li><a href="#about">عن الشركة</a></li>
-                <li><a href="#offers">عروض خاصة</a></li>
-                <li><a href="#contact">اتصل بنا</a></li>
-                <!-- تم إخفاء زر لوحة التحكم من القائمة الرئيسية -->
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active"><i class="fas fa-tachometer-alt"></i> <span>لوحة التحكم</span></a></li>
+                <li><a href="#"><i class="fas fa-bolt"></i> <span>تحسين الأداء</span></a></li>
+                <li><a href="#"><i class="fas fa-images"></i> <span>إدارة الصور</span></a></li>
+                <li><a href="#"><i class="fas fa-ad"></i> <span>الإعلانات</span></a></li>
+                <li><a href="#"><i class="fas fa-bell"></i> <span>الإشعارات</span></a></li>
+                <li><a href="#"><i class="fas fa-robot"></i> <span>توصيات الذكاء الاصطناعي</span></a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> <span>الإعدادات</span></a></li>
+                <li><a href="#"><i class="fas fa-sign-out-alt"></i> <span>تسجيل الخروج</span></a></li>
             </ul>
-            
-            <div class="header-icons">
-                <a href="#">
-                    <i class="fas fa-search"></i>
-                </a>
-                <a href="#">
-                    <i class="fas fa-user"></i>
-                </a>
-                <a href="#">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
-                </a>
-            </div>
-            
-            <div class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </header>
+        </aside>
 
-    <!-- زر لوحة التحكم المخفي -->
-    <div class="admin-access">
-        <div class="admin-btn" id="adminAccessBtn">
-            <i class="fas fa-cog"></i>
-        </div>
-    </div>
-
-    <!-- قسم الهيرو -->
-    <section class="hero-slider" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>ابحث عن <span>عقارك</span> المثالي مع المساعد العقاري</h1>
-                    <p>نقدم لك مجموعة واسعة من الخدمات العقارية التي تلبي جميع احتياجاتك. سواء كنت تبحث عن شراء، بيع أو تأجير عقار، نحن هنا لمساعدتك.</p>
-                    <div class="hero-btns">
-                        <a href="#properties" class="btn btn-primary">استعرض العقارات</a>
-                        <a href="#contact" class="btn btn-outline">اتصل بنا الآن</a>
+        <!-- المحتوى الرئيسي -->
+        <main class="main-content">
+            <!-- شريط العنوان -->
+            <div class="header">
+                <h1>لوحة تحكم الذكاء الاصطناعي</h1>
+                <div class="user-info">
+                    <img src="https://placehold.co/40x40/384aeb/FFFFFF?text=مدير" alt="صورة المدير">
+                    <div>
+                        <div>أحمد محمد</div>
+                        <small>مدير النظام</small>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- قسم المميزات -->
-    <section class="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>لماذا تختار المساعد العقاري؟</h2>
             </div>
             
-            <div class="features-grid">
-                <div class="feature-box">
-                    <div class="feature-icon">
-                        <i class="fas fa-home"></i>
+            <!-- بطاقات الإحصائيات -->
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-icon performance">
+                        <i class="fas fa-bolt"></i>
                     </div>
-                    <h3>عقارات متنوعة</h3>
-                    <p>مجموعة واسعة من العقارات لتناسب جميع الأذواق والميزانيات</p>
-                </div>
-                
-                <div class="feature-box">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>معاملات آمنة</h3>
-                    <p>ضمان معاملات آمنة وموثوقة مع فريق من الخبراء</p>
-                </div>
-                
-                <div class="feature-box">
-                    <div class="feature-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>دعم متواصل</h3>
-                    <p>خدمة عملاء متاحة على مدار الساعة لمساعدتك في جميع استفساراتك</p>
-                </div>
-                
-                <div class="feature-box">
-                    <div class="feature-icon">
-                        <i class="fas fa-tag"></i>
-                    </div>
-                    <h3>أسعار منافسة</h3>
-                    <p>عروض وأسعار تنافسية تناسب جميع الميزانيات</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- قسم الخدمات -->
-    <section class="services" id="properties">
-        <div class="container">
-            <div class="section-title">
-                <h2>عقارات مميزة</h2>
-            </div>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #5a8dee;">
-                        <div class="service-badge">عرض خاص</div>
-                    </div>
-                    <div class="service-content">
-                        <h3>فila كولونيال للبيع</h3>
-                        <p>فila كولونيال قابلة للهدم للبيع دوبل فصاد بمساحة 5000 م بوسط بلدية بني مراد بالقرب من مسجد بلال وسط المدينة</p>
-                        <div class="service-price">800,000,000 د.ج</div>
-                        <div class="service-meta">
-                            <span><i class="fas fa-vector-square"></i> 5000 م²</span>
-                            <span><i class="fas fa-map-marker-alt"></i> بني مراد</span>
-                        </div>
-                        <a href="#contact" class="service-btn">اطلب الاستشارة</a>
+                    <div class="stat-info">
+                        <h3>92%</h3>
+                        <p>أداء الموقع</p>
                     </div>
                 </div>
                 
-                <div class="service-card">
-                    <div class="service-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #42a5f5;">
-                        <div class="service-badge">جديد</div>
+                <div class="stat-card">
+                    <div class="stat-icon images">
+                        <i class="fas fa-images"></i>
                     </div>
-                    <div class="service-content">
-                        <h3>شقة ف3 - بني مراد</h3>
-                        <p>شقة ف3 ببلدية بني مراد في حي ديار البحري في الطابق الرابع، الوثائق عقد الملكية والدفتر العقاري</p>
-                        <div class="service-price">750,000,000 د.ج</div>
-                        <div class="service-meta">
-                            <span><i class="fas fa-bed"></i> 3 غرف</span>
-                            <span><i class="fas fa-building"></i> الطابق 4</span>
-                            <span><i class="fas fa-map-marker-alt"></i> ديار البحري</span>
-                        </div>
-                        <a href="#contact" class="service-btn">اطلب الاستشارة</a>
+                    <div class="stat-info">
+                        <h3>48</h3>
+                        <p>صورة محسنة</p>
                     </div>
                 </div>
                 
-                <div class="service-card">
-                    <div class="service-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #29b6f6;">
-                        <div class="service-badge">فرصة</div>
+                <div class="stat-card">
+                    <div class="stat-icon ads">
+                        <i class="fas fa-ad"></i>
                     </div>
-                    <div class="service-content">
-                        <h3>كركاسة - بني مراد</h3>
-                        <p>كركاسة في نيفو فيلا في بلدية بني مراد الطابق الثالث، الدخلة تاعها تبدا وحدها من الطابق الاول المساحة الاجمالية 120 متر مربع</p>
-                        <div class="service-price">850,000,000 د.ج</div>
-                        <div class="service-meta">
-                            <span><i class="fas fa-vector-square"></i> 120 م²</span>
-                            <span><i class="fas fa-building"></i> الطابق 3</span>
-                            <span><i class="fas fa-map-marker-alt"></i> بني مراد</span>
-                        </div>
-                        <a href="#contact" class="service-btn">اطلب الاستشارة</a>
+                    <div class="stat-info">
+                        <h3>15</h3>
+                        <p>إعلان نشط</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon notifications">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>7</h3>
+                        <p>إشعارات جديدة</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- قسم الاتصال -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>اتصل بنا</h2>
-            </div>
             
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>نحن هنا لمساعدتك</h3>
-                    <p>لا تتردد في التواصل معنا للحصول على استشارة مجانية أو لمعرفة المزيد عن خدماتنا</p>
+            <!-- قسم تحسين الأداء -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2>تحسين أداء الموقع</h2>
+                    <button class="btn btn-primary">تحسين تلقائي</button>
+                </div>
+                
+                <div class="performance-grid">
+                    <div class="performance-card">
+                        <h3>1.2s</h3>
+                        <p>وقت تحميل الصفحة</p>
+                    </div>
                     
-                    <div class="contact-details">
-                        <div>
-                            <i class="fas fa-phone"></i>
-                            <span>0557421598</span>
-                        </div>
-                        <div>
-                            <i class="fas fa-envelope"></i>
-                            <span>elmosa3id.immobilier@gmail.com</span>
-                        </div>
-                        <div>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>حي فتال اولاد يعيش البليدة</span>
-                        </div>
-                        <div>
-                            <i class="fas fa-clock"></i>
-                            <span>الأحد - الخميس: 8 ص - 4 م</span>
-                        </div>
+                    <div class="performance-card">
+                        <h3>95%</h3>
+                        <p>نتائج SEO</p>
                     </div>
-
-                    <div class="footer-social" style="margin-top: 30px;">
-                        <a href="https://web.facebook.com/profile.php?id=100081159430401" target="_blank">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.tiktok.com" target="_blank">
-                            <i class="fab fa-tiktok"></i>
-                        </a>
-                        <a href="https://www.instagram.com" target="_blank">
-                            <i class="fab fa-instagram"></i>
-                        </a>
+                    
+                    <div class="performance-card">
+                        <h3>100%</h3>
+                        <p>استجابة للجوال</p>
                     </div>
                 </div>
                 
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <input type="text" placeholder="اسمك الكريم" required>
-                        <input type="email" placeholder="بريدك الإلكتروني" required>
-                        <input type="tel" placeholder="رقم الهاتف">
-                        <textarea placeholder="كيف يمكننا مساعدتك؟" required></textarea>
-                        <button type="submit">إرسال الرسالة</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- الفوتر -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>عن المساعد العقاري</h4>
-                    <p>شركة رائدة في مجال الخدمات العقارية والاستشارات، نقدم حلولاً متكاملة تلبي جميع احتياجاتك العقارية.</p>
-                    <div class="footer-social">
-                        <a href="https://web.facebook.com/profile.php?id=100081159430401" target="_blank">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.tiktok.com" target="_blank">
-                            <i class="fab fa-tiktok"></i>
-                        </a>
-                        <a href="https://www.instagram.com" target="_blank">
-                            <i class="fab fa-instagram"></i>
-                        </a>
+                <div class="ai-recommendations">
+                    <h3><i class="fas fa-robot"></i> توصيات الذكاء الاصطناعي</h3>
+                    <div class="recommendation-item">
+                        <p>✅ ضغط الصور سيحسن وقت التحميل بنسبة 25%</p>
                     </div>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>روابط سريعة</h4>
-                    <ul>
-                        <li><a href="#home">الرئيسية</a></li>
-                        <li><a href="#properties">العقارات</a></li>
-                        <li><a href="#services">الخدمات</a></li>
-                        <li><a href="#about">عن الشركة</a></li>
-                        <li><a href="#contact">اتصل بنا</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>خدماتنا</h4>
-                    <ul>
-                        <li><a href="#">تسويق العقارات</a></li>
-                        <li><a href="#">دراسات الجدوى</a></li>
-                        <li><a href="#">الوساطة العقارية</a></li>
-                        <li><a href="#">الإدارة العقارية</a></li>
-                        <li><a href="#">الاستشارات القانونية</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-col">
-                    <h4>معلومات الاتصال</h4>
-                    <ul>
-                        <li><i class="fas fa-phone"></i> 0557421598</li>
-                        <li><i class="fas fa-envelope"></i> elmosa3id.immobilier@gmail.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> حي فتال اولاد يعيش البليدة</li>
-                    </ul>
+                    <div class="recommendation-item">
+                        <p>✅ تفعيل التخزين المؤقت سيحسن الأداء بنسبة 15%</p>
+                    </div>
+                    <div class="recommendation-item">
+                        <p>⚠️ 3 صور كبيرة الحجم تحتاج إلى تحسين</p>
+                    </div>
                 </div>
             </div>
             
-            <div class="copyright">
-                <p>© 2023 المساعد العقاري. جميع الحقوق محفوظة</p>
+            <!-- قسم إدارة الصور -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2>إدارة الصور</h2>
+                    <button class="btn btn-primary">تحميل صور جديدة</button>
+                </div>
+                
+                <div class="image-upload">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>انقر لرفع الصور أو اسحبها هنا</p>
+                    <input type="file" style="display: none;" multiple accept="image/*">
+                </div>
+                
+                <div class="thumbnails">
+                    <div class="thumbnail">
+                        <img src="https://placehold.co/100x100/384aeb/FFFFFF?text=صورة" alt="صورة">
+                        <div class="thumbnail-remove">&times;</div>
+                    </div>
+                    <div class="thumbnail">
+                        <img src="https://placehold.co/100x100/2ecc71/FFFFFF?text=صورة" alt="صورة">
+                        <div class="thumbnail-remove">&times;</div>
+                    </div>
+                    <div class="thumbnail">
+                        <img src="https://placehold.co/100x100/ff9f43/FFFFFF?text=صورة" alt="صورة">
+                        <div class="thumbnail-remove">&times;</div>
+                    </div>
+                </div>
+                
+                <div class="ai-recommendations">
+                    <h3><i class="fas fa-robot"></i> تحسين الصور تلقائياً</h3>
+                    <div class="recommendation-item">
+                        <p>✅ تم تحسين 12 صورة تلقائياً</p>
+                    </div>
+                    <div class="recommendation-item">
+                        <p>⏳ جارٍ تحسين 3 صور...</p>
+                    </div>
+                    <button class="btn btn-success">بدء التحسين التلقائي</button>
+                </div>
             </div>
-        </div>
-    </footer>
-
-    <!-- نافذة تسجيل الدخول -->
-    <div id="loginModal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7);">
-        <div style="background-color: white; margin: 10% auto; padding: 25px; border-radius: 10px; width: 90%; max-width: 400px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
-            <h2 style="text-align: center; color: var(--main-color); margin-bottom: 20px;">تسجيل الدخول إلى لوحة التحكم</h2>
-            <form id="adminLoginForm">
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">اسم المستخدم</label>
-                    <input type="text" id="adminUsername" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px;" required>
+            
+            <!-- قسم الإعلانات -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2>إدارة الإعلانات</h2>
+                    <button class="btn btn-primary">إنشاء إعلان جديد</button>
                 </div>
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">كلمة المرور</label>
-                    <input type="password" id="adminPassword" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px;" required>
+                
+                <div class="ads-grid">
+                    <div class="ad-card">
+                        <div class="ad-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #5a8dee;"></div>
+                        <div class="ad-content">
+                            <h3>فيلا للبيع</h3>
+                            <p>إعلان نشط - 1254 مشاهدة</p>
+                            <button class="btn btn-primary">تعديل</button>
+                        </div>
+                    </div>
+                    
+                    <div class="ad-card">
+                        <div class="ad-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #42a5f5;"></div>
+                        <div class="ad-content">
+                            <h3>شقة للإيجار</h3>
+                            <p>إعلان نشط - 987 مشاهدة</p>
+                            <button class="btn btn-primary">تعديل</button>
+                        </div>
+                    </div>
+                    
+                    <div class="ad-card">
+                        <div class="ad-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), #29b6f6;"></div>
+                        <div class="ad-content">
+                            <h3>أرض سكنية</h3>
+                            <p>إعلان متوقف - 542 مشاهدة</p>
+                            <button class="btn btn-primary">تفعيل</button>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" style="width: 100%; padding: 12px; background-color: var(--main-color); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">تسجيل الدخول</button>
-            </form>
-            <button onclick="document.getElementById('loginModal').style.display='none'" style="margin-top: 15px; width: 100%; padding: 10px; background-color: #ccc; border: none; border-radius: 5px; cursor: pointer;">إلغاء</button>
-        </div>
+                
+                <div class="ai-recommendations">
+                    <h3><i class="fas fa-robot"></i> تحسين الإعلانات</h3>
+                    <div class="recommendation-item">
+                        <p>✅ إعلان "فيلا للبيع" يحصل على أعلى تفاعل</p>
+                    </div>
+                    <div class="recommendation-item">
+                        <p>💡 جرب إضافة المزيد من الصور لإعلان "شقة للإيجار"</p>
+                    </div>
+                    <div class="recommendation-item">
+                        <p>⏰ الوقت الأمثل لنشر الإعلانات: 7-9 مساءً</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- قسم الإشعارات -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2>الإشعارات والتنبيهات</h2>
+                    <button class="btn btn-primary">إرسال إشعار جديد</button>
+                </div>
+                
+                <div class="notifications-list">
+                    <div class="notification-item">
+                        <div class="notification-icon info">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="notification-content">
+                            <p>تمت زيارة الموقع بواسطة 125 زائر اليوم</p>
+                            <span class="notification-time">منذ 2 ساعة</span>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="notification-content">
+                            <p>تم تحسين 5 صور تلقائياً بنجاح</p>
+                            <span class="notification-time">منذ 5 ساعات</span>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="notification-content">
+                            <p>وقت تحميل الصفحة الرئيسية أبطأ من المعتاد</p>
+                            <span class="notification-time">منذ 8 ساعات</span>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-icon info">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <div class="notification-content">
+                            <p>إعلان جديد "شقة فاخرة" حصل على 50 زيارة في أول ساعة</p>
+                            <span class="notification-time">منذ 12 ساعة</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
 
     <script>
+        // محاكاة نظام الذكاء الاصطناعي
         document.addEventListener('DOMContentLoaded', function() {
-            const menuBtn = document.querySelector('.mobile-menu-btn');
-            const navMenu = document.querySelector('.nav-menu');
-            
-            menuBtn.addEventListener('click', function() {
-                navMenu.classList.toggle('active');
-            });
-            
-            // إغلاق القائمة عند النقر على رابط
-            const navLinks = document.querySelectorAll('.nav-menu a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    if (window.innerWidth <= 992) {
-                        navMenu.classList.remove('active');
-                    }
-                });
-            });
-            
-            // إضافة تأثير التمرير السلس للروابط
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 100,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // تحديث التاريخ والوقت بالأرقام الغربية
-            function updateDateTime() {
-                const now = new Date();
-                
-                // التاريخ بأرقام غربية
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                let dateString = now.toLocaleDateString('ar-EG', options);
-                // تحويل الأرقام العربية إلى غربية
-                dateString = dateString.replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
-                                      .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
-                document.getElementById('current-date').textContent = dateString;
-                
-                // الوقت بأرقام غربية
-                let timeString = now.toLocaleTimeString('ar-EG');
-                // تحويل الأرقام العربية إلى غربية
-                timeString = timeString.replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
-                                      .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
-                document.getElementById('current-time').textContent = timeString;
-            }
-            
-            // تحديث التاريخ والوقت كل ثانية
-            updateDateTime();
-            setInterval(updateDateTime, 1000);
-            
-            // إضافة تأثيرات عند التمرير
-            function checkScroll() {
-                const elements = document.querySelectorAll('.feature-box, .service-card, .section-title');
-                
-                elements.forEach(element => {
-                    const position = element.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.3;
-                    
-                    if (position < screenPosition) {
-                        element.style.opacity = 1;
-                        element.style.transform = 'translateY(0)';
-                    }
+            // محاكاة تحسين الأداء
+            const optimizeBtn = document.querySelector('.btn-primary');
+            if (optimizeBtn) {
+                optimizeBtn.addEventListener('click', function() {
+                    simulateOptimization();
                 });
             }
             
-            // تهيئة العناصر للتحريك
-            document.querySelectorAll('.feature-box, .service-card, .section-title').forEach(element => {
-                element.style.opacity = 0;
-                element.style.transform = 'translateY(20px)';
-                element.style.transition = 'all 0.5s ease';
+            // محاكاة تحسين الصور
+            const optimizeImagesBtn = document.querySelectorAll('.btn-success');
+            optimizeImagesBtn.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    simulateImageOptimization();
+                });
             });
             
-            // التحقق من التمرير عند تحميل الصفحة وعند التمرير
-            window.addEventListener('load', checkScroll);
-            window.addEventListener('scroll', checkScroll);
-            
-            // تأثيرات لإرسال النموذج
-            const contactForm = document.getElementById('contactForm');
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    alert('شكراً لتواصلك معنا! سنرد عليك في أقرب وقت ممكن.');
-                    contactForm.reset();
+            // محاكاة رفع الصور
+            const imageUpload = document.querySelector('.image-upload');
+            if (imageUpload) {
+                const fileInput = imageUpload.querySelector('input[type="file"]');
+                
+                imageUpload.addEventListener('click', function() {
+                    fileInput.click();
+                });
+                
+                fileInput.addEventListener('change', function() {
+                    simulateImageUpload(this.files.length);
                 });
             }
             
-            // فتح نافذة تسجيل الدخول من الزر المخفي
-            document.getElementById('adminAccessBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                document.getElementById('loginModal').style.display = 'block';
+            // إزالة الصور المصغرة
+            const removeButtons = document.querySelectorAll('.thumbnail-remove');
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    this.parentElement.remove();
+                    showNotification('تم حذف الصورة بنجاح', 'success');
+                });
             });
             
-            // تسجيل الدخول إلى لوحة التحكم
-            document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const username = document.getElementById('adminUsername').value;
-                const password = document.getElementById('adminPassword').value;
+            // وظائف المحاكاة
+            function simulateOptimization() {
+                showNotification('جاري تحسين أداء الموقع...', 'info');
                 
-                if (username === 'mosa3id' && password === '123123mosa3id') {
-                    alert('تم تسجيل الدخول بنجاح! سيتم توجيهك إلى لوحة التحكم.');
-                    // هنا يمكن توجيه المستخدم إلى صفحة لوحة التحكم
-                    window.location.href = "dashboard.html";
-                } else {
-                    alert('اسم المستخدم أو كلمة المرور غير صحيحة!');
+                setTimeout(() => {
+                    showNotification('تم تحسين أداء الموقع بنجاح! وقت التحميل انخفض بنسبة 30%', 'success');
+                    
+                    // تحديث إحصاءات الأداء
+                    document.querySelector('.stat-info h3').textContent = '98%';
+                }, 2000);
+            }
+            
+            function simulateImageOptimization() {
+                showNotification('جاري تحسين الصور تلقائياً...', 'info');
+                
+                setTimeout(() => {
+                    showNotification('تم تحسين 5 صور تلقائياً بنجاح!', 'success');
+                    
+                    // تحديث إحصاءات الصور
+                    document.querySelectorAll('.stat-info h3')[1].textContent = '53';
+                }, 3000);
+            }
+            
+            function simulateImageUpload(fileCount) {
+                if (fileCount > 0) {
+                    showNotification(`جاري رفع ${fileCount} صورة...`, 'info');
+                    
+                    setTimeout(() => {
+                        showNotification(`تم رفع ${fileCount} صورة بنجاح!`, 'success');
+                        
+                        // تحديث إحصاءات الصور
+                        const currentCount = parseInt(document.querySelectorAll('.stat-info h3')[1].textContent);
+                        document.querySelectorAll('.stat-info h3')[1].textContent = currentCount + fileCount;
+                    }, 2000);
                 }
-            });
+            }
             
-            // إغلاق نافذة التسجيل عند النقر خارجها
-            window.addEventListener('click', function(e) {
-                if (e.target == document.getElementById('loginModal')) {
-                    document.getElementById('loginModal').style.display = 'none';
+            function showNotification(message, type) {
+                // في التطبيق الحقيقي، يمكن إضافة رسالة إلى قائمة الإشعارات
+                console.log(`${type.toUpperCase()}: ${message}`);
+                
+                // يمكن إضافة واجهة رسائل أكثر تطوراً هنا
+                alert(message);
+            }
+            
+            // محاكاة التحديث التلقائي للتوصيات
+            setInterval(() => {
+                const recommendations = [
+                    "📊 زيارات الموقع في ازدياد مستمر هذا الأسبوع",
+                    "⭐ الإعلان عن شقق جديدة قد يزيد الإيرادات بنسبة 15%",
+                    "🖼️ صور الواجهة الأمامية تحتاج إلى تحديث",
+                    "📱 70% من الزوار يستخدمون الهواتف الذكية"
+                ];
+                
+                const randomRecommendation = recommendations[Math.floor(Math.random() * recommendations.length)];
+                
+                // إضافة توصية جديدة
+                const newRecommendation = document.createElement('div');
+                newRecommendation.className = 'recommendation-item';
+                newRecommendation.innerHTML = `<p>💡 ${randomRecommendation}</p>`;
+                
+                // إضافة إلى قسم التوصيات الأول
+                const recommendationsContainer = document.querySelector('.ai-recommendations');
+                if (recommendationsContainer) {
+                    recommendationsContainer.appendChild(newRecommendation);
+                    
+                    // إظهار إشعار
+                    showNotification('توصية جديدة من الذكاء الاصطناعي', 'info');
                 }
-            });
+            }, 60000); // كل دقيقة
         });
     </script>
 </body>
