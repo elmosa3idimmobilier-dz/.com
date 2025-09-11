@@ -9,7 +9,7 @@
     <style>
         :root {
             --main-color: #384aeb;
-            --secondary-color: #2ecc71; /* تغيير من الأحمر إلى الأخضر */
+            --secondary-color: #ff5252; /* تغيير إلى الأحمر الفاتح */
             --accent-color: #ff9f43;
             --text-color: #1f1f1f;
             --bg-gray: #f1f6f7;
@@ -89,12 +89,12 @@
             background: rgba(0, 0, 0, 0.2);
             padding: 4px 10px;
             border-radius: 20px;
-            direction: ltr; /* جعل اتجاه الأرقام من اليسار لليمين */
+            direction: ltr;
+            font-family: Arial, sans-serif; /* خط مناسب للأرقام الغربية */
         }
         
         .datetime span {
             margin: 0 5px;
-            font-family: Arial, sans-serif; /* خط更适合 للأرقام الغربية */
         }
         
         .header-social-links {
@@ -121,12 +121,11 @@
         
         /* شريط الأخبار المتداول */
         .news-ticker {
-            background-color: var(--accent-color);
+            background-color: var(--secondary-color); /* استخدام اللون الأحمر الفاتح */
             color: var(--white);
             padding: 10px 0;
             overflow: hidden;
             position: relative;
-            direction: ltr; /* تغيير اتجاه الشريط إلى اليسار لليمين */
         }
         
         .ticker-container {
@@ -139,15 +138,14 @@
             background: var(--main-color);
             padding: 4px 12px;
             border-radius: 4px;
-            margin-right: 15px; /* تغيير من margin-left إلى margin-right */
+            margin-left: 15px;
             font-weight: bold;
-            direction: rtl; /* الحفاظ على اتجاه النص داخل التسمية */
         }
         
         .ticker-content {
-            animation: tickerAnimation 20s linear infinite;
+            animation: tickerAnimation 30s linear infinite;
             display: inline-block;
-            padding-right: 100%; /* تغيير من padding-left إلى padding-right */
+            padding-left: 100%;
         }
         
         @keyframes tickerAnimation {
@@ -586,6 +584,7 @@
             font-size: 24px;
             margin-bottom: 20px;
             color: var(--text-color);
+            font-family: 'Tajawal', sans-serif;
         }
         
         .contact-details {
@@ -881,9 +880,13 @@
     <div class="news-ticker">
         <div class="container">
             <div class="ticker-container">
-                <div class="ticker-label">أخبار</div>
+                <div class="ticker-label">عروض خاصة</div>
                 <div class="ticker-content">
-                    للمساعدة في البيع أو الشراء أو الاستئجار، اتصل بنا على الرقم 0557421598 أو البريد الإلكتروني elmosa3id.immobilier@gmail.com - نقدم خدمات عقارية متكاملة في الجزائر
+                    فيلا كولونيال قابلة للهدم للبيع دوبل فصاد بمساحة تقدر ب 5000 م بوسط بلدية بني مراد - السعر 800,000,000 د.ج ★ 
+                    f3 ببلدية بني مراد في حي ديار البحري في الطابق الرابع - السعر 750,000,000 د.ج ★ 
+                    كركاسة في نيفو فيلا في بلدية بني مراد الطابق الثالث - السعر 850,000,000 د.ج ★ 
+                    فيلا في باب الزاوية بلدية البليدة R+2 - السعر 7,200,000,000 د.ج ★ 
+                    منزل ارضي دار عرب قابل للهدم ببلدية بني مراد - السعر 1,300,000,000 د.ج
                 </div>
             </div>
         </div>
@@ -996,13 +999,12 @@
                         <div class="service-badge">عرض خاص</div>
                     </div>
                     <div class="service-content">
-                        <h3>فيلا فاخرة للبيع</h3>
-                        <p>فيلا فاخرة مساحة 300م² في حي راقي، تتكون من 4 غرف نوم وصالتين و3 حمامات</p>
-                        <div class="service-price">45,000,000 د.ج</div>
+                        <h3>فيلا كولونيال للبيع</h3>
+                        <p>فيلا كولونيال قابلة للهدم للبيع دوبل فصاد بمساحة 5000 م بوسط بلدية بني مراد بالقرب من مسجد بلال وسط المدينة</p>
+                        <div class="service-price">800,000,000 د.ج</div>
                         <div class="service-meta">
-                            <span><i class="fas fa-bed"></i> 4 غرف</span>
-                            <span><i class="fas fa-bath"></i> 3 حمامات</span>
-                            <span><i class="fas fa-ruler-combined"></i> 300م²</span>
+                            <span><i class="fas fa-vector-square"></i> 5000 م²</span>
+                            <span><i class="fas fa-map-marker-alt"></i> بني مراد</span>
                         </div>
                         <a href="#contact" class="service-btn">اطلب الاستشارة</a>
                     </div>
@@ -1013,13 +1015,13 @@
                         <div class="service-badge">جديد</div>
                     </div>
                     <div class="service-content">
-                        <h3>شقة للايجار</h3>
-                        <p>شقة حديثة 120م² تتكون من 3 غرف نوم وصالة ومعيشة ومطبخ</p>
-                        <div class="service-price">50,000 د.ج/شهر</div>
+                        <h3>شقة ف3 - بني مراد</h3>
+                        <p>شقة ف3 ببلدية بني مراد في حي ديار البحري في الطابق الرابع، الوثائق عقد الملكية والدفتر العقاري</p>
+                        <div class="service-price">750,000,000 د.ج</div>
                         <div class="service-meta">
                             <span><i class="fas fa-bed"></i> 3 غرف</span>
-                            <span><i class="fas fa-bath"></i> 2 حمام</span>
-                            <span><i class="fas fa-ruler-combined"></i> 120م²</span>
+                            <span><i class="fas fa-building"></i> الطابق 4</span>
+                            <span><i class="fas fa-map-marker-alt"></i> ديار البحري</span>
                         </div>
                         <a href="#contact" class="service-btn">اطلب الاستشارة</a>
                     </div>
@@ -1030,12 +1032,13 @@
                         <div class="service-badge">فرصة</div>
                     </div>
                     <div class="service-content">
-                        <h3>أرض سكنية</h3>
-                        <p>أرض سكنية صالحة للبناء مساحة 400م² في منطقة سكنية هادئة</p>
-                        <div class="service-price">25,000,000 د.ج</div>
+                        <h3>كركاسة - بني مراد</h3>
+                        <p>كركاسة في نيفو فيلا في بلدية بني مراد الطابق الثالث، الدخلة تاعها تبدا وحدها من الطابق الاول المساحة الاجمالية 120 متر مربع</p>
+                        <div class="service-price">850,000,000 د.ج</div>
                         <div class="service-meta">
-                            <span><i class="fas fa-vector-square"></i> 400م²</span>
-                            <span><i class="fas fa-map-marker-alt"></i> حي هادي</span>
+                            <span><i class="fas fa-vector-square"></i> 120 م²</span>
+                            <span><i class="fas fa-building"></i> الطابق 3</span>
+                            <span><i class="fas fa-map-marker-alt"></i> بني مراد</span>
                         </div>
                         <a href="#contact" class="service-btn">اطلب الاستشارة</a>
                     </div>
@@ -1076,8 +1079,8 @@
                     </div>
 
                     <div class="footer-social" style="margin-top: 30px;">
-                        <a href="https://web.facebook.com/barigo.itali?_rdc=1&_rdr#" target="https://web.facebook.com/barigo.itali?_rdc=1&_rdr#">
-                            <i class="https://web.facebook.com/barigo.itali?_rdc=1&_rdr#"></i>
+                        <a href="https://elmosa3idimmobilier-dz.github.io/" target="_blank">
+                            <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="https://www.twitter.com" target="_blank">
                             <i class="fab fa-twitter"></i>
@@ -1112,7 +1115,7 @@
                     <h4>عن المساعد العقاري</h4>
                     <p>شركة رائدة في مجال الخدمات العقارية والاستشارات، نقدم حلولاً متكاملة تلبي جميع احتياجاتك العقارية.</p>
                     <div class="footer-social">
-                        <a href="https://www.facebook.com" target="_blank">
+                        <a href="https://elmosa3idimmobilier-dz.github.io/" target="_blank">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="https://www.twitter.com" target="_blank">
@@ -1203,17 +1206,23 @@
                 });
             });
             
-            // تحديث التاريخ والوقت
+            // تحديث التاريخ والوقت بالأرقام الغربية
             function updateDateTime() {
                 const now = new Date();
                 
-                // التاريخ
+                // التاريخ بأرقام غربية
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                const dateString = now.toLocaleDateString('ar-EG', options);
+                let dateString = now.toLocaleDateString('ar-EG', options);
+                // تحويل الأرقام العربية إلى غربية
+                dateString = dateString.replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
+                                      .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
                 document.getElementById('current-date').textContent = dateString;
                 
-                // الوقت
-                const timeString = now.toLocaleTimeString('ar-EG');
+                // الوقت بأرقام غربية
+                let timeString = now.toLocaleTimeString('ar-EG');
+                // تحويل الأرقام العربية إلى غربية
+                timeString = timeString.replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
+                                      .replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
                 document.getElementById('current-time').textContent = timeString;
             }
             
