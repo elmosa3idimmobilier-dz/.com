@@ -9,7 +9,7 @@
     <style>
         :root {
             --main-color: #384aeb;
-            --secondary-color: #2ecc71; /* تغيير إلى اللون الأخضر */
+            --secondary-color: #ff5252; /* أحمر فاتح */
             --accent-color: #ff9f43;
             --text-color: #1f1f1f;
             --bg-gray: #f1f6f7;
@@ -90,7 +90,7 @@
             padding: 4px 10px;
             border-radius: 20px;
             direction: ltr;
-            font-family: Arial, sans-serif; /* خط مناسب للأرقام الغربية */
+            font-family: Arial, sans-serif;
         }
         
         .datetime span {
@@ -119,14 +119,13 @@
             transform: translateY(-3px);
         }
         
-        /* شريط الأخبار المتداول - معدل */
+        /* شريط الأخبار المتداول - تم التعديل */
         .news-ticker {
-            background-color: var(--secondary-color); /* استخدام اللون الأخضر */
+            background-color: rgba(255, 82, 82, 0.9); /* أحمر فاتح مع شفافية */
             color: var(--white);
             padding: 10px 0;
             overflow: hidden;
             position: relative;
-            direction: ltr; /* تغيير الاتجاه إلى اليسار لليمين */
         }
         
         .ticker-container {
@@ -139,20 +138,19 @@
             background: var(--main-color);
             padding: 4px 12px;
             border-radius: 4px;
-            margin-right: 15px; /* تغيير الهامش إلى اليمين */
+            margin-left: 15px;
             font-weight: bold;
-            direction: rtl; /* الحفاظ على اتجاه النص داخل التسمية */
         }
         
         .ticker-content {
-            animation: tickerAnimation 30s linear infinite;
+            animation: tickerAnimation 40s linear infinite; /* تباطؤ السرعة */
             display: inline-block;
-            padding-right: 100%; /* بدء الحركة من اليمين */
+            padding-left: 100%;
         }
         
         @keyframes tickerAnimation {
-            0% { transform: translateX(100%); } /* البدء من اليمين */
-            100% { transform: translateX(-100%); } /* التحرك إلى اليسار */
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
         }
         
         /* الترويسة الرئيسية */
@@ -256,7 +254,7 @@
             align-items: center;
             justify-content: center;
             font-size: 12px;
-            font-family: Arial, sans-serif; /* استخدام خط غربي للأرقام */
+            font-family: Arial, sans-serif;
         }
         
         .mobile-menu-btn {
@@ -530,7 +528,7 @@
             font-weight: 700;
             font-size: 22px;
             margin: 10px 0;
-            font-family: Arial, sans-serif; /* استخدام خط غربي للأرقام */
+            font-family: Arial, sans-serif;
         }
         
         .service-meta {
@@ -760,6 +758,34 @@
             animation-fill-mode: both;
         }
         
+        /* زر لوحة التحكم المخفي */
+        .admin-access {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 999;
+        }
+        
+        .admin-btn {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--main-color), var(--secondary-color));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        
         /* responsive design */
         @media (max-width: 992px) {
             .hero-content {
@@ -850,6 +876,17 @@
             .ticker-label {
                 display: none;
             }
+            
+            .admin-access {
+                bottom: 10px;
+                left: 10px;
+            }
+            
+            .admin-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -878,7 +915,7 @@
         </div>
     </div>
 
-    <!-- شريط الأخبار المتداول - معدل -->
+    <!-- شريط الأخبار المتداول - تم التعديل -->
     <div class="news-ticker">
         <div class="container">
             <div class="ticker-container">
@@ -908,6 +945,7 @@
                 <li><a href="#about">عن الشركة</a></li>
                 <li><a href="#offers">عروض خاصة</a></li>
                 <li><a href="#contact">اتصل بنا</a></li>
+                <!-- تم إخفاء زر لوحة التحكم من القائمة الرئيسية -->
             </ul>
             
             <div class="header-icons">
@@ -928,6 +966,13 @@
             </div>
         </div>
     </header>
+
+    <!-- زر لوحة التحكم المخفي -->
+    <div class="admin-access">
+        <div class="admin-btn" id="adminAccessBtn">
+            <i class="fas fa-cog"></i>
+        </div>
+    </div>
 
     <!-- قسم الهيرو -->
     <section class="hero-slider" id="home">
@@ -1001,8 +1046,8 @@
                         <div class="service-badge">عرض خاص</div>
                     </div>
                     <div class="service-content">
-                        <h3>فيلا كولونيال للبيع</h3>
-                        <p>فيلا كولونيال قابلة للهدم للبيع دوبل فصاد بمساحة 5000 م بوسط بلدية بني مراد بالقرب من مسجد بلال وسط المدينة</p>
+                        <h3>فila كولونيال للبيع</h3>
+                        <p>فila كولونيال قابلة للهدم للبيع دوبل فصاد بمساحة 5000 م بوسط بلدية بني مراد بالقرب من مسجد بلال وسط المدينة</p>
                         <div class="service-price">800,000,000 د.ج</div>
                         <div class="service-meta">
                             <span><i class="fas fa-vector-square"></i> 5000 م²</span>
@@ -1081,17 +1126,14 @@
                     </div>
 
                     <div class="footer-social" style="margin-top: 30px;">
-                        <a href="https://elmosa3idimmobilier-dz.github.io/" target="_blank">
+                        <a href="https://web.facebook.com/profile.php?id=100081159430401" target="_blank">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="https://www.twitter.com" target="_blank">
-                            <i class="fab fa-twitter"></i>
+                        <a href="https://www.tiktok.com" target="_blank">
+                            <i class="fab fa-tiktok"></i>
                         </a>
                         <a href="https://www.instagram.com" target="_blank">
                             <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://www.youtube.com" target="_blank">
-                            <i class="fab fa-youtube"></i>
                         </a>
                     </div>
                 </div>
@@ -1117,17 +1159,14 @@
                     <h4>عن المساعد العقاري</h4>
                     <p>شركة رائدة في مجال الخدمات العقارية والاستشارات، نقدم حلولاً متكاملة تلبي جميع احتياجاتك العقارية.</p>
                     <div class="footer-social">
-                        <a href="https://elmosa3idimmobilier-dz.github.io/" target="_blank">
+                        <a href="https://web.facebook.com/profile.php?id=100081159430401" target="_blank">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="https://www.twitter.com" target="_blank">
-                            <i class="fab fa-twitter"></i>
+                        <a href="https://www.tiktok.com" target="_blank">
+                            <i class="fab fa-tiktok"></i>
                         </a>
                         <a href="https://www.instagram.com" target="_blank">
                             <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://www.youtube.com" target="_blank">
-                            <i class="fab fa-youtube"></i>
                         </a>
                     </div>
                 </div>
@@ -1170,8 +1209,26 @@
         </div>
     </footer>
 
+    <!-- نافذة تسجيل الدخول -->
+    <div id="loginModal" class="modal" style="display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7);">
+        <div style="background-color: white; margin: 10% auto; padding: 25px; border-radius: 10px; width: 90%; max-width: 400px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+            <h2 style="text-align: center; color: var(--main-color); margin-bottom: 20px;">تسجيل الدخول إلى لوحة التحكم</h2>
+            <form id="adminLoginForm">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">اسم المستخدم</label>
+                    <input type="text" id="adminUsername" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px;" required>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 500;">كلمة المرور</label>
+                    <input type="password" id="adminPassword" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px;" required>
+                </div>
+                <button type="submit" style="width: 100%; padding: 12px; background-color: var(--main-color); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">تسجيل الدخول</button>
+            </form>
+            <button onclick="document.getElementById('loginModal').style.display='none'" style="margin-top: 15px; width: 100%; padding: 10px; background-color: #ccc; border: none; border-radius: 5px; cursor: pointer;">إلغاء</button>
+        </div>
+    </div>
+
     <script>
-        // كود الجافاسكريبت للقائمة المتنقلة
         document.addEventListener('DOMContentLoaded', function() {
             const menuBtn = document.querySelector('.mobile-menu-btn');
             const navMenu = document.querySelector('.nav-menu');
@@ -1267,6 +1324,34 @@
                     contactForm.reset();
                 });
             }
+            
+            // فتح نافذة تسجيل الدخول من الزر المخفي
+            document.getElementById('adminAccessBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('loginModal').style.display = 'block';
+            });
+            
+            // تسجيل الدخول إلى لوحة التحكم
+            document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('adminUsername').value;
+                const password = document.getElementById('adminPassword').value;
+                
+                if (username === 'mosa3id' && password === '123123mosa3id') {
+                    alert('تم تسجيل الدخول بنجاح! سيتم توجيهك إلى لوحة التحكم.');
+                    // هنا يمكن توجيه المستخدم إلى صفحة لوحة التحكم
+                    window.location.href = "dashboard.html";
+                } else {
+                    alert('اسم المستخدم أو كلمة المرور غير صحيحة!');
+                }
+            });
+            
+            // إغلاق نافذة التسجيل عند النقر خارجها
+            window.addEventListener('click', function(e) {
+                if (e.target == document.getElementById('loginModal')) {
+                    document.getElementById('loginModal').style.display = 'none';
+                }
+            });
         });
     </script>
 </body>
