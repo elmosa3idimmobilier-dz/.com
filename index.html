@@ -1560,63 +1560,6 @@
                 <div class="admin-sections">
                     <div class="admin-section">
                         <h4>إدارة العقارات</h4>
-                        <div class="admin-form">
-    <h4>إضافة عقار جديد</h4>
-    <form id="propertyForm" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="propertyTitle">عنوان العقار</label>
-            <input type="text" id="propertyTitle" class="form-control" placeholder="أدخل عنوان العقار" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="propertyDescription">وصف العقار</label>
-            <textarea id="propertyDescription" class="form-control" placeholder="أدخل وصف العقار" required></textarea>
-        </div>
-        
-        <div class="form-group">
-            <label for="propertyPrice">السعر (د.ج)</label>
-            <input type="number" id="propertyPrice" class="form-control" placeholder="أدخل السعر" required>
-        </div>
-        
-        <div class="form-group">
-            <label for="propertyType">نوع العقار</label>
-            <select id="propertyType" class="form-control" required>
-                <option value="">اختر نوع العقار</option>
-                <option value="شقة">شقة</option>
-                <option value="فيلا">فيلا</option>
-                <option value="أرض">أرض</option>
-                <option value="محل">محل تجاري</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="propertyArea">المساحة (م²)</label>
-            <input type="number" id="propertyArea" class="form-control" placeholder="المساحة بالمتر المربع" required>
-        </div>
-
-        <div class="form-group">
-            <label for="propertyLocation">المكان</label>
-            <input type="text" id="propertyLocation" class="form-control" placeholder="موقع العقار" required>
-        </div>
-
-        <div class="form-group">
-            <label for="propertyRooms">عدد الغرف (اختياري)</label>
-            <input type="number" id="propertyRooms" class="form-control" placeholder="عدد الغرف">
-        </div>
-
-        <div class="form-group">
-            <label for="propertyFloor">الطابق (اختياري)</label>
-            <input type="number" id="propertyFloor" class="form-control" placeholder="رقم الطابق">
-        </div>
-
-        <div class="form-group">
-            <label for="propertyImage">صورة العقار</label>
-            <input type="file" id="propertyImage" class="form-control" accept="image/*" required>
-        </div>
-        
-        <button type="submit" class="btn btn-primary">نشر العقار</button>
-    </form>
-</div>
                         <div class="admin-btns">
                             <button class="admin-btn-tab" data-tab="properties">
                                 <span>إضافة عقار جديد</span>
@@ -1676,33 +1619,50 @@
                 
                 <div class="admin-form">
                     <h4>إضافة عقار جديد</h4>
-                    <div class="form-group">
-                        <label for="propertyTitle">عنوان العقار</label>
-                        <input type="text" id="propertyTitle" class="form-control" placeholder="أدخل عنوان العقار">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="propertyDescription">وصف العقار</label>
-                        <textarea id="propertyDescription" class="form-control" placeholder="أدخل وصف العقار"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="propertyPrice">السعر (د.ج)</label>
-                        <input type="number" id="propertyPrice" class="form-control" placeholder="أدخل السعر">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="propertyType">نوع العقار</label>
-                        <select id="propertyType" class="form-control">
-                            <option value="">اختر نوع العقار</option>
-                            <option value="شقة">شقة</option>
-                            <option value="فيلا">فيلا</option>
-                            <option value="أرض">أرض</option>
-                            <option value="محل">محل تجاري</option>
-                        </select>
-                    </div>
-                    
-                    <button class="btn btn-primary">نشر العقار</button>
+                    <form id="propertyForm">
+                        <div class="form-group">
+                            <label for="propertyTitle">عنوان العقار</label>
+                            <input type="text" id="propertyTitle" class="form-control" placeholder="أدخل عنوان العقار" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="propertyDescription">وصف العقار</label>
+                            <textarea id="propertyDescription" class="form-control" placeholder="أدخل وصف العقار" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="propertyPrice">السعر (د.ج)</label>
+                            <input type="number" id="propertyPrice" class="form-control" placeholder="أدخل السعر" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="propertyType">نوع العقار</label>
+                            <select id="propertyType" class="form-control" required>
+                                <option value="">اختر نوع العقار</option>
+                                <option value="شقة">شقة</option>
+                                <option value="فيلا">فيلا</option>
+                                <option value="أرض">أرض</option>
+                                <option value="محل">محل تجاري</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="propertyArea">المساحة (م²)</label>
+                            <input type="number" id="propertyArea" class="form-control" placeholder="المساحة بالمتر المربع" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="propertyLocation">المكان</label>
+                            <input type="text" id="propertyLocation" class="form-control" placeholder="موقع العقار" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="propertyImage">صورة العقار (رابط URL)</label>
+                            <input type="text" id="propertyImage" class="form-control" placeholder="رابط الصورة" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">نشر العقار</button>
+                    </form>
                 </div>
             </div>
             
@@ -1735,58 +1695,7 @@
             
             <div class="tab-content" id="messages-tab">
                 <h3>إدارة الرسائل</h3>
-                // إرسال رسالة الاتصال
-async function sendContactForm(formData) {
-    try {
-        const response = await fetch('http://localhost:3000/api/contact', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        });
-        return await response.json();
-    } catch (error) {
-        console.error('Error:', error);
-        return { success: false, message: 'حدث خطأ في الإرسال' };
-    }
-}
-
-// إضافة عقار جديد
-async function addProperty(formData) {
-    try {
-        const response = await fetch('http://localhost:3000/api/properties', {
-            method: 'POST',
-            body: formData
-        });
-        return await response.json();
-    } catch (error) {
-        console.error('Error:', error);
-        return { success: false, message: 'حدث خطأ في الإضافة' };
-    }
-}
-
-// الحصول على العقارات
-async function getProperties() {
-    try {
-        const response = await fetch('http://localhost:3000/api/properties');
-        return await response.json();
-    } catch (error) {
-        console.error('Error:', error);
-        return [];
-    }
-}
-
-// الحصول على الرسائل
-async function getMessages() {
-    try {
-        const response = await fetch('http://localhost:3000/api/messages');
-        return await response.json();
-    } catch (error) {
-        console.error('Error:', error);
-        return [];
-    }
-}
+                
                 <div class="notification-item">
                     <div class="notification-icon info">
                         <i class="fas fa-envelope"></i>
@@ -1979,6 +1888,26 @@ async function getMessages() {
                     document.getElementById('loginModal').style.display = 'none';
                 }
             });
+            
+            // إضافة عقار جديد
+            const propertyForm = document.getElementById('propertyForm');
+            if (propertyForm) {
+                propertyForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const title = document.getElementById('propertyTitle').value;
+                    const description = document.getElementById('propertyDescription').value;
+                    const price = document.getElementById('propertyPrice').value;
+                    const type = document.getElementById('propertyType').value;
+                    const area = document.getElementById('propertyArea').value;
+                    const location = document.getElementById('propertyLocation').value;
+                    const image = document.getElementById('propertyImage').value;
+                    
+                    // هنا يمكنك إضافة كود لإرسال البيانات إلى الخادم
+                    alert(`تم إضافة العقار بنجاح!\nالعنوان: ${title}\nالسعر: ${price} د.ج`);
+                    propertyForm.reset();
+                });
+            }
         });
     </script>
 </body>
