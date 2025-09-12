@@ -1735,7 +1735,58 @@
             
             <div class="tab-content" id="messages-tab">
                 <h3>إدارة الرسائل</h3>
-                
+                // إرسال رسالة الاتصال
+async function sendContactForm(formData) {
+    try {
+        const response = await fetch('http://localhost:3000/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        return await response.json();
+    } catch (error) {
+        console.error('Error:', error);
+        return { success: false, message: 'حدث خطأ في الإرسال' };
+    }
+}
+
+// إضافة عقار جديد
+async function addProperty(formData) {
+    try {
+        const response = await fetch('http://localhost:3000/api/properties', {
+            method: 'POST',
+            body: formData
+        });
+        return await response.json();
+    } catch (error) {
+        console.error('Error:', error);
+        return { success: false, message: 'حدث خطأ في الإضافة' };
+    }
+}
+
+// الحصول على العقارات
+async function getProperties() {
+    try {
+        const response = await fetch('http://localhost:3000/api/properties');
+        return await response.json();
+    } catch (error) {
+        console.error('Error:', error);
+        return [];
+    }
+}
+
+// الحصول على الرسائل
+async function getMessages() {
+    try {
+        const response = await fetch('http://localhost:3000/api/messages');
+        return await response.json();
+    } catch (error) {
+        console.error('Error:', error);
+        return [];
+    }
+}
                 <div class="notification-item">
                     <div class="notification-icon info">
                         <i class="fas fa-envelope"></i>
