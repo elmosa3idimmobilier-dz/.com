@@ -1909,81 +1909,114 @@
                 });
             }
         });
-    
+    </script>
+
 <script>
-// ✅ إضافة العقار إلى localStorage
+// ✅ إرسال عقار جديد إلى API
 document.getElementById('propertyForm')?.addEventListener('submit', function(e) {
     e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
 
-    const title = document.getElementById('propertyTitle').value.trim();
-    const description = document.getElementById('propertyDescription').value.trim();
-    const price = document.getElementById('propertyPrice').value.trim();
-    const type = document.getElementById('propertyType').value;
-    const area = document.getElementById('propertyArea').value.trim();
-    const location = document.getElementById('propertyLocation').value.trim();
-    const image = document.getElementById('propertyImage').value.trim();
-
-    if (!title || !description || !price || !type || !area || !location || !image) {
-        alert("يرجى ملء جميع الحقول.");
-        return;
-    }
-
-    const newProperty = {
-        title, description, price, type, area, location, image
-    };
-
-    const properties = JSON.parse(localStorage.getItem('properties') || '[]');
-    properties.push(newProperty);
-    localStorage.setItem('properties', JSON.stringify(properties));
-
-    alert("✅ تم إضافة العقار بنجاح!");
-    this.reset();
-    displayProperties(); // تحديث العرض مباشرة
+    fetch('/api/properties', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        alert("✅ تم إضافة العقار بنجاح!");
+        form.reset();
+        loadProperties(); // تحديث القائمة
+    })
+    .catch(() => alert("❌ فشل في إرسال العقار."));
 });
 
-// ✅ عرض العقارات المحفوظة
-function displayProperties() {
-    const properties = JSON.parse(localStorage.getItem('properties') || '[]');
-    const container = document.querySelector('.services-grid');
-    if (!container) return;
+// ✅ جلب العقارات من /api/properties
+function loadProperties() {
+    fetch('/api/properties')
+        .then(res => res.json())
+        .then(data => {
+            const container = document.querySelector('.services-grid');
+            if (!container) return;
+            container.innerHTML = '';
+            data.reverse().forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'service-card';
+                card.innerHTML = `
+                    <div class="service-image" style="background-image: url('${p.image}'); background-size: cover; background-position: center;">
+                        <div class="service-badge">${p.type}</div>
+                    </div>
+                    <div class="service-content">
+                        <h3>${p.title}</h3>
+                        <p>${p.description}</p>
+                        <div class="service-price">${p.price} د.ج</div>
+                        <div class="service-meta">
+                            <span><i class="fas fa-vector-square"></i> ${p.area} م²</span>
+                            <span><i class="fas fa-map-marker-alt"></i> ${p.location}</span>
+                        </div>
+                        <a href="#contact" class="service-btn">اطلب الاستشارة</a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        });
+}
 
-    container.innerHTML = ''; // مسح الموجود
+// ✅ جلب الرسائل من /api/messages
+function loadMessages() {
+    fetch('/api/messages')
+        .then(res => res.json())
+        .then(data => {
+            const container = document.querySelector('#messages-tab');
+            if (!container) return;
 
-    properties.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'service-card';
-        card.innerHTML = `
-            <div class="service-image" style="background-image: url('${p.image}'); background-size: cover; background-position: center;">
-                <div class="service-badge">${p.type}</div>
-            </div>
-            <div class="service-content">
-                <h3>${p.title}</h3>
-                <p>${p.description}</p>
-                <div class="service-price">${p.price} د.ج</div>
-                <div class="service-meta">
-                    <span><i class="fas fa-vector-square"></i> ${p.area} م²</span>
-                    <span><i class="fas fa-map-marker-alt"></i> ${p.location}</span>
+            const messagesHTML = data.reverse().map(m => `
+                <div class="notification-item">
+                    <div class="notification-icon info">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="notification-content">
+                        <p><strong>${m.name}</strong> - ${m.message}</p>
+                        <span class="notification-time">${m.date}</span>
+                    </div>
+                    <button class="btn btn-sm">رد</button>
                 </div>
-                <a href="#contact" class="service-btn">اطلب الاستشارة</a>
-            </div>
-        `;
-        container.appendChild(card);
-    });
+            `).join('');
+            container.innerHTML += messagesHTML;
+        });
 }
 
-document.addEventListener('DOMContentLoaded', displayProperties);
+// ✅ تعديل نموذج الاتصال ليستخدم /api/contact
+document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
 
-// ✅ تعديل نموذج الاتصال للإرسال إلى Formspree
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-    contactForm.setAttribute('action', 'https://formspree.io/f/mnqedjag'); // نموذج Formspree (تجريبي)
-    contactForm.setAttribute('method', 'POST');
+    const formData = new FormData(form);
+    const body = {
+        name: formData.get('name') || '',
+        email: formData.get('email') || '',
+        phone: formData.get('phone') || '',
+        message: formData.get('message') || ''
+    };
 
-    contactForm.addEventListener('submit', function(e) {
-        alert("✅ تم إرسال رسالتك! سنرد عليك قريبًا.");
-    });
-}
+    fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    })
+    .then(res => res.json())
+    .then(() => {
+        alert("✅ تم إرسال رسالتك بنجاح.");
+        form.reset();
+    })
+    .catch(() => alert("❌ حدث خطأ أثناء الإرسال."));
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    loadProperties();
+    loadMessages();
+});
 </script>
-</script>
+
 </body>
 </html>
