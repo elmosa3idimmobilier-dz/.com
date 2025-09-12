@@ -1560,6 +1560,63 @@
                 <div class="admin-sections">
                     <div class="admin-section">
                         <h4>إدارة العقارات</h4>
+                        <div class="admin-form">
+    <h4>إضافة عقار جديد</h4>
+    <form id="propertyForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="propertyTitle">عنوان العقار</label>
+            <input type="text" id="propertyTitle" class="form-control" placeholder="أدخل عنوان العقار" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="propertyDescription">وصف العقار</label>
+            <textarea id="propertyDescription" class="form-control" placeholder="أدخل وصف العقار" required></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="propertyPrice">السعر (د.ج)</label>
+            <input type="number" id="propertyPrice" class="form-control" placeholder="أدخل السعر" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="propertyType">نوع العقار</label>
+            <select id="propertyType" class="form-control" required>
+                <option value="">اختر نوع العقار</option>
+                <option value="شقة">شقة</option>
+                <option value="فيلا">فيلا</option>
+                <option value="أرض">أرض</option>
+                <option value="محل">محل تجاري</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="propertyArea">المساحة (م²)</label>
+            <input type="number" id="propertyArea" class="form-control" placeholder="المساحة بالمتر المربع" required>
+        </div>
+
+        <div class="form-group">
+            <label for="propertyLocation">المكان</label>
+            <input type="text" id="propertyLocation" class="form-control" placeholder="موقع العقار" required>
+        </div>
+
+        <div class="form-group">
+            <label for="propertyRooms">عدد الغرف (اختياري)</label>
+            <input type="number" id="propertyRooms" class="form-control" placeholder="عدد الغرف">
+        </div>
+
+        <div class="form-group">
+            <label for="propertyFloor">الطابق (اختياري)</label>
+            <input type="number" id="propertyFloor" class="form-control" placeholder="رقم الطابق">
+        </div>
+
+        <div class="form-group">
+            <label for="propertyImage">صورة العقار</label>
+            <input type="file" id="propertyImage" class="form-control" accept="image/*" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">نشر العقار</button>
+    </form>
+</div>
                         <div class="admin-btns">
                             <button class="admin-btn-tab" data-tab="properties">
                                 <span>إضافة عقار جديد</span>
