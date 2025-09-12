@@ -1909,6 +1909,81 @@
                 });
             }
         });
-    </script>
+    
+<script>
+// ✅ إضافة العقار إلى localStorage
+document.getElementById('propertyForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const title = document.getElementById('propertyTitle').value.trim();
+    const description = document.getElementById('propertyDescription').value.trim();
+    const price = document.getElementById('propertyPrice').value.trim();
+    const type = document.getElementById('propertyType').value;
+    const area = document.getElementById('propertyArea').value.trim();
+    const location = document.getElementById('propertyLocation').value.trim();
+    const image = document.getElementById('propertyImage').value.trim();
+
+    if (!title || !description || !price || !type || !area || !location || !image) {
+        alert("يرجى ملء جميع الحقول.");
+        return;
+    }
+
+    const newProperty = {
+        title, description, price, type, area, location, image
+    };
+
+    const properties = JSON.parse(localStorage.getItem('properties') || '[]');
+    properties.push(newProperty);
+    localStorage.setItem('properties', JSON.stringify(properties));
+
+    alert("✅ تم إضافة العقار بنجاح!");
+    this.reset();
+    displayProperties(); // تحديث العرض مباشرة
+});
+
+// ✅ عرض العقارات المحفوظة
+function displayProperties() {
+    const properties = JSON.parse(localStorage.getItem('properties') || '[]');
+    const container = document.querySelector('.services-grid');
+    if (!container) return;
+
+    container.innerHTML = ''; // مسح الموجود
+
+    properties.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'service-card';
+        card.innerHTML = `
+            <div class="service-image" style="background-image: url('${p.image}'); background-size: cover; background-position: center;">
+                <div class="service-badge">${p.type}</div>
+            </div>
+            <div class="service-content">
+                <h3>${p.title}</h3>
+                <p>${p.description}</p>
+                <div class="service-price">${p.price} د.ج</div>
+                <div class="service-meta">
+                    <span><i class="fas fa-vector-square"></i> ${p.area} م²</span>
+                    <span><i class="fas fa-map-marker-alt"></i> ${p.location}</span>
+                </div>
+                <a href="#contact" class="service-btn">اطلب الاستشارة</a>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', displayProperties);
+
+// ✅ تعديل نموذج الاتصال للإرسال إلى Formspree
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+    contactForm.setAttribute('action', 'https://formspree.io/f/mnqedjag'); // نموذج Formspree (تجريبي)
+    contactForm.setAttribute('method', 'POST');
+
+    contactForm.addEventListener('submit', function(e) {
+        alert("✅ تم إرسال رسالتك! سنرد عليك قريبًا.");
+    });
+}
+</script>
+</script>
 </body>
 </html>
