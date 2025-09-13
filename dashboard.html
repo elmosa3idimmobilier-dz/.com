@@ -1,760 +1,186 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تحكم المساعد العقاري - الجزائر</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --dark-color: #34495e;
-            --success-color: #2ecc71;
-            --warning-color: #f39c12;
-            --algeria-green: #006233;
-            --algeria-red: #d21034;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            display: flex;
-            min-height: 100vh;
-        }
-        
-        /* الشريط الجانبي */
-        .sidebar {
-            width: 250px;
-            background: var(--primary-color);
-            color: white;
-            transition: all 0.3s ease;
-        }
-        
-        .sidebar-header {
-            padding: 20px;
-            background: var(--dark-color);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .sidebar-header h2 {
-            font-size: 22px;
-            margin: 10px 0 5px;
-            color: white;
-        }
-        
-        .algeria-flag {
-            display: flex;
-            height: 20px;
-            width: 30px;
-            margin-bottom: 5px;
-        }
-        
-        .algeria-green {
-            flex: 1;
-            background-color: var(--algeria-green);
-        }
-        
-        .algeria-white {
-            flex: 1;
-            background-color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .algeria-white::before, .algeria-white::after {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border: 1px solid var(--algeria-red);
-            border-radius: 50%;
-        }
-        
-        .algeria-red {
-            flex: 1;
-            background-color: var(--algeria-red);
-        }
-        
-        .sidebar-menu {
-            padding: 20px 0;
-        }
-        
-        .sidebar-menu ul {
-            list-style: none;
-        }
-        
-        .sidebar-menu li {
-            padding: 0;
-            margin: 0;
-        }
-        
-        .sidebar-menu a {
-            padding: 15px 20px;
-            display: block;
-            color: #ddd;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 16px;
-        }
-        
-        .sidebar-menu a:hover, .sidebar-menu a.active {
-            background: var(--dark-color);
-            color: white;
-            border-right: 4px solid var(--secondary-color);
-        }
-        
-        .sidebar-menu i {
-            margin-left: 10px;
-            width: 20px;
-            text-align: center;
-        }
-        
-        /* المحتوى الرئيسي */
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-        }
-        
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            background: white;
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .header h1 {
-            font-size: 24px;
-            color: var(--primary-color);
-        }
-        
-        .user-info {
-            display: flex;
-            align-items: center;
-        }
-        
-        .user-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-left: 10px;
-        }
-        
-        /* بطاقات الإحصائيات */
-        .stats-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .stat-card {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-        }
-        
-        .visitors::before {
-            background: var(--secondary-color);
-        }
-        
-        .properties::before {
-            background: var(--success-color);
-        }
-        
-        .messages::before {
-            background: var(--accent-color);
-        }
-        
-        .performance::before {
-            background: var(--warning-color);
-        }
-        
-        .stat-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-left: 15px;
-        }
-        
-        .visitors .stat-icon {
-            background: rgba(52, 152, 219, 0.2);
-            color: var(--secondary-color);
-        }
-        
-        .properties .stat-icon {
-            background: rgba(46, 204, 113, 0.2);
-            color: var(--success-color);
-        }
-        
-        .messages .stat-icon {
-            background: rgba(231, 76, 60, 0.2);
-            color: var(--accent-color);
-        }
-        
-        .performance .stat-icon {
-            background: rgba(243, 156, 18, 0.2);
-            color: var(--warning-color);
-        }
-        
-        .stat-info h3 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-        
-        .stat-info p {
-            color: #777;
-        }
-        
-        /* محتوى لوحة التحكم */
-        .dashboard-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-        }
-        
-        .card {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .card-header h2 {
-            font-size: 18px;
-            color: var(--primary-color);
-        }
-        
-        /* الرسائل */
-        .message-list {
-            list-style: none;
-        }
-        
-        .message-item {
-            display: flex;
-            align-items: flex-start;
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .message-item:last-child {
-            border-bottom: none;
-        }
-        
-        .message-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-left: 15px;
-            background: var(--secondary-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-        }
-        
-        .message-content {
-            flex: 1;
-        }
-        
-        .message-sender {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .message-preview {
-            color: #777;
-            font-size: 14px;
-        }
-        
-        .message-time {
-            color: #999;
-            font-size: 12px;
-        }
-        
-        /* النماذج */
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
-        }
-        
-        textarea.form-control {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .btn {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        
-        .btn-primary {
-            background: var(--secondary-color);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: #2980b9;
-        }
-        
-        .cities-select {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .city-checkbox {
-            display: flex;
-            align-items: center;
-        }
-        
-        .city-checkbox input {
-            margin-left: 8px;
-        }
-        
-        /* الإعلانات المنشورة */
-        .published-properties {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .property-item {
-            display: flex;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .property-item:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-        
-        .property-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-left: 15px;
-        }
-        
-        .property-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .property-details {
-            flex: 1;
-        }
-        
-        .property-details h4 {
-            margin-bottom: 5px;
-        }
-        
-        .property-details p {
-            color: #777;
-            font-size: 14px;
-        }
-        
-        /* الاستجابة للشاشات المختلفة */
-        @media (max-width: 992px) {
-            .dashboard-content {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            
-            .sidebar {
-                width: 100%;
-                height: auto;
-            }
-            
-            .stats-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .cities-select {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- الشريط الجانبي -->
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <div class="algeria-flag">
-                    <div class="algeria-green"></div>
-                    <div class="algeria-white"></div>
-                    <div class="algeria-red"></div>
-                </div>
-                <h2>المساعد العقاري</h2>
-                <span>الجزائر</span>
-            </div>
-            <div class="sidebar-menu">
-                <ul>
-                    <li><a href="#" class="active"><i class="fas fa-home"></i> الرئيسية</a></li>
-                    <li><a href="#"><i class="fas fa-building"></i> العقارات</a></li>
-                    <li><a href="#"><i class="fas fa-image"></i> الإعلانات</a></li>
-                    <li><a href="#"><i class="fas fa-envelope"></i> الرسائل</a></li>
-                    <li><a href="#"><i class="fas fa-chart-bar"></i> التقارير</a></li>
-                    <li><a href="#"><i class="fas fa-cog"></i> الإعدادات</a></li>
-                    <li><a href="#"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a></li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- المحتوى الرئيسي -->
-        <div class="main-content">
-            <div class="header">
-                <h1>لوحة التحكم - المساعد العقاري الجزائري</h1>
-                <div class="user-info">
-                    <span>مرحباً، أحمد</span>
-                    <img src="https://ui-avatars.com/api/?name=أحمد&background=3498db&color=fff" alt="صورة المستخدم">
-                </div>
-            </div>
-            
-            <!-- بطاقات الإحصائيات -->
-            <div class="stats-cards">
-                <div class="stat-card visitors">
-                    <div class="stat-icon">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="visitors-count">7,842</h3>
-                        <p>عدد الزوار</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card properties">
-                    <div class="stat-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="properties-count">243</h3>
-                        <p>عقار مفعل</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card messages">
-                    <div class="stat-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="messages-count">14</h3>
-                        <p>رسالة جديدة</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card performance">
-                    <div class="stat-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="performance-value">94%</h3>
-                        <p>أداء الموقع</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- محتوى لوحة التحكم -->
-            <div class="dashboard-content">
-                <!-- الرسائل -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>الرسائل الجديدة</h2>
-                        <a href="#">عرض الكل</a>
-                    </div>
-                    <ul class="message-list">
-                        <li class="message-item">
-                            <div class="message-avatar">م</div>
-                            <div class="message-content">
-                                <div class="message-sender">محمد من الجزائر العاصمة</div>
-                                <div class="message-preview">أرغب في استئجار شقة في العاصمة بمساحة 120م...</div>
-                                <div class="message-time">منذ ساعتين</div>
-                            </div>
-                        </li>
-                        <li class="message-item">
-                            <div class="message-avatar">س</div>
-                            <div class="message-content">
-                                <div class="message-sender">سارة من وهران</div>
-                                <div class="message-preview">هل لا تزال الفيلا في حي الأمير متاحة للبيع؟...</div>
-                                <div class="message-time">منذ 5 ساعات</div>
-                            </div>
-                        </li>
-                        <li class="message-item">
-                            <div class="message-avatar">خ</div>
-                            <div class="message-content">
-                                <div class="message-sender">خالد من قسنطينة</div>
-                                <div class="message-preview">أريد ترتيب زيارة للعقار رقم 245 يوم الغد...</div>
-                                <div class="message-time">منذ يوم</div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <!-- إضافة إعلان جديد -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h2>إضافة إعلان جديد</h2>
-                        </div>
-                        <form id="new-property-form">
-                            <div class="form-group">
-                                <label for="property-title">عنوان العقار</label>
-                                <input type="text" id="property-title" class="form-control" placeholder="أدخل عنوان العقار">
-                            </div>
-                            <div class="form-group">
-                                <label for="property-description">وصف العقار</label>
-                                <textarea id="property-description" class="form-control" placeholder="أدخل وصفاً مفصلاً للعقار"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="property-price">السعر (دينار جزائري)</label>
-                                <input type="number" id="property-price" class="form-control" placeholder="أدخل السعر">
-                            </div>
-                            <div class="form-group">
-                                <label>المدينة</label>
-                                <div class="cities-select">
-                                    <div class="city-checkbox">
-                                        <input type="checkbox" id="algiers" name="city" value="الجزائر العاصمة">
-                                        <label for="algiers">الجزائر العاصمة</label>
-                                    </div>
-                                    <div class="city-checkbox">
-                                        <input type="checkbox" id="oran" name="city" value="وهران">
-                                        <label for="oran">وهران</label>
-                                    </div>
-                                    <div class="city-checkbox">
-                                        <input type="checkbox" id="constantine" name="city" value="قسنطينة">
-                                        <label for="constantine">قسنطينة</label>
-                                    </div>
-                                    <div class="city-checkbox">
-                                        <input type="checkbox" id="annaba" name="city" value="عنابة">
-                                        <label for="annaba">عنابة</label>
-                                    </div>
-                                    <div class="city-checkbox">
-                                        <input type="checkbox" id="blida" name="city" value="البليدة">
-                                        <label for="blida">البليدة</label>
-                                    </div>
-                                    <div class="city-checkbox">
-                                        <input type="checkbox" id="setif" name="city" value="سطيف">
-                                        <label for="setif">سطيف</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="property-image">صورة العقار</label>
-                                <input type="file" id="property-image" class="form-control">
-                            </div>
-                            <button type="submit" class="btn btn-primary">نشر الإعلان</button>
-                        </form>
-                    </div>
-                    
-                    <!-- الإعلانات المنشورة -->
-                    <div class="published-properties">
-                        <div class="card-header">
-                            <h2>الإعلانات المنشورة</h2>
-                        </div>
-                        <div class="property-item">
-                            <div class="property-image">
-                                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="عقار">
-                            </div>
-                            <div class="property-details">
-                                <h4>فيلا فاخرة للبيع</h4>
-                                <p>الجزائر العاصمة - 5,000,000 دج</p>
-                                <p>نشر في: 2023-10-20</p>
-                            </div>
-                        </div>
-                        <div class="property-item">
-                            <div class="property-image">
-                                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="عقار">
-                            </div>
-                            <div class="property-details">
-                                <h4>شقة حديثة للبيع</h4>
-                                <p>وهران - 2,500,000 دج</p>
-                                <p>نشر في: 2023-10-18</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<script>
+// بيانات حقيقية من localStorage
+let statsData = {
+    visitors: parseInt(localStorage.getItem('property_visitors')) || 7842,
+    activeProperties: 0,
+    newMessages: 0,
+    performance: 94
+};
 
-    <script>
-        // بيانات حقيقية من الجزائر
-        const statsData = {
-            visitors: 7842,
-            activeProperties: 243,
-            newMessages: 14,
-            performance: 94
+// تحميل الإعلانات والرسائل عند فتح الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    loadStats();
+    loadMessages();
+    loadProperties();
+    
+    // معالجة إضافة إعلان جديد
+    document.getElementById('new-property-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const title = document.getElementById('property-title').value;
+        const description = document.getElementById('property-description').value;
+        const price = document.getElementById('property-price').value;
+        const selectedCities = Array.from(document.querySelectorAll('input[name="city"]:checked')).map(cb => cb.value);
+        const location = selectedCities.length > 0 ? selectedCities[0] : 'غير محدد';
+        
+        // إنشاء كائن العقار
+        const property = {
+            title: title,
+            description: description,
+            price: price + ' د.ج',
+            image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+            area: "غير محدد",
+            location: location,
+            type: "جديد",
+            timestamp: new Date().toISOString()
         };
         
-        // المدن الجزائرية
-        const algerianCities = [
-            "الجزائر العاصمة", "وهران", "قسنطينة", "عنابة", "البليدة",
-            "سطيف", "باتنة", "تلمسان", "تيارت", "بجاية",
-            "سكيكدة", "تبسة", "البويرة", "جيجل", "سطيف"
-        ];
+        // حفظ العقار
+        saveProperty(property);
         
-        // تحديث الإحصائيات في الواجهة
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('visitors-count').textContent = statsData.visitors.toLocaleString();
-            document.getElementById('properties-count').textContent = statsData.activeProperties.toLocaleString();
-            document.getElementById('messages-count').textContent = statsData.newMessages.toLocaleString();
-            document.getElementById('performance-value').textContent = statsData.performance + '%';
-            
-            // معالجة إضافة إعلان جديد
-            document.getElementById('new-property-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const title = document.getElementById('property-title').value;
-                const description = document.getElementById('property-description').value;
-                const price = document.getElementById('property-price').value;
-                const imageFile = document.getElementById('property-image').files[0];
-                
-                // هنا سيتم إرسال البيانات إلى الخادم
-                // في هذا المثال، سنقوم بمحاكاة عملية النشر
-                
-                alert('تم إضافة الإعلان بنجاح: ' + title + '\nسيظهر الآن في الموقع الرسمي');
-                
-                // إعادة تعيين النموذج
-                this.reset();
-                
-                // زيادة عدد العقارات
-                statsData.activeProperties++;
-                document.getElementById('properties-count').textContent = statsData.activeProperties.toLocaleString();
-                
-                // زيادة عدد الزوار المتوقع بسبب الإعلان الجديد
-                statsData.visitors += Math.floor(Math.random() * 50) + 20;
-                document.getElementById('visitors-count').textContent = statsData.visitors.toLocaleString();
-            });
-            
-            // محاكاة تحديث الإحصائيات ببيانات حية
-            setInterval(function() {
-                // زيادة عشوائية في عدد الزوار
-                statsData.visitors += Math.floor(Math.random() * 10) + 1;
-                document.getElementById('visitors-count').textContent = statsData.visitors.toLocaleString();
-                
-                // تغيير طفيف في أداء الموقع
-                statsData.performance = 92 + Math.floor(Math.random() * 7);
-                document.getElementById('performance-value').textContent = statsData.performance + '%';
-                
-                // زيادة عدد الرسائل بشكل عشوائي
-                if (Math.random() > 0.7) {
-                    statsData.newMessages++;
-                    document.getElementById('messages-count').textContent = statsData.newMessages;
-                    
-                    // إضافة رسالة جديدة إلى القائمة
-                    const messagesList = document.querySelector('.message-list');
-                    const newMessage = document.createElement('li');
-                    newMessage.className = 'message-item';
-                    
-                    const names = ['يوسف', 'فاطمة', 'علي', 'سميرة', 'مصطفى'];
-                    const cities = ['الجزائر العاصمة', 'وهران', 'قسنطينة', 'عنابة', 'سطيف'];
-                    const messages = [
-                        'هل هذا العقار لا يزال متاحاً؟',
-                        'أرغب في ترتيب زيارة للعقار',
-                        'ما هو السعر النهائي للعقار؟',
-                        'هل يمكنني رؤية المزيد من الصور؟',
-                        'ما هي منطقة العقار بالتحديد؟'
-                    ];
-                    
-                    const name = names[Math.floor(Math.random() * names.length)];
-                    const city = cities[Math.floor(Math.random() * cities.length)];
-                    const message = messages[Math.floor(Math.random() * messages.length)];
-                    
-                    newMessage.innerHTML = `
-                        <div class="message-avatar">${name.charAt(0)}</div>
-                        <div class="message-content">
-                            <div class="message-sender">${name} من ${city}</div>
-                            <div class="message-preview">${message}</div>
-                            <div class="message-time">الآن</div>
-                        </div>
-                    `;
-                    
-                    messagesList.insertBefore(newMessage, messagesList.firstChild);
-                }
-            }, 10000);
-        });
-    </script>
-</body>
-</html>
+        // إعادة تعيين النموذج
+        this.reset();
+        
+        // إعادة تحميل الإعلانات
+        loadProperties();
+        loadStats();
+        
+        alert('تم إضافة الإعلان بنجاح وسيظهر في الموقع الرسمي');
+    });
+});
+
+// دالة لتحميل الإحصائيات
+function loadStats() {
+    // تحديث عدد الرسائل
+    const messages = JSON.parse(localStorage.getItem('property_messages')) || [];
+    statsData.newMessages = messages.length;
+    
+    // تحديث عدد العقارات
+    const properties = JSON.parse(localStorage.getItem('property_ads')) || [];
+    statsData.activeProperties = properties.length;
+    
+    // تحديث واجهة المستخدم
+    document.getElementById('visitors-count').textContent = statsData.visitors.toLocaleString();
+    document.getElementById('properties-count').textContent = statsData.activeProperties.toLocaleString();
+    document.getElementById('messages-count').textContent = statsData.newMessages.toLocaleString();
+    document.getElementById('performance-value').textContent = statsData.performance + '%';
+}
+
+// دالة لتحميل الرسائل
+function loadMessages() {
+    const messages = JSON.parse(localStorage.getItem('property_messages')) || [];
+    const messagesList = document.querySelector('.message-list');
+    
+    // مسح المحتوى الحالي
+    messagesList.innerHTML = '';
+    
+    // إضافة كل رسالة
+    messages.forEach((message, index) => {
+        const messageItem = `
+            <li class="message-item">
+                <div class="message-avatar">${message.name.charAt(0)}</div>
+                <div class="message-content">
+                    <div class="message-sender">${message.name} - ${message.phone || 'لا يوجد رقم'}</div>
+                    <div class="message-preview">${message.message}</div>
+                    <div class="message-time">${formatDate(message.timestamp)}</div>
+                    <button onclick="deleteMessage(${index})" style="margin-top: 10px; padding: 5px 10px; background: var(--accent-color); color: white; border: none; border-radius: 4px; cursor: pointer;">حذف</button>
+                </div>
+            </li>
+        `;
+        
+        messagesList.innerHTML += messageItem;
+    });
+    
+    // إذا لم توجد رسائل
+    if (messages.length === 0) {
+        messagesList.innerHTML = '<li style="padding: 20px; text-align: center;">لا توجد رسائل جديدة</li>';
+    }
+}
+
+// دالة لتحميل العقارات
+function loadProperties() {
+    const properties = JSON.parse(localStorage.getItem('property_ads')) || [];
+    const propertiesContainer = document.querySelector('.published-properties');
+    
+    // مسح المحتوى الحالي
+    propertiesContainer.innerHTML = '<div class="card-header"><h2>الإعلانات المنشورة</h2></div>';
+    
+    // إضافة كل عقار
+    properties.forEach((property, index) => {
+        const propertyItem = `
+            <div class="property-item">
+                <div class="property-image">
+                    <img src="${property.image}" alt="عقار">
+                </div>
+                <div class="property-details">
+                    <h4>${property.title}</h4>
+                    <p>${property.location} - ${property.price}</p>
+                    <p>نشر في: ${formatDate(property.timestamp)}</p>
+                    <button onclick="deleteProperty(${index})" style="margin-top: 10px; padding: 5px 10px; background: var(--accent-color); color: white; border: none; border-radius: 4px; cursor: pointer;">حذف الإعلان</button>
+                </div>
+            </div>
+        `;
+        
+        propertiesContainer.innerHTML += propertyItem;
+    });
+    
+    // إذا لم توجد عقارات
+    if (properties.length === 0) {
+        propertiesContainer.innerHTML += '<div style="padding: 20px; text-align: center;">لا توجد إعلانات منشورة</div>';
+    }
+}
+
+// دالة لحفظ العقار
+function saveProperty(property) {
+    // الحصول على العقارات الحالية من localStorage
+    let properties = JSON.parse(localStorage.getItem('property_ads')) || [];
+    
+    // إضافة العقار الجديد
+    properties.push(property);
+    
+    // حفظ العقارات في localStorage
+    localStorage.setItem('property_ads', JSON.stringify(properties));
+}
+
+// دالة لحذف الرسالة
+function deleteMessage(index) {
+    // الحصول على الرسائل الحالية من localStorage
+    let messages = JSON.parse(localStorage.getItem('property_messages')) || [];
+    
+    // حذف الرسالة
+    messages.splice(index, 1);
+    
+    // حفظ الرسائل في localStorage
+    localStorage.setItem('property_messages', JSON.stringify(messages));
+    
+    // إعادة تحميل الرسائل
+    loadMessages();
+    loadStats();
+}
+
+// دالة لحذف العقار
+function deleteProperty(index) {
+    // الحصول على العقارات الحالية من localStorage
+    let properties = JSON.parse(localStorage.getItem('property_ads')) || [];
+    
+    // حذف العقار
+    properties.splice(index, 1);
+    
+    // حفظ العقارات في localStorage
+    localStorage.setItem('property_ads', JSON.stringify(properties));
+    
+    // إعادة تحميل العقارات
+    loadProperties();
+    loadStats();
+}
+
+// دالة لتنسيق التاريخ
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ar-EG', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
+</script>
