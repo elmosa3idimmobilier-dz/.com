@@ -27,7 +27,129 @@
             box-sizing: border-box;
             font-family: 'Tajawal', sans-serif;
         }
+        <script>
+// دالة لإرسال رسالة الاتصال
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // جمع بيانات النموذج
+    const formData = {
+        name: document.querySelector('#contactForm input[type="text"]').value,
+        email: document.querySelector('#contactForm input[type="email"]').value,
+        phone: document.querySelector('#contactForm input[type="tel"]').value,
+        message: document.querySelector('#contactForm textarea').value,
+        timestamp: new Date().toISOString()
+    };
+    
+    // حفظ الرسالة في localStorage
+    saveMessage(formData);
+    
+    // إظهار رسالة نجاح
+    alert('شكراً لتواصلك معنا! سنرد عليك في أقرب وقت ممكن.');
+    
+    // إعادة تعيين النموذج
+    this.reset();
+});
+
+// دالة لحفظ الرسالة
+function saveMessage(message) {
+    // الحصول على الرسائل الحالية من localStorage
+    let messages = JSON.parse(localStorage.getItem('property_messages')) || [];
+    
+    // إضافة الرسالة الجديدة
+    messages.push(message);
+    
+    // حفظ الرسائل في localStorage
+    localStorage.setItem('property_messages', JSON.stringify(messages));
+}
+
+// دالة لتحميل العقارات من localStorage
+function loadProperties() {
+    const properties = JSON.parse(localStorage.getItem('property_ads')) || [];
+    
+    // إذا لم توجد عقارات، استخدم البيانات الافتراضية
+    if (properties.length === 0) {
+        return [
+            {
+                title: "فيلا كولونيال للبيع",
+                description: "فيلا كولونيال قابلة للهدم للبيع دوبل فصاد بمساحة 5000 م بوسط بلدية بني مراد بالقرب من مسجد بلال وسط المدينة",
+                price: "800,000,000 د.ج",
+                image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                area: "5000 م²",
+                location: "بني مراد",
+                type: "عرض خاص"
+            },
+            {
+                title: "شقة ف3 - بني مراد",
+                description: "شقة ف3 ببلدية بني مراد في حي ديار البحري في الطابق الرابع، الوثائق عقد الملكية والدفتر العقاري",
+                price: "750,000,000 د.ج",
+                image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                area: "3 غرف",
+                location: "ديار البحري",
+                type: "جديد"
+            },
+            {
+                title: "كركاسة - بني مراد",
+                description: "كركاسة في نيفو فيلا في بلدية بني مراد الطابق الثالث، الدخلة تاعها تبدا وحدها من الطابق الاول المساحة الاجمالية 120 متر مربع",
+                price: "850,000,000 د.ج",
+                image: "https://images.unsplash.com/photo-1600566753052-dc5dcdc6f6da?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                area: "120 م²",
+                location: "بني مراد",
+                type: "فرصة"
+            }
+        ];
+    }
+    
+    return properties;
+}
+
+// دالة لعرض العقارات
+function displayProperties() {
+    const properties = loadProperties();
+    const propertiesGrid = document.querySelector('.services-grid');
+    
+    // مسح المحتوى الحالي
+    propertiesGrid.innerHTML = '';
+    
+    // إضافة كل عقار
+    properties.forEach(property => {
+        const propertyCard = `
+            <div class="service-card">
+                <div class="service-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${property.image}'); background-size: cover;">
+                    <div class="service-badge">${property.type}</div>
+                </div>
+                <div class="service-content">
+                    <h3>${property.title}</h3>
+                    <p>${property.description}</p>
+                    <div class="service-price">${property.price}</div>
+                    <div class="service-meta">
+                        <span><i class="fas fa-vector-square"></i> ${property.area}</span>
+                        <span><i class="fas fa-map-marker-alt"></i> ${property.location}</span>
+                    </div>
+                    <a href="#contact" class="service-btn">اطلب الاستشارة</a>
+                </div>
+            </div>
+        `;
         
+        propertiesGrid.innerHTML += propertyCard;
+    });
+}
+
+// تحميل العقارات عند فتح الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    displayProperties();
+    
+    // تحديث عداد الزوار
+    updateVisitorCount();
+});
+
+// دالة لتحديث عداد الزوار
+function updateVisitorCount() {
+    let visitors = parseInt(localStorage.getItem('property_visitors')) || 0;
+    visitors++;
+    localStorage.setItem('property_visitors', visitors);
+}
+</script>
         body {
             color: var(--text-color);
             background-color: var(--white);
