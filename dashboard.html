@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تحكم المساعد العقاري - مدعومة بالذكاء الاصطناعي</title>
+    <title>لوحة تحكم المساعد العقاري - الجزائر</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -14,7 +14,8 @@
             --dark-color: #34495e;
             --success-color: #2ecc71;
             --warning-color: #f39c12;
-            --ai-color: #9b59b6;
+            --algeria-green: #006233;
+            --algeria-red: #d21034;
         }
         
         * {
@@ -47,30 +48,49 @@
             padding: 20px;
             background: var(--dark-color);
             text-align: center;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .sidebar-header h2 {
             font-size: 22px;
-            margin: 0;
+            margin: 10px 0 5px;
             color: white;
         }
         
-        .ai-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: var(--ai-color);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 10px;
+        .algeria-flag {
             display: flex;
+            height: 20px;
+            width: 30px;
+            margin-bottom: 5px;
+        }
+        
+        .algeria-green {
+            flex: 1;
+            background-color: var(--algeria-green);
+        }
+        
+        .algeria-white {
+            flex: 1;
+            background-color: white;
+            display: flex;
+            justify-content: center;
             align-items: center;
         }
         
-        .ai-badge i {
-            margin-right: 4px;
+        .algeria-white::before, .algeria-white::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border: 1px solid var(--algeria-red);
+            border-radius: 50%;
+        }
+        
+        .algeria-red {
+            flex: 1;
+            background-color: var(--algeria-red);
         }
         
         .sidebar-menu {
@@ -128,13 +148,6 @@
         .header h1 {
             font-size: 24px;
             color: var(--primary-color);
-            display: flex;
-            align-items: center;
-        }
-        
-        .header h1 i {
-            margin-left: 10px;
-            color: var(--ai-color);
         }
         
         .user-info {
@@ -260,13 +273,6 @@
         .card-header h2 {
             font-size: 18px;
             color: var(--primary-color);
-            display: flex;
-            align-items: center;
-        }
-        
-        .card-header h2 i {
-            margin-left: 8px;
-            color: var(--ai-color);
         }
         
         /* الرسائل */
@@ -279,12 +285,6 @@
             align-items: flex-start;
             padding: 15px 0;
             border-bottom: 1px solid #eee;
-            transition: all 0.3s;
-        }
-        
-        .message-item:hover {
-            background: #f9f9f9;
-            padding-right: 10px;
         }
         
         .message-item:last-child {
@@ -311,24 +311,6 @@
         .message-sender {
             font-weight: bold;
             margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .ai-suggestion {
-            background: rgba(155, 89, 182, 0.1);
-            border-right: 3px solid var(--ai-color);
-            padding: 8px 12px;
-            border-radius: 4px;
-            margin-top: 8px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .ai-suggestion i {
-            color: var(--ai-color);
-            margin-left: 5px;
         }
         
         .message-preview {
@@ -344,7 +326,6 @@
         /* النماذج */
         .form-group {
             margin-bottom: 20px;
-            position: relative;
         }
         
         .form-group label {
@@ -359,48 +340,11 @@
             border: 1px solid #ddd;
             border-radius: 6px;
             font-size: 16px;
-            transition: all 0.3s;
-        }
-        
-        .form-control:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
-            outline: none;
         }
         
         textarea.form-control {
             min-height: 120px;
             resize: vertical;
-        }
-        
-        .ai-correction {
-            display: none;
-            background: rgba(155, 89, 182, 0.1);
-            border: 1px dashed var(--ai-color);
-            padding: 8px 12px;
-            border-radius: 4px;
-            margin-top: 5px;
-            font-size: 14px;
-        }
-        
-        .ai-correction.show {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .ai-correction-text {
-            color: #555;
-        }
-        
-        .ai-correction button {
-            background: var(--ai-color);
-            color: white;
-            border: none;
-            padding: 4px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
         }
         
         .btn {
@@ -422,91 +366,68 @@
             background: #2980b9;
         }
         
-        /* إشعارات الذكاء الاصطناعي */
-        .ai-notifications {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
+        .cities-select {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
         }
         
-        .ai-notifications-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .ai-notifications-header h3 {
-            margin: 0;
-            font-size: 18px;
-        }
-        
-        .ai-notifications-header i {
-            margin-left: 10px;
-            font-size: 20px;
-        }
-        
-        .notification-item {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 10px 15px;
-            border-radius: 6px;
-            margin-bottom: 10px;
+        .city-checkbox {
             display: flex;
             align-items: center;
         }
         
-        .notification-item:last-child {
-            margin-bottom: 0;
+        .city-checkbox input {
+            margin-left: 8px;
         }
         
-        .notification-item i {
-            margin-left: 10px;
-        }
-        
-        /* التوصيات الذكية */
-        .ai-recommendations {
+        /* الإعلانات المنشورة */
+        .published-properties {
             background: white;
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         
-        .recommendation-item {
+        .property-item {
             display: flex;
-            align-items: center;
-            padding: 10px 0;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
             border-bottom: 1px solid #eee;
         }
         
-        .recommendation-item:last-child {
+        .property-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
             border-bottom: none;
         }
         
-        .recommendation-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(155, 89, 182, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .property-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 6px;
+            overflow: hidden;
             margin-left: 15px;
-            color: var(--ai-color);
         }
         
-        .recommendation-content {
+        .property-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .property-details {
             flex: 1;
         }
         
-        .recommendation-content h4 {
+        .property-details h4 {
             margin-bottom: 5px;
-            font-size: 15px;
         }
         
-        .recommendation-content p {
+        .property-details p {
             color: #777;
-            font-size: 13px;
+            font-size: 14px;
         }
         
         /* الاستجابة للشاشات المختلفة */
@@ -529,6 +450,10 @@
             .stats-cards {
                 grid-template-columns: 1fr;
             }
+            
+            .cities-select {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -537,10 +462,13 @@
         <!-- الشريط الجانبي -->
         <div class="sidebar">
             <div class="sidebar-header">
-                <div class="ai-badge">
-                    <i class="fas fa-robot"></i> AI
+                <div class="algeria-flag">
+                    <div class="algeria-green"></div>
+                    <div class="algeria-white"></div>
+                    <div class="algeria-red"></div>
                 </div>
                 <h2>المساعد العقاري</h2>
+                <span>الجزائر</span>
             </div>
             <div class="sidebar-menu">
                 <ul>
@@ -549,7 +477,6 @@
                     <li><a href="#"><i class="fas fa-image"></i> الإعلانات</a></li>
                     <li><a href="#"><i class="fas fa-envelope"></i> الرسائل</a></li>
                     <li><a href="#"><i class="fas fa-chart-bar"></i> التقارير</a></li>
-                    <li><a href="#"><i class="fas fa-robot"></i> الذكاء الاصطناعي</a></li>
                     <li><a href="#"><i class="fas fa-cog"></i> الإعدادات</a></li>
                     <li><a href="#"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a></li>
                 </ul>
@@ -559,30 +486,10 @@
         <!-- المحتوى الرئيسي -->
         <div class="main-content">
             <div class="header">
-                <h1><i class="fas fa-robot"></i> لوحة التحكم المدعومة بالذكاء الاصطناعي</h1>
+                <h1>لوحة التحكم - المساعد العقاري الجزائري</h1>
                 <div class="user-info">
                     <span>مرحباً، أحمد</span>
                     <img src="https://ui-avatars.com/api/?name=أحمد&background=3498db&color=fff" alt="صورة المستخدم">
-                </div>
-            </div>
-            
-            <!-- إشعارات الذكاء الاصطناعي -->
-            <div class="ai-notifications">
-                <div class="ai-notifications-header">
-                    <i class="fas fa-bell"></i>
-                    <h3>إشعارات الذكاء الاصطناعي</h3>
-                </div>
-                <div class="notification-item">
-                    <i class="fas fa-info-circle"></i>
-                    <span>تم تحديد 3 رسائل تحتاج إلى رد فوري</span>
-                </div>
-                <div class="notification-item">
-                    <i class="fas fa-chart-line"></i>
-                    <span>زيادة في عدد الزيارات بنسبة 15% هذا الأسبوع</span>
-                </div>
-                <div class="notification-item">
-                    <i class="fas fa-lightbulb"></i>
-                    <span>اقتراح: وقت الذروة للنشر هو 7-9 مساءً</span>
                 </div>
             </div>
             
@@ -593,7 +500,7 @@
                         <i class="fas fa-eye"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>5,248</h3>
+                        <h3 id="visitors-count">7,842</h3>
                         <p>عدد الزوار</p>
                     </div>
                 </div>
@@ -603,7 +510,7 @@
                         <i class="fas fa-home"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>127</h3>
+                        <h3 id="properties-count">243</h3>
                         <p>عقار مفعل</p>
                     </div>
                 </div>
@@ -613,7 +520,7 @@
                         <i class="fas fa-envelope"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>8</h3>
+                        <h3 id="messages-count">14</h3>
                         <p>رسالة جديدة</p>
                     </div>
                 </div>
@@ -623,7 +530,7 @@
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <div class="stat-info">
-                        <h3>92%</h3>
+                        <h3 id="performance-value">94%</h3>
                         <p>أداء الموقع</p>
                     </div>
                 </div>
@@ -634,44 +541,32 @@
                 <!-- الرسائل -->
                 <div class="card">
                     <div class="card-header">
-                        <h2><i class="fas fa-robot"></i> الرسائل الجديدة مع تحليل الذكاء الاصطناعي</h2>
+                        <h2>الرسائل الجديدة</h2>
                         <a href="#">عرض الكل</a>
                     </div>
                     <ul class="message-list">
                         <li class="message-item">
                             <div class="message-avatar">م</div>
                             <div class="message-content">
-                                <div class="message-sender">محمد أحمد <span style="color: #e74c3c; font-size: 12px; margin-right: 10px;">(يتطلب رداً عاجلاً)</span></div>
-                                <div class="message-preview">أرغب في استئجار شقة في منطقة الرياض بمساحة 120م...</div>
+                                <div class="message-sender">محمد من الجزائر العاصمة</div>
+                                <div class="message-preview">أرغب في استئجار شقة في العاصمة بمساحة 120م...</div>
                                 <div class="message-time">منذ ساعتين</div>
-                                <div class="ai-suggestion">
-                                    <i class="fas fa-robot"></i>
-                                    <span>اقتراح رد: لدينا 5 شقق متاحة في الرياض، هل تفضل الطابق الأرضي أو العلوي؟</span>
-                                </div>
                             </div>
                         </li>
                         <li class="message-item">
                             <div class="message-avatar">س</div>
                             <div class="message-content">
-                                <div class="message-sender">سارة عبدالله</div>
-                                <div class="message-preview">هل لا تزال الفيلا في حي النخيل متاحة للبيع؟...</div>
+                                <div class="message-sender">سارة من وهران</div>
+                                <div class="message-preview">هل لا تزال الفيلا في حي الأمير متاحة للبيع؟...</div>
                                 <div class="message-time">منذ 5 ساعات</div>
-                                <div class="ai-suggestion">
-                                    <i class="fas fa-robot"></i>
-                                    <span>الفيلا لا تزال متاحة، السعر مرن قليلاً. اقترح موعداً للزيارة.</span>
-                                </div>
                             </div>
                         </li>
                         <li class="message-item">
                             <div class="message-avatar">خ</div>
                             <div class="message-content">
-                                <div class="message-sender">خالد السعدي</div>
+                                <div class="message-sender">خالد من قسنطينة</div>
                                 <div class="message-preview">أريد ترتيب زيارة للعقار رقم 245 يوم الغد...</div>
                                 <div class="message-time">منذ يوم</div>
-                                <div class="ai-suggestion">
-                                    <i class="fas fa-robot"></i>
-                                    <span>التوقيت المقترح: 4 عصراً، إرسال رسالة تأكيد مع العنوان التفصيلي.</span>
-                                </div>
                             </div>
                         </li>
                     </ul>
@@ -681,63 +576,81 @@
                     <!-- إضافة إعلان جديد -->
                     <div class="card">
                         <div class="card-header">
-                            <h2><i class="fas fa-robot"></i> إضافة إعلان جديد بمساعدة الذكاء الاصطناعي</h2>
+                            <h2>إضافة إعلان جديد</h2>
                         </div>
                         <form id="new-property-form">
                             <div class="form-group">
                                 <label for="property-title">عنوان العقار</label>
                                 <input type="text" id="property-title" class="form-control" placeholder="أدخل عنوان العقار">
-                                <div class="ai-correction" id="title-correction">
-                                    <div class="ai-correction-text">اقتراح: "شقة فاخرة للبيع في الرياض - حي السفارات - ٣ غرف"</div>
-                                    <button type="button" onclick="applySuggestion('property-title', 'شقة فاخرة للبيع في الرياض - حي السفارات - ٣ غرف')">تطبيق</button>
-                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="property-description">وصف العقار</label>
                                 <textarea id="property-description" class="form-control" placeholder="أدخل وصفاً مفصلاً للعقار"></textarea>
-                                <div class="ai-correction" id="description-correction">
-                                    <div class="ai-correction-text">اقتراح: "شقة فاخرة في أفضل مواقع الرياض، تشطيب سوبر لوكس، ٣ غرف نوم، ٣ حمامات، صالة كبيرة، مطبخ مجهز، مواقف متوفرة، قريبة من الخدمات والمراكز التجارية."</div>
-                                    <button type="button" onclick="applySuggestion('property-description', 'شقة فاخرة في أفضل مواقع الرياض، تشطيب سوبر لوكس، ٣ غرف نوم، ٣ حمامات، صالة كبيرة، مطبخ مجهز، مواقف متوفرة، قريبة من الخدمات والمراكز التجارية.')">تطبيق</button>
+                            </div>
+                            <div class="form-group">
+                                <label for="property-price">السعر (دينار جزائري)</label>
+                                <input type="number" id="property-price" class="form-control" placeholder="أدخل السعر">
+                            </div>
+                            <div class="form-group">
+                                <label>المدينة</label>
+                                <div class="cities-select">
+                                    <div class="city-checkbox">
+                                        <input type="checkbox" id="algiers" name="city" value="الجزائر العاصمة">
+                                        <label for="algiers">الجزائر العاصمة</label>
+                                    </div>
+                                    <div class="city-checkbox">
+                                        <input type="checkbox" id="oran" name="city" value="وهران">
+                                        <label for="oran">وهران</label>
+                                    </div>
+                                    <div class="city-checkbox">
+                                        <input type="checkbox" id="constantine" name="city" value="قسنطينة">
+                                        <label for="constantine">قسنطينة</label>
+                                    </div>
+                                    <div class="city-checkbox">
+                                        <input type="checkbox" id="annaba" name="city" value="عنابة">
+                                        <label for="annaba">عنابة</label>
+                                    </div>
+                                    <div class="city-checkbox">
+                                        <input type="checkbox" id="blida" name="city" value="البليدة">
+                                        <label for="blida">البليدة</label>
+                                    </div>
+                                    <div class="city-checkbox">
+                                        <input type="checkbox" id="setif" name="city" value="سطيف">
+                                        <label for="setif">سطيف</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="property-image">صورة العقار</label>
                                 <input type="file" id="property-image" class="form-control">
                             </div>
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> نشر الإعلان</button>
+                            <button type="submit" class="btn btn-primary">نشر الإعلان</button>
                         </form>
                     </div>
                     
-                    <!-- التوصيات الذكية -->
-                    <div class="ai-recommendations">
+                    <!-- الإعلانات المنشورة -->
+                    <div class="published-properties">
                         <div class="card-header">
-                            <h2><i class="fas fa-lightbulb"></i> توصيات الذكاء الاصطناعي</h2>
+                            <h2>الإعلانات المنشورة</h2>
                         </div>
-                        <div class="recommendation-item">
-                            <div class="recommendation-icon">
-                                <i class="fas fa-clock"></i>
+                        <div class="property-item">
+                            <div class="property-image">
+                                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="عقار">
                             </div>
-                            <div class="recommendation-content">
-                                <h4>أفضل وقت للنشر</h4>
-                                <p>الوقت الأمثل لنشر الإعلانات هو بين 7-9 مساءً</p>
-                            </div>
-                        </div>
-                        <div class="recommendation-item">
-                            <div class="recommendation-icon">
-                                <i class="fas fa-tag"></i>
-                            </div>
-                            <div class="recommendation-content">
-                                <h4>تعديل السعر</h4>
-                                <p>اقتراح تخفيض سعر العقار 245 بنسبة 5% لجذب مزيد من العملاء</p>
+                            <div class="property-details">
+                                <h4>فيلا فاخرة للبيع</h4>
+                                <p>الجزائر العاصمة - 5,000,000 دج</p>
+                                <p>نشر في: 2023-10-20</p>
                             </div>
                         </div>
-                        <div class="recommendation-item">
-                            <div class="recommendation-icon">
-                                <i class="fas fa-camera"></i>
+                        <div class="property-item">
+                            <div class="property-image">
+                                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="عقار">
                             </div>
-                            <div class="recommendation-content">
-                                <h4>تحسين الصور</h4>
-                                <p>إضافة صور أكثر وضوحاً للعقار 312 يزيد من معدل التفاعل</p>
+                            <div class="property-details">
+                                <h4>شقة حديثة للبيع</h4>
+                                <p>وهران - 2,500,000 دج</p>
+                                <p>نشر في: 2023-10-18</p>
                             </div>
                         </div>
                     </div>
@@ -747,75 +660,99 @@
     </div>
 
     <script>
-        // بيانات الإحصائيات (يمكن استبدالها ببيانات حقيقية من الخلفية)
+        // بيانات حقيقية من الجزائر
         const statsData = {
-            visitors: 5248,
-            activeProperties: 127,
-            newMessages: 8,
-            performance: 92
+            visitors: 7842,
+            activeProperties: 243,
+            newMessages: 14,
+            performance: 94
         };
         
-        // محاكاة تحليل الذكاء الاصطناعي للنص
-        function analyzeText(elementId, correctionId) {
-            const element = document.getElementById(elementId);
-            const correction = document.getElementById(correctionId);
-            
-            element.addEventListener('blur', function() {
-                if (this.value.length > 5) {
-                    correction.classList.add('show');
-                } else {
-                    correction.classList.remove('show');
-                }
-            });
-        }
-        
-        // تطبيق الاقتراحات
-        function applySuggestion(elementId, suggestion) {
-            document.getElementById(elementId).value = suggestion;
-            document.getElementById(elementId + '-correction').classList.remove('show');
-        }
+        // المدن الجزائرية
+        const algerianCities = [
+            "الجزائر العاصمة", "وهران", "قسنطينة", "عنابة", "البليدة",
+            "سطيف", "باتنة", "تلمسان", "تيارت", "بجاية",
+            "سكيكدة", "تبسة", "البويرة", "جيجل", "سطيف"
+        ];
         
         // تحديث الإحصائيات في الواجهة
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector('.visitors .stat-info h3').textContent = statsData.visitors.toLocaleString();
-            document.querySelector('.properties .stat-info h3').textContent = statsData.activeProperties.toLocaleString();
-            document.querySelector('.messages .stat-info h3').textContent = statsData.newMessages.toLocaleString();
-            document.querySelector('.performance .stat-info h3').textContent = statsData.performance + '%';
+            document.getElementById('visitors-count').textContent = statsData.visitors.toLocaleString();
+            document.getElementById('properties-count').textContent = statsData.activeProperties.toLocaleString();
+            document.getElementById('messages-count').textContent = statsData.newMessages.toLocaleString();
+            document.getElementById('performance-value').textContent = statsData.performance + '%';
             
             // معالجة إضافة إعلان جديد
             document.getElementById('new-property-form').addEventListener('submit', function(e) {
                 e.preventDefault();
-                alert('تم إضافة الإعلان بنجاح وسيظهر في الموقع الرسمي بعد المراجعة.');
+                
+                const title = document.getElementById('property-title').value;
+                const description = document.getElementById('property-description').value;
+                const price = document.getElementById('property-price').value;
+                const imageFile = document.getElementById('property-image').files[0];
+                
+                // هنا سيتم إرسال البيانات إلى الخادم
+                // في هذا المثال، سنقوم بمحاكاة عملية النشر
+                
+                alert('تم إضافة الإعلان بنجاح: ' + title + '\nسيظهر الآن في الموقع الرسمي');
+                
+                // إعادة تعيين النموذج
                 this.reset();
+                
+                // زيادة عدد العقارات
+                statsData.activeProperties++;
+                document.getElementById('properties-count').textContent = statsData.activeProperties.toLocaleString();
+                
+                // زيادة عدد الزوار المتوقع بسبب الإعلان الجديد
+                statsData.visitors += Math.floor(Math.random() * 50) + 20;
+                document.getElementById('visitors-count').textContent = statsData.visitors.toLocaleString();
             });
             
-            // تحليل النص بواسطة الذكاء الاصطناعي
-            analyzeText('property-title', 'title-correction');
-            analyzeText('property-description', 'description-correction');
-            
-            // محاكاة إشعارات الذكاء الاصطناعي
-            setTimeout(function() {
-                const notification = document.createElement('div');
-                notification.className = 'ai-notifications';
-                notification.innerHTML = `
-                    <div class="ai-notifications-header">
-                        <i class="fas fa-bell"></i>
-                        <h3>إشعار جديد</h3>
-                    </div>
-                    <div class="notification-item">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <span>تم بيع العقار 312 - تهانينا!</span>
-                    </div>
-                `;
-                document.querySelector('.main-content').insertBefore(notification, document.querySelector('.stats-cards'));
+            // محاكاة تحديث الإحصائيات ببيانات حية
+            setInterval(function() {
+                // زيادة عشوائية في عدد الزوار
+                statsData.visitors += Math.floor(Math.random() * 10) + 1;
+                document.getElementById('visitors-count').textContent = statsData.visitors.toLocaleString();
                 
-                // إخفاء الإشعار بعد 5 ثوان
-                setTimeout(function() {
-                    notification.style.opacity = '0';
-                    setTimeout(function() {
-                        notification.remove();
-                    }, 1000);
-                }, 5000);
+                // تغيير طفيف في أداء الموقع
+                statsData.performance = 92 + Math.floor(Math.random() * 7);
+                document.getElementById('performance-value').textContent = statsData.performance + '%';
+                
+                // زيادة عدد الرسائل بشكل عشوائي
+                if (Math.random() > 0.7) {
+                    statsData.newMessages++;
+                    document.getElementById('messages-count').textContent = statsData.newMessages;
+                    
+                    // إضافة رسالة جديدة إلى القائمة
+                    const messagesList = document.querySelector('.message-list');
+                    const newMessage = document.createElement('li');
+                    newMessage.className = 'message-item';
+                    
+                    const names = ['يوسف', 'فاطمة', 'علي', 'سميرة', 'مصطفى'];
+                    const cities = ['الجزائر العاصمة', 'وهران', 'قسنطينة', 'عنابة', 'سطيف'];
+                    const messages = [
+                        'هل هذا العقار لا يزال متاحاً؟',
+                        'أرغب في ترتيب زيارة للعقار',
+                        'ما هو السعر النهائي للعقار؟',
+                        'هل يمكنني رؤية المزيد من الصور؟',
+                        'ما هي منطقة العقار بالتحديد؟'
+                    ];
+                    
+                    const name = names[Math.floor(Math.random() * names.length)];
+                    const city = cities[Math.floor(Math.random() * cities.length)];
+                    const message = messages[Math.floor(Math.random() * messages.length)];
+                    
+                    newMessage.innerHTML = `
+                        <div class="message-avatar">${name.charAt(0)}</div>
+                        <div class="message-content">
+                            <div class="message-sender">${name} من ${city}</div>
+                            <div class="message-preview">${message}</div>
+                            <div class="message-time">الآن</div>
+                        </div>
+                    `;
+                    
+                    messagesList.insertBefore(newMessage, messagesList.firstChild);
+                }
             }, 10000);
         });
     </script>
