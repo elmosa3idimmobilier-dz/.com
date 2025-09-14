@@ -119,7 +119,7 @@
             transform: translateY(-3px);
         }
         
-        /* شريط الأخبار المتداول */
+        /* شريط الأخبار المتداول - تم التعديل */
         .news-ticker {
             background-color: rgba(255, 82, 82, 0.9);
             color: var(--white);
@@ -143,9 +143,10 @@
         }
         
         .ticker-content {
-            animation: tickerAnimation 40s linear infinite;
+            animation: tickerAnimation 60s linear infinite;
             display: inline-block;
             padding-left: 100%;
+            white-space: nowrap;
         }
         
         @keyframes tickerAnimation {
@@ -414,6 +415,7 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            cursor: pointer;
         }
         
         .feature-box:before {
@@ -769,7 +771,7 @@
         .admin-btn {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, var(--main-color), var(--secondary-color);
+            background: linear-gradient(135deg, var(--main-color), var(--secondary-color));
             color: white;
             border-radius: 50%;
             display: flex;
@@ -784,6 +786,43 @@
         .admin-btn:hover {
             transform: scale(1.1);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* نافذة المحتوى */
+        .content-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent-color);
         }
         
         /* responsive design */
@@ -887,6 +926,11 @@
                 height: 40px;
                 font-size: 16px;
             }
+            
+            .modal-content {
+                padding: 20px;
+                margin: 10% auto;
+            }
         }
     </style>
 </head>
@@ -915,7 +959,7 @@
         </div>
     </div>
 
-    <!-- شريط الأخبار المتداول -->
+    <!-- شريط الأخبار المتداول - تم التعديل -->
     <div class="news-ticker">
         <div class="container">
             <div class="ticker-container">
@@ -948,13 +992,13 @@
             </ul>
             
             <div class="header-icons">
-                <a href="#">
+                <a href="#" class="icon-link" data-content="search">
                     <i class="fas fa-search"></i>
                 </a>
-                <a href="#">
+                <a href="#" class="icon-link" data-content="user">
                     <i class="fas fa-user"></i>
                 </a>
-                <a href="#">
+                <a href="#" class="icon-link" data-content="cart">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-count">0</span>
                 </a>
@@ -993,19 +1037,19 @@
     <section class="features">
         <div class="container">
             <div class="section-title">
-                <h2>لماذا تختار المساعد العقاري?</h2>
+                <h2>لماذا تختار المساعد العقاري؟</h2>
             </div>
             
             <div class="features-grid">
-                <div class="feature-box">
+                <div class="feature-box" data-content="feature1">
                     <div class="feature-icon">
                         <i class="fas fa-home"></i>
                     </div>
                     <h3>عقارات متنوعة</h3>
-                    <p>مجموعة واسعة من عقارات لتناسب جميع الأذواق والميزانيات</p>
+                    <p>مجموعة واسعة من العقارات لتناسب جميع الأذواق والميزانيات</p>
                 </div>
                 
-                <div class="feature-box">
+                <div class="feature-box" data-content="feature2">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
@@ -1013,7 +1057,7 @@
                     <p>ضمان معاملات آمنة وموثوقة مع فريق من الخبراء</p>
                 </div>
                 
-                <div class="feature-box">
+                <div class="feature-box" data-content="feature3">
                     <div class="feature-icon">
                         <i class="fas fa-headset"></i>
                     </div>
@@ -1021,7 +1065,7 @@
                     <p>خدمة عملاء متاحة على مدار الساعة لمساعدتك في جميع استفساراتك</p>
                 </div>
                 
-                <div class="feature-box">
+                <div class="feature-box" data-content="feature4">
                     <div class="feature-icon">
                         <i class="fas fa-tag"></i>
                     </div>
@@ -1176,6 +1220,16 @@
                 <button type="submit" style="width: 100%; padding: 12px; background-color: var(--main-color); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 500;">تسجيل الدخول</button>
             </form>
             <button onclick="document.getElementById('loginModal').style.display='none'" style="margin-top: 15px; width: 100%; padding: 10px; background-color: #ccc; border: none; border-radius: 5px; cursor: pointer;">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- نافذة المحتوى -->
+    <div id="contentModal" class="content-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeContentModal()">&times;</span>
+            <div id="modal-body">
+                <!-- محتوى النافذة -->
+            </div>
         </div>
     </div>
 
@@ -1405,6 +1459,15 @@
                     document.getElementById('loginModal').style.display = 'none';
                 }
             });
+            
+            // إضافة أحداث النقر للأيقونات والمميزات
+            document.querySelectorAll('.icon-link, .feature-box').forEach(element => {
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const contentKey = this.getAttribute('data-content');
+                    showContent(contentKey);
+                });
+            });
         });
 
         // دالة لتحديث عداد الزوار
@@ -1413,6 +1476,121 @@
             visitors++;
             localStorage.setItem('property_visitors', visitors);
         }
+
+        // دالة لعرض المحتوى في النافذة
+        function showContent(contentKey) {
+            const modal = document.getElementById('contentModal');
+            const modalBody = document.getElementById('modal-body');
+            
+            let content = '';
+            
+            switch(contentKey) {
+                case 'search':
+                    content = `
+                        <h2>بحث متقدم</h2>
+                        <p>استخدم أدوات البحث المتقدم للعثور على العقار الذي تبحث عنه.</p>
+                        <div style="margin-top: 20px;">
+                            <input type="text" placeholder="كلمة البحث..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <button style="width: 100%; padding: 10px; background: var(--main-color); color: white; border: none; border-radius: 5px; margin-top: 10px; cursor: pointer;">بحث</button>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'user':
+                    content = `
+                        <h2>حساب المستخدم</h2>
+                        <p>سجل الدخول للوصول إلى الميزات الخاصة بك.</p>
+                        <div style="margin-top: 20px;">
+                            <input type="text" placeholder="اسم المستخدم" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 10px;">
+                            <input type="password" placeholder="كلمة المرور" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            <button style="width: 100%; padding: 10px; background: var(--main-color); color: white; border: none; border-radius: 5px; margin-top: 10px; cursor: pointer;">تسجيل الدخول</button>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'cart':
+                    content = `
+                        <h2>عربة التسوق</h2>
+                        <p>العقارات التي أضفتها إلى قائمة المفضلة.</p>
+                        <div style="margin-top: 20px; text-align: center;">
+                            <i class="fas fa-shopping-cart" style="font-size: 50px; color: #ddd;"></i>
+                            <p style="margin-top: 10px;">لا توجد عناصر في عربة التسوق</p>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'feature1':
+                    content = `
+                        <h2>عقارات متنوعة</h2>
+                        <p>نقدم مجموعة واسعة من العقارات تشمل:</p>
+                        <ul style="margin-top: 15px; padding-right: 20px;">
+                            <li>شقق سكنية بجميع المساحات</li>
+                            <li>فيلات فاخرة</li>
+                            <li>مكاتب تجارية</li>
+                            <li>محلات تجارية</li>
+                            <li>أراضي للبناء</li>
+                        </ul>
+                    `;
+                    break;
+                    
+                case 'feature2':
+                    content = `
+                        <h2>معاملات آمنة</h2>
+                        <p>نضمن لكم معاملات آمنة من خلال:</p>
+                        <ul style="margin-top: 15px; padding-right: 20px;">
+                            <li>عقود موثقة قانونياً</li>
+                            <li>فحص صحة الوثائق</li>
+                            <li>وساطة مالية آمنة</li>
+                            <li>استشارات قانونية مجانية</li>
+                        </ul>
+                    `;
+                    break;
+                    
+                case 'feature3':
+                    content = `
+                        <h2>دعم متواصل</h2>
+                        <p>خدمة العملاء متاحة لمساعدتكم على:</p>
+                        <ul style="margin-top: 15px; padding-right: 20px;">
+                            <li>الرد على استفساراتكم</li>
+                            <li>ترتيب زيارات العقارات</li>
+                            <li>تقديم الاستشارات المجانية</li>
+                            <li>المساعدة في إجراءات الشراء</li>
+                        </ul>
+                    `;
+                    break;
+                    
+                case 'feature4':
+                    content = `
+                        <h2>أسعار منافسة</h2>
+                        <p>نقدم لكم أفضل الأسعار من خلال:</p>
+                        <ul style="margin-top: 15px; padding-right: 20px;">
+                            <li>دراسة السوق بشكل مستمر</li>
+                            <li>علاقات قوية مع المالكين</li>
+                            <li>عروض خاصة وحصرية</li>
+                            <li>خيارات تمويل متنوعة</li>
+                        </ul>
+                    `;
+                    break;
+                    
+                default:
+                    content = `<h2>المحتوى</h2><p>اختر عنصراً لعرض محتواه.</p>`;
+            }
+            
+            modalBody.innerHTML = content;
+            modal.style.display = 'block';
+        }
+
+        // دالة لإغلاق نافذة المحتوى
+        function closeContentModal() {
+            document.getElementById('contentModal').style.display = 'none';
+        }
+
+        // إغلاق النافذة عند النقر خارجها
+        window.addEventListener('click', function(e) {
+            if (e.target == document.getElementById('contentModal')) {
+                closeContentModal();
+            }
+        });
     </script>
 </body>
 </html>
