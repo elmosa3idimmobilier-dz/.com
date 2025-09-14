@@ -16,7 +16,6 @@
             --warning-color: #f39c12;
             --algeria-green: #006233;
             --algeria-red: #d21034;
-            --ai-color: #9b59b6;
         }
         
         * {
@@ -52,24 +51,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
-        }
-        
-        .ai-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: var(--ai-color);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .ai-badge i {
-            margin-right: 4px;
         }
         
         .sidebar-header h2 {
@@ -167,13 +148,6 @@
         .header h1 {
             font-size: 24px;
             color: var(--primary-color);
-            display: flex;
-            align-items: center;
-        }
-        
-        .header h1 i {
-            margin-left: 10px;
-            color: var(--ai-color);
         }
         
         .user-info {
@@ -185,49 +159,6 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            margin-left: 10px;
-        }
-        
-        /* إشعارات الذكاء الاصطناعي */
-        .ai-notifications {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
-            display: none;
-        }
-        
-        .ai-notifications-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .ai-notifications-header h3 {
-            margin: 0;
-            font-size: 18px;
-        }
-        
-        .ai-notifications-header i {
-            margin-left: 10px;
-            font-size: 20px;
-        }
-        
-        .notification-item {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 10px 15px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .notification-item:last-child {
-            margin-bottom: 0;
-        }
-        
-        .notification-item i {
             margin-left: 10px;
         }
         
@@ -342,13 +273,6 @@
         .card-header h2 {
             font-size: 18px;
             color: var(--primary-color);
-            display: flex;
-            align-items: center;
-        }
-        
-        .card-header h2 i {
-            margin-left: 8px;
-            color: var(--ai-color);
         }
         
         /* الرسائل */
@@ -394,8 +318,6 @@
         .message-sender {
             font-weight: bold;
             margin-bottom: 5px;
-            display: flex;
-            align-items: center;
         }
         
         .message-preview {
@@ -407,22 +329,6 @@
         .message-time {
             color: #999;
             font-size: 12px;
-        }
-        
-        .ai-suggestion {
-            background: rgba(155, 89, 182, 0.1);
-            border-right: 3px solid var(--ai-color);
-            padding: 8px 12px;
-            border-radius: 4px;
-            margin-top: 8px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .ai-suggestion i {
-            color: var(--ai-color);
-            margin-left: 5px;
         }
         
         .delete-btn {
@@ -443,7 +349,6 @@
         /* النماذج */
         .form-group {
             margin-bottom: 20px;
-            position: relative;
         }
         
         .form-group label {
@@ -470,36 +375,6 @@
         textarea.form-control {
             min-height: 120px;
             resize: vertical;
-        }
-        
-        .ai-correction {
-            display: none;
-            background: rgba(155, 89, 182, 0.1);
-            border: 1px dashed var(--ai-color);
-            padding: 8px 12px;
-            border-radius: 4px;
-            margin-top: 5px;
-            font-size: 14px;
-        }
-        
-        .ai-correction.show {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .ai-correction-text {
-            color: #555;
-        }
-        
-        .ai-correction button {
-            background: var(--ai-color);
-            color: white;
-            border: none;
-            padding: 4px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
         }
         
         .btn {
@@ -537,8 +412,8 @@
             margin-left: 8px;
         }
         
-        /* التوصيات الذكية */
-        .ai-recommendations {
+        /* التوصيات */
+        .recommendations {
             background: white;
             border-radius: 8px;
             padding: 20px;
@@ -560,12 +435,12 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: rgba(155, 89, 182, 0.2);
+            background: rgba(52, 152, 219, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             margin-left: 15px;
-            color: var(--ai-color);
+            color: var(--secondary-color);
         }
         
         .recommendation-content {
@@ -663,9 +538,6 @@
         <!-- الشريط الجانبي -->
         <div class="sidebar">
             <div class="sidebar-header">
-                <div class="ai-badge">
-                    <i class="fas fa-robot"></i> AI
-                </div>
                 <div class="algeria-flag">
                     <div class="algeria-green"></div>
                     <div class="algeria-white"></div>
@@ -681,7 +553,6 @@
                     <li><a href="#"><i class="fas fa-image"></i> الإعلانات</a></li>
                     <li><a href="#"><i class="fas fa-envelope"></i> الرسائل</a></li>
                     <li><a href="#"><i class="fas fa-chart-bar"></i> التقارير</a></li>
-                    <li><a href="#"><i class="fas fa-robot"></i> الذكاء الاصطناعي</a></li>
                     <li><a href="#"><i class="fas fa-cog"></i> الإعدادات</a></li>
                     <li><a href="#"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a></li>
                 </ul>
@@ -691,30 +562,10 @@
         <!-- المحتوى الرئيسي -->
         <div class="main-content">
             <div class="header">
-                <h1><i class="fas fa-robot"></i> لوحة التحكم - المساعد العقاري الجزائري</h1>
+                <h1>لوحة التحكم - المساعد العقاري الجزائري</h1>
                 <div class="user-info">
                     <span>مرحباً، أحمد</span>
                     <img src="https://ui-avatars.com/api/?name=أحمد&background=3498db&color=fff" alt="صورة المستخدم">
-                </div>
-            </div>
-            
-            <!-- إشعارات الذكاء الاصطناعي -->
-            <div class="ai-notifications" id="aiNotifications">
-                <div class="ai-notifications-header">
-                    <i class="fas fa-bell"></i>
-                    <h3>إشعارات الذكاء الاصطناعي</h3>
-                </div>
-                <div class="notification-item">
-                    <i class="fas fa-info-circle"></i>
-                    <span>تم تحديد 3 رسائل تحتاج إلى رد فوري</span>
-                </div>
-                <div class="notification-item">
-                    <i class="fas fa-chart-line"></i>
-                    <span>زيادة في عدد الزيارات بنسبة 15% هذا الأسبوع</span>
-                </div>
-                <div class="notification-item">
-                    <i class="fas fa-lightbulb"></i>
-                    <span>اقتراح: وقت الذروة للنشر هو 7-9 مساءً</span>
                 </div>
             </div>
             
@@ -766,7 +617,7 @@
                 <!-- الرسائل -->
                 <div class="card">
                     <div class="card-header">
-                        <h2><i class="fas fa-robot"></i> الرسائل الجديدة مع تحليل الذكاء الاصطناعي</h2>
+                        <h2>الرسائل الجديدة</h2>
                         <a href="#">عرض الكل</a>
                     </div>
                     <ul class="message-list" id="messages-list">
@@ -778,24 +629,16 @@
                     <!-- إضافة إعلان جديد -->
                     <div class="card">
                         <div class="card-header">
-                            <h2><i class="fas fa-robot"></i> إضافة إعلان جديد بمساعدة الذكاء الاصطناعي</h2>
+                            <h2>إضافة إعلان جديد</h2>
                         </div>
                         <form id="new-property-form">
                             <div class="form-group">
                                 <label for="property-title">عنوان العقار</label>
                                 <input type="text" id="property-title" class="form-control" placeholder="أدخل عنوان العقار" required>
-                                <div class="ai-correction" id="title-correction">
-                                    <div class="ai-correction-text">اقتراح: "شقة فاخرة للبيع في الرياض - حي السفارات - ٣ غرف"</div>
-                                    <button type="button" onclick="applySuggestion('property-title', 'شقة فاخرة للبيع في الرياض - حي السفارات - ٣ غرف')">تطبيق</button>
-                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="property-description">وصف العقار</label>
                                 <textarea id="property-description" class="form-control" placeholder="أدخل وصفاً مفصلاً للعقار" required></textarea>
-                                <div class="ai-correction" id="description-correction">
-                                    <div class="ai-correction-text">اقتراح: "شقة فاخرة في أفضل مواقع الرياض، تشطيب سوبر لوكس، ٣ غرف نوم، ٣ حمامات، صالة كبيرة، مطبخ مجهز، مواقف متوفرة، قريبة من الخدمات والمراكز التجارية."</div>
-                                    <button type="button" onclick="applySuggestion('property-description', 'شقة فاخرة في أفضل مواقع الرياض، تشطيب سوبر لوكس، ٣ غرف نوم، ٣ حمامات، صالة كبيرة، مطبخ مجهز، مواقف متوفرة، قريبة من الخدمات والمراكز التجارية.')">تطبيق</button>
-                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="property-price">السعر (دينار جزائري)</label>
@@ -838,10 +681,10 @@
                         </form>
                     </div>
                     
-                    <!-- التوصيات الذكية -->
-                    <div class="ai-recommendations">
+                    <!-- التوصيات -->
+                    <div class="recommendations">
                         <div class="card-header">
-                            <h2><i class="fas fa-lightbulb"></i> توصيات الذكاء الاصطناعي</h2>
+                            <h2>توصيات</h2>
                         </div>
                         <div class="recommendation-item">
                             <div class="recommendation-icon">
@@ -930,19 +773,7 @@
                 // إعادة تحميل الإعلانات
                 loadProperties();
                 loadStats();
-                
-                // إشعار الذكاء الاصطناعي
-                showAINotification('تم إضافة الإعلان بنجاح! سيظهر الآن في الموقع الرسمي.');
             });
-            
-            // تحليل النص بواسطة الذكاء الاصطناعي
-            analyzeText('property-title', 'title-correction');
-            analyzeText('property-description', 'description-correction');
-            
-            // محاكاة إشعارات الذكاء الاصطناعي
-            setTimeout(function() {
-                document.getElementById('aiNotifications').style.display = 'block';
-            }, 2000);
         });
 
         // دالة لتحميل الإحصائيات
@@ -976,23 +807,12 @@
                     const messageItem = document.createElement('li');
                     messageItem.className = 'message-item';
                     
-                    // إنشاء اقتراحات الذكاء الاصطناعي بناءً على محتوى الرسالة
-                    let aiSuggestion = '';
-                    if (message.message && message.message.includes('شقة')) {
-                        aiSuggestion = '<div class="ai-suggestion"><i class="fas fa-robot"></i><span>اقتراح رد: لدينا مجموعة متنوعة من الشقق، هل تفضل شقة مفروشة أم غير مفروشة؟</span></div>';
-                    } else if (message.message && message.message.includes('سعر')) {
-                        aiSuggestion = '<div class="ai-suggestion"><i class="fas fa-robot"></i><span>اقتراح رد: الأسعار مرنة قليلاً حسب مواصفات العقار، هل يمكنك تحديد ميزانيتك؟</span></div>';
-                    } else if (message.message && message.message.includes('زيارة')) {
-                        aiSuggestion = '<div class="ai-suggestion"><i class="fas fa-robot"></i><span>اقتراح رد: يمكننا ترتيب زيارة في أي وقت يناسبك، ما هو الوقت المفضل لديك؟</span></div>';
-                    }
-                    
                     messageItem.innerHTML = `
                         <div class="message-avatar">${message.name ? message.name.charAt(0) : '?'}</div>
                         <div class="message-content">
-                            <div class="message-sender">${message.name || 'غير معروف'} - ${message.phone || 'لا يوجد رقم'} <span style="color: #e74c3c; font-size: 12px; margin-right: 10px;">(يتطلب رداً عاجلاً)</span></div>
+                            <div class="message-sender">${message.name || 'غير معروف'} - ${message.phone || 'لا يوجد رقم'}</div>
                             <div class="message-preview">${message.message || 'لا يوجد محتوى'}</div>
                             <div class="message-time">${formatDate(message.timestamp)}</div>
-                            ${aiSuggestion}
                             <button class="delete-btn" onclick="deleteMessage(${index})">حذف</button>
                         </div>
                     `;
@@ -1066,9 +886,6 @@
             // إعادة تحميل الرسائل
             loadMessages();
             loadStats();
-            
-            // إشعار الذكاء الاصطناعي
-            showAINotification('تم حذف الرسالة بنجاح.');
         }
 
         // دالة لحذف العقار (يجب أن تكون عامة)
@@ -1085,9 +902,6 @@
             // إعادة تحميل العقارات
             loadProperties();
             loadStats();
-            
-            // إشعار الذكاء الاصطناعي
-            showAINotification('تم حذف الإعلان بنجاح.');
         }
 
         // دالة لتنسيق التاريخ
@@ -1102,52 +916,6 @@
             } catch (e) {
                 return 'تاريخ غير معروف';
             }
-        }
-
-        // دالة لتطبيق اقتراحات الذكاء الاصطناعي
-        window.applySuggestion = function(elementId, suggestion) {
-            document.getElementById(elementId).value = suggestion;
-            document.getElementById(elementId + '-correction').classList.remove('show');
-        }
-
-        // دالة لتحليل النص بواسطة الذكاء الاصطناعي
-        function analyzeText(elementId, correctionId) {
-            const element = document.getElementById(elementId);
-            const correction = document.getElementById(correctionId);
-            
-            element.addEventListener('blur', function() {
-                if (this.value.length > 5) {
-                    correction.classList.add('show');
-                } else {
-                    correction.classList.remove('show');
-                }
-            });
-        }
-
-        // دالة لعرض إشعارات الذكاء الاصطناعي
-        function showAINotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'ai-notifications';
-            notification.innerHTML = `
-                <div class="ai-notifications-header">
-                    <i class="fas fa-bell"></i>
-                    <h3>إشعار الذكاء الاصطناعي</h3>
-                </div>
-                <div class="notification-item">
-                    <i class="fas fa-info-circle"></i>
-                    <span>${message}</span>
-                </div>
-            `;
-            
-            document.querySelector('.main-content').insertBefore(notification, document.querySelector('.stats-cards'));
-            
-            // إخفاء الإشعار بعد 10 ثوان
-            setTimeout(function() {
-                notification.style.opacity = '0';
-                setTimeout(function() {
-                    notification.remove();
-                }, 1000);
-            }, 5000);
         }
 
         // محاكاة تحديث الإحصائيات ببيانات حية
@@ -1189,9 +957,6 @@
                 
                 // إعادة تحميل الرسائل
                 loadMessages();
-                
-                // إشعار الذكاء الاصطناعي
-                showAINotification('رسالة جديدة من ' + newMessage.name + ' تحتاج إلى الرد');
             }
         }, 15000);
     </script>
