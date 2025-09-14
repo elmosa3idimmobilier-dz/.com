@@ -132,6 +132,7 @@
             display: flex;
             align-items: center;
             white-space: nowrap;
+            direction: rtl;
         }
         
         .ticker-label {
@@ -145,13 +146,13 @@
         .ticker-content {
             animation: tickerAnimation 60s linear infinite;
             display: inline-block;
-            padding-left: 100%;
+            padding-right: 100%;
             white-space: nowrap;
         }
         
         @keyframes tickerAnimation {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
         
         /* الترويسة الرئيسية */
@@ -501,6 +502,7 @@
             background-size: cover;
             background-position: center;
             position: relative;
+            cursor: pointer;
         }
         
         .service-badge {
@@ -825,6 +827,40 @@
             color: var(--accent-color);
         }
         
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        
+        .lightbox-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        
+        .close-lightbox {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        
         /* responsive design */
         @media (max-width: 992px) {
             .hero-content {
@@ -896,6 +932,10 @@
             .hero-btns {
                 flex-direction: column;
             }
+            
+            .service-image {
+                height: 180px;
+            }
         }
         
         @media (max-width: 576px) {
@@ -931,6 +971,10 @@
                 padding: 20px;
                 margin: 10% auto;
             }
+            
+            .service-image {
+                height: 160px;
+            }
         }
     </style>
 </head>
@@ -941,7 +985,7 @@
             <div class="header-contact-info">
                 <span>
                     <i class="fas fa-phone-alt"></i>
-                    0557421598
+                    <a href="tel:0557421598">0557421598</a>
                 </span>
                 <span>
                     <i class="fas fa-envelope"></i>
@@ -1014,6 +1058,14 @@
     <div class="admin-access">
         <div class="admin-btn" id="adminAccessBtn">
             <i class="fas fa-cog"></i>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="close-lightbox">&times;</span>
+        <div class="lightbox-content">
+            <img src="" alt="صورة العقار">
         </div>
     </div>
 
@@ -1104,7 +1156,7 @@
                     <div class="contact-details">
                         <div>
                             <i class="fas fa-phone"></i>
-                            <span>0557421598</span>
+                            <span><a href="tel:0557421598">0557421598</a></span>
                         </div>
                         <div>
                             <i class="fas fa-envelope"></i>
@@ -1191,7 +1243,7 @@
                 <div class="footer-col">
                     <h4>معلومات الاتصال</h4>
                     <ul>
-                        <li><i class="fas fa-phone"></i> 0557421598</li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:0557421598">0557421598</a></li>
                         <li><i class="fas fa-envelope"></i> elmosa3id.immobilier@gmail.com</li>
                         <li><i class="fas fa-map-marker-alt"></i> حي فتال اولاد يعيش البليدة</li>
                     </ul>
@@ -1321,7 +1373,7 @@
             properties.forEach(property => {
                 const propertyCard = `
                     <div class="service-card">
-                        <div class="service-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${property.image}'); background-size: cover;">
+                        <div class="service-image" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('${property.image}'); background-size: cover;" onclick="openLightbox('${property.image}')">
                             <div class="service-badge">${property.type}</div>
                         </div>
                         <div class="service-content">
@@ -1339,6 +1391,24 @@
                 
                 propertiesGrid.innerHTML += propertyCard;
             });
+        }
+
+        // دالة لتحديث عرض العقارات (لحل مشكلة اختفاء الصور)
+        function refreshPropertiesDisplay() {
+            displayProperties();
+        }
+
+        // دالة لفتح lightbox للصورة
+        function openLightbox(imageUrl) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = lightbox.querySelector('img');
+            lightboxImg.src = imageUrl;
+            lightbox.style.display = 'flex';
+        }
+
+        // دالة لإغلاق lightbox
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
         }
 
         // تحميل العقارات عند فتح الصفحة
@@ -1458,7 +1528,15 @@
                 if (e.target == document.getElementById('loginModal')) {
                     document.getElementById('loginModal').style.display = 'none';
                 }
+                
+                // إغلاق lightbox عند النقر خارج الصورة
+                if (e.target == document.getElementById('lightbox')) {
+                    closeLightbox();
+                }
             });
+            
+            // إغلاق lightbox عند النقر على زر الإغلاق
+            document.querySelector('.close-lightbox').addEventListener('click', closeLightbox);
             
             // إضافة أحداث النقر للأيقونات والمميزات
             document.querySelectorAll('.icon-link, .feature-box').forEach(element => {
